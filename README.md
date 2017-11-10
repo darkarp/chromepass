@@ -1,15 +1,22 @@
 # Hacking Chrome Saves Passwords
 
-## Pre Requisites:
-	1. Python 2.7	-  https://www.python.org/downloads/. (It has to be 2.7 or it won't work)
-	2. PyWin32	-  Installable by runing "pip install pypiwin32" or "C:\Python27\Scripts\pip.exe install pywin32"
-	3. Requests	-  Installable by runing "pip install requests" or "C:\Python27\Scripts\pip.exe install requests"
-	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/. (choose the 32-bit version for 2.7)
+### Pre Requisites:
+	1. Python 2.7	-  https://www.python.org/downloads/. 
+			 (It has to be 2.7 or it won't work)
+			 
+	2. PyWin32	-  Installable by runing "pip install pypiwin32"
+			 or "C:\Python27\Scripts\pip.exe install pywin32"
+			 
+	3. Requests	-  Installable by runing "pip install requests" 
+			 or "C:\Python27\Scripts\pip.exe install requests"
+			 
+	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/. 
+			 (choose the 32-bit version for 2.7)
 
-Features:
+### Features:
 
-1. Grabbing all the Google Chrome Saves Passwords
-2. Sending them to the attacker machine via a reverse HTTP connection
+	1. Grabbing all the Google Chrome Saves Passwords
+	2. Sending them to the attacker machine via a reverse HTTP connection
 
 Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
@@ -42,4 +49,4 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 ## Any questions contact me at: MarioNascimento@ITCrashSecurity.com
 
 
-### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
+#### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
