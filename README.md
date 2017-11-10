@@ -34,4 +34,7 @@ Install pyton 2.7
 	DO NOT change the name of the python scripts.
 	
 
-# Any questions contact me at: admin@ItCrashSecurity.com
+## Any questions contact me at: admin@ItCrashSecurity.com
+
+
+### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
