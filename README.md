@@ -5,7 +5,7 @@ Features:
 1. Client (that receives remote connection from victim)
 2. Server (to send the victim.
 
-Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely an saved as a text file on the attacker's computer. The connection is done by reverse-http.
+Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
 PS: This was originally part of one of my malwares so I had to adjust. I didn't have time to clean it up yet that's why it looks so messy.
 
