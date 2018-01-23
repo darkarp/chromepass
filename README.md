@@ -21,8 +21,8 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 **NOTE**: This command assumes Python was installed in the default directory
 ### Features:
 
-	1. Grabbing all the Google Chrome Saves Passwords
-	2. Sending them to the attacker machine via a reverse HTTP connection
+	1. Grabs Google Chrome saved passwords and decrypts them.
+	2. Sends these passwords to the attacker, saving it on a text file, via HTTP
 
 Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
