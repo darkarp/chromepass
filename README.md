@@ -39,9 +39,11 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	It will then ask you for your ip, you must type your local ip (ex: 192.168.0.1)
 	To find this ip open um CMD and type "ipconfig"
 	
-	2. Start the client.exe (I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
+	2. Start the client.exe 
+	(I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
 	
-	3. Send the server.exe to your target (choosing an appropriate name is always important)
+	3. Send the server.exe to your target 
+	(choosing an appropriate name is always important)
 	
 	4. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
@@ -57,16 +59,20 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 	3. Start the client.exe
 	
-	4. Send the server.exe to your target (choosing an appopriate name is always important)
+	4. Send the server.exe to your target 
+	(choosing an appopriate name is always important)
 	
 	5. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
 
 ## NOTE:
-	DO NOT change the name of the python scripts or text files. The "attacker_ip.txt" file exists only to create the server.exe
+	DO NOT change the name of the python scripts or text files. 
+	The "attacker_ip.txt" file exists only to create the server.exe. 
 	If everything seems to work but you aren't receiving the text file, try moving yor client.exe to 
-	C:\ directory (i.e. "C:\client.exe") and run both client and server again. Make sure the client is runing before the server runs. Password text file will be saved in the same diretory as the client.exe file.
+	C:\ directory (i.e. "C:\client.exe") and run both client and server again.   
+	Make sure the client is runing before the server runs. 
+	Password text file will be saved in the same diretory as the client.exe file.
 	
 
 ### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
