@@ -1,4 +1,4 @@
-# Hacking Chrome Saves Passwords
+# Hacking Chrome Saved Passwords
 
 ### Pre Requisites:
 	1. Python 2.7	-  https://www.python.org/downloads/. 
