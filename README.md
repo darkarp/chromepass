@@ -67,7 +67,8 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	C:\ directory (i.e. "C:\client.exe") and run both client and server again. Make sure the client is runing before the server runs. Password text file will be saved in the same diretory as the client.exe file.
 	
 
-### Any questions contact me at: MarioNascimento@ITCrashSecurity.com
+### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
+#### Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
 
 
 #### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
