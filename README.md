@@ -43,7 +43,8 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 	3. Send the server.exe to your target (choosing an appropriate name is always important)
 	
-	4. You will obtain a password text file in the same location as the client with all the Google Chrome Passwords.
+	4. You will obtain a password text file in the same location as the client 
+	with all the Google Chrome Passwords.
 
 ## Remote Exploitation (If target is NOT on the same network as you):
 
@@ -58,7 +59,8 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 	4. Send the server.exe to your target (choosing an appopriate name is always important)
 	
-	5. You will obtain a password text file in the same location as the client with all the Google Chrome Passwords.
+	5. You will obtain a password text file in the same location as the client 
+	with all the Google Chrome Passwords.
 
 
 ## NOTE:
