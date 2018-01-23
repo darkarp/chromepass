@@ -12,7 +12,12 @@
 			 
 	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/ 
 			 (choose the 32-bit version for 2.7)
-
+			 
+### **IMPORTANT**: 
+Enviroment Variables: Do not forget to include Python27 folder and Scripts folder in PATH environment variable. A simple way to do it is to run Powershell (Windows key + R and type "powershell") and run the following command:
+```Powershell
+[Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
+```
 ### Features:
 
 	1. Grabbing all the Google Chrome Saves Passwords
