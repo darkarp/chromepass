@@ -39,7 +39,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	It will then ask you for your ip, you must type your local ip (ex: 192.168.0.1)
 	To find this ip open um CMD and type "ipconfig"
 	
-	2. Start the client.exe
+	2. Start the client.exe (I recommend having the client in a directory in "C:\", like "C:\ChromePass")
 	
 	3. Send the server.exe to your target.
 	
