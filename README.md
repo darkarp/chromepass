@@ -18,6 +18,7 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 ```Powershell
 [Environment]::SetEnvironmentVariable("Path", "$env:Path;C:\Python27\;C:\Python27\Scripts\", "User")
 ```
+**NOTE**: This command assumes Python was installed in the default directory
 ### Features:
 
 	1. Grabbing all the Google Chrome Saves Passwords
