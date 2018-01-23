@@ -22,7 +22,8 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 ### Features:
 
 	1. Grabs Google Chrome saved passwords and decrypts them.
-	2. Sends these passwords to the attacker, saving it on a text file, via HTTP (Passwords are saved in the same directory as the Client launched by the attacker)
+	2. Sends these passwords to the attacker, saving it on a text file, 
+	via HTTP (Passwords are saved in the same directory as the Client launched by the attacker)
 
 Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
