@@ -62,7 +62,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 
 ## NOTE:
-	DO NOT change the name of the python scripts.
+	DO NOT change the name of the python scripts or text files. The "attacker_ip.txt" file exists only to create the server.exe
 	
 
 ### Any questions contact me at: MarioNascimento@ITCrashSecurity.com
