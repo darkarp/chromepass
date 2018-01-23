@@ -41,7 +41,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 	2. Start the client.exe (I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
 	
-	3. Send the server.exe to your target.
+	3. Send the server.exe to your target (choosing an appropriate name is always important)
 	
 	4. Obtain a password text file in the same location as the client with all the Google Chrome Passwords.
 
@@ -56,7 +56,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 	3. Start the client.exe
 	
-	4. Send the server.exe to your target.
+	4. Send the server.exe to your target (choosing an appopriate name is always important)
 	
 	5. Obtain a password text file in the same location as the client with all the Google Chrome Passwords.
 
