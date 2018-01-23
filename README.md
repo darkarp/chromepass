@@ -63,6 +63,8 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 ## NOTE:
 	DO NOT change the name of the python scripts or text files. The "attacker_ip.txt" file exists only to create the server.exe
+	If everything seems to work but you aren't receiving the text file, try moving yor client.exe to 
+	C:\ directory (i.e. "C:\client.exe") and run both client and server again. Make sure the client is runing before the server runs. Password text file will be saved in the same diretory as the client.exe file.
 	
 
 ### Any questions contact me at: MarioNascimento@ITCrashSecurity.com
