@@ -2,7 +2,7 @@
 
 ### Pre Requisites:
 	1. Python 2.7	-  https://www.python.org/downloads/. 
-			 (It has to be 2.7 32-bit or it won't work)
+			 (It has to be 2.7 32 bit (x86) or it won't work)
 			 
 	2. PyWin32	-  Installable by runing "pip install pypiwin32"
 			 or "C:\Python27\Scripts\pip.exe install pywin32"
