@@ -1,4 +1,5 @@
 #Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
+#Contains test code to be cleaned up
 import os, sys, cgi, py2exe, BaseHTTPServer, sqlite3, win32crypt
 import requests
 import subprocess
