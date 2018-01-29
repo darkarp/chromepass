@@ -1,6 +1,12 @@
 #Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
 #Contains test code to be cleaned up
-import os, sys, cgi, py2exe, BaseHTTPServer, sqlite3, win32crypt
+import os 
+import sys 
+import cgi 
+import py2exe
+import BaseHTTPServer
+import sqlite3
+import win32crypt
 import requests
 import subprocess
 import time
