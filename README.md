@@ -37,7 +37,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 	1. Create server by runing the python script "create_server.py". 
 	It will then ask you for your ip, you must type your local ip (ex: 192.168.0.1)
-	To find this ip open um CMD and type "ipconfig"
+	To find this ip open up CMD and type "ipconfig"
 	
 	2. Start the client.exe 
 	(I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
@@ -54,7 +54,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	It will then ask you for your ip, you must type your PUBLIC ip (ex: 152.162.93.12). 
 	You can obtain your public ip by typing "WhatIsMyIp" on Google.
 	
-	2. Setup Port forwading. You want to forward the port 80 and 8080 to your machine 
+	2. Setup Port forwading. You want to forward the port 80 to your machine 
 	(look up how to do that if you don't know)
 	
 	3. Start the client.exe
