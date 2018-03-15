@@ -1,6 +1,9 @@
 # Hacking Chrome Saved Passwords
 
 ### Pre Requisites:
+
+(**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10)
+
 	1. Python 2.7	-  https://www.python.org/downloads/. 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
 			 
@@ -20,7 +23,6 @@ setx PATH "%PATH%;C:\Python27\;C:\Python27\Scripts"
 ```
 **NOTE**: This command assumes Python was installed in the default directory.
 
-**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10. 
 
 ### Features:
 
