@@ -18,7 +18,10 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 ```Batch
 setx PATH "%PATH%;C:\Python27\;C:\Python27\Scripts"
 ```
-**NOTE**: This command assumes Python was installed in the default directory
+**NOTE**: This command assumes Python was installed in the default directory.
+
+**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10. 
+
 ### Features:
 
 	1. Grabs Google Chrome saved passwords and decrypts them.
