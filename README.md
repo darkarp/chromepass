@@ -17,11 +17,7 @@
 			 (choose the 32-bit version for 2.7)
 			 
 ### **IMPORTANT**: 
-Enviroment Variables: Do not forget to include Python27 folder and Scripts folder in PATH environment variable. A simple way to do it is to run CMD (Windows key + R and type "cmd") and run the following command:
-```Batch
-setx PATH "%PATH%;C:\Python27\;C:\Python27\Scripts"
-```
-**NOTE**: This command assumes Python was installed in the default directory.
+Enviroment Variables: Do not forget to include Python27 folder and Scripts folder in PATH environment variable. 
 
 
 ### Features:
