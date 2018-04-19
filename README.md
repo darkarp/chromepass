@@ -2,7 +2,7 @@
 
 ### Pre Requisites:
 
-(**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10)
+(**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10. This is a Py2Exe problem. This mean that the create_server.py must be run in Windows 7. However, the server.exe generated DOES work in Windows 7, 8, 8.1 an 10)
 
 	1. Python 2.7	-  https://www.python.org/downloads/. 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
