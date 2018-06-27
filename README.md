@@ -2,7 +2,7 @@
 
 ### Pre Requisites:
 
-(**This script was tested under Windows 7 Home 64-bit, as well as Windows 10 64-biy. It should work for Windows XP all the way to Windows 10, both 32-bit and 64-bit)
+(**This script should work for Windows XP all the way to Windows 10, both 32-bit and 64-bit**)
 
 	1. Python 2.7	-  https://www.python.org/downloads/. 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
