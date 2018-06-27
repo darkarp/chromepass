@@ -2,7 +2,7 @@
 
 ### Pre Requisites:
 
-(**This script was tested under Windows 7 Home 64-bit** The server, when created in Windows 7, works with all earlier versions, including current Windows 10. This is a Py2Exe problem. This mean that the create_server.py must be run in Windows 7. However, the server.exe generated DOES work in Windows 7, 8, 8.1 an 10)
+(**This script was tested under Windows 7 Home 64-bit, as well as Windows 10 64-biy. It should work for Windows XP all the way to Windows 10, both 32-bit and 64-bit)
 
 	1. Python 2.7	-  https://www.python.org/downloads/. 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
@@ -22,9 +22,11 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 
 ### Features:
 
+	
 	1. Grabs Google Chrome saved passwords and decrypts them.
 	2. Sends these passwords to the attacker, saving it on a text file, 
 	via HTTP (Passwords are saved in the same directory as the Client launched by the attacker)
+	3. Option of having a fake Error Message appear
 
 Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
 
@@ -35,35 +37,40 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 
 ## Local Exploitation (If your target is in the same network as you):
+	
 
-	1. Create server by runing the python script "create_server.py". 
+	1. If you want to activate the fake Error message, you should first uncomment line 147 (remove the # character). If you don't want a fake message to appear, skip this step.
+	
+	2. Create server by runing the python script "create_server.py"
 	It will then ask you for your ip, you must type your local ip (ex: 192.168.0.1)
 	To find this ip open up CMD and type "ipconfig"
 	
-	2. Start the client.exe 
+	3. Start the client.exe 
 	(I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
 	
-	3. Send the server.exe to your target 
+	4. Send the server.exe to your target 
 	(choosing an appropriate name is always important)
 	
-	4. You will obtain a password text file in the same location as the client 
+	5. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
 ## Remote Exploitation (If target is NOT on the same network as you):
 
-	1. Create server by runing the python script "create_server.py". 
+	1. If you want to activate the fake Error message, you should first uncomment line 147 (remove the # character). If you don't want a fake message to appear, skip this step.
+	
+	2. Create server by runing the python script "create_server.py". 
 	It will then ask you for your ip, you must type your PUBLIC ip (ex: 152.162.93.12). 
 	You can obtain your public ip by typing "WhatIsMyIp" on Google.
 	
-	2. Setup Port forwading. You want to forward the port 80 to your machine 
+	3. Setup Port forwading. You want to forward the port 80 to your machine 
 	(look up how to do that if you don't know)
 	
-	3. Start the client.exe
+	4. Start the client.exe
 	
-	4. Send the server.exe to your target 
+	5 Send the server.exe to your target 
 	(choosing an appopriate name is always important)
 	
-	5. You will obtain a password text file in the same location as the client 
+	6. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
 
