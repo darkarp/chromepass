@@ -33,6 +33,8 @@ Victim will open the server and all the Google Chrome Passwords will be sent to 
 
 PS: This was originally part of one of my malwares so I had to adjust. I didn't have time to clean it up yet that's why it looks so messy.
 
+### Next version will include:
+* Firefox Stealer
 
 # Instructions:
 
@@ -78,9 +80,6 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	7. You will obtain a password text file in the same location as the client 
 	with all the Google Chrome Passwords.
 
-
-### Next version will include:
-* Firefox Stealer
 	
 ## NOTE:
 	DO NOT change the name of the python scripts or text files. 
