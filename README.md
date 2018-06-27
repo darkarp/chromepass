@@ -79,8 +79,8 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	with all the Google Chrome Passwords.
 
 
-## Next version will include:
-	* Firefox Stealer
+### Next version will include:
+* Firefox Stealer
 	
 ## NOTE:
 	DO NOT change the name of the python scripts or text files. 
