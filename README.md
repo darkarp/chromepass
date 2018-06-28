@@ -95,6 +95,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	Password text file will be saved in the same diretory as the client.exe file.
 	
 
+### Feel free to join my Discord Server: https://discord.gg/qBfC36j
 ### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
 #### Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
 
