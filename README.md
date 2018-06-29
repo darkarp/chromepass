@@ -79,14 +79,12 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 ## Remote Exploitation (If target is NOT on the same network as you):
 
-	1. If you want a custom icon place the icon on the same 
-	directory as the scripts and rename it "icon.ico', replacing 
-	the file that was already there with the same name. 
+	1. If you want a custom icon place the icon on the same directory as the 
+	scripts and rename it "icon.ico', replacing the file that was already there with the same name. 
 	If you don't want a custom icon, *skip this step*.
 	
-	2. If you want a custom icon, place the icon on the same 
-	directory as the scripts and rename it "icon.ico', replacing 
-	the file that was already there with the same name. 
+	2. If you want a custom icon, place the icon on the same directory as the scripts 
+	and rename it "icon.ico', replacing the file that was already there with the same name. 
 	If you don't want a custom icon, **skip this step**.	
 	
 	3. Create server by runing the python script "create_server.py"
