@@ -108,7 +108,7 @@ with open('create_server.py') as f1:
 			f2.write(lines[i])
 			i = i+1
 	py2crypt()
-	#os.remove('server.py')
+	os.remove('server.py')
 	done()
 
 """
