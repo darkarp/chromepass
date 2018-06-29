@@ -1,6 +1,6 @@
 #Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
 #Contains test code to be cleaned up
-#To activate Fake Error Message uncomment line 14
+
 #To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
 try:
 	from email.MIMEMultipart import MIMEMultipart
