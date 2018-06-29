@@ -1,6 +1,6 @@
 # Hacking Chrome Saved Passwords
 
-***Version info: V3.1.1
+***Version info: V3.1.1***
 
 ### Pre Requisites:
 
