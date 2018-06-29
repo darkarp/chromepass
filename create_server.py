@@ -36,7 +36,7 @@ mailto = ""
 
 while loop == True:
 	os.system("cls")
-	print "You are using V3.1.1\n\nChoose how you want the passwords delivered\n"
+	print "You are using V3.1.2\n\nChoose how you want the passwords delivered\n"
 	print "(1) - via email (only GMX supported, example@gmx.com)\n"
 	print "(2) - via the client.exe (to your computer directly)\n"
 	option=raw_input('\nChoose a number [1-2]: ')
