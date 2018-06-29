@@ -35,6 +35,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 ### Next version will include:
 * Firefox Stealer
+* Sending through email option
 
 
 # Instructions:
