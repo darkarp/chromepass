@@ -1,5 +1,7 @@
 # Hacking Chrome Saved Passwords
 
+***Version info: V3.1.1
+
 ### Pre Requisites:
 
 (**This script should work for Windows XP all the way to Windows 10, both 32-bit and 64-bit**)
