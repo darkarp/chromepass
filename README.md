@@ -76,7 +76,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 		
 	5. Start the client.exe **Skip this step if you have chosen step number (1) before**
-	(I recommend having the client, alongside all other files in a directory in "C:\", like "C:\ChromePass\[all_files]")
+	(I like having the client, and all other files in a directory in "C:\", like "C:\ChromePass\[files]")
 	
 	
 	6. Send the server.exe to your target 
