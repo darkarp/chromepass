@@ -25,6 +25,7 @@ Enviroment Variables: Do not forget to include Python27 folder and Scripts folde
 	
 	1. Grabs Google Chrome saved passwords and decrypts them.
 	2. Sends these passwords to the attacker via 
+	
 		* Email OR, 
 		* Saving it on a text file, via HTTP (Passwords are 
 		saved in the same directory as the Client launched by the attacker)
@@ -51,31 +52,41 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	the file that was already there with the same name. 
 	If you don't want a custom icon, *skip this step*.
 	
+	
 	2. If you want a custom icon, place the icon on the same 
 	directory as the scripts and rename it "icon.ico', replacing 
 	the file that was already there with the same name. 
 	If you don't want a custom icon, **skip this step**.
 	
+	
+	
 	3. Create server by runing the python script "create_server.py"
 	It will then ask you to choose between 2 options, either email or client.exe.
+	
 		* (1) If you choose email you first need to create an account at https://www.gmx.com/ 
 		and then input the created username and password into the program.*
 		* (2) If you choose the client.exe, it will ask you for your local ip.
 		To find this ip open up CMD and type "ipconfig", it should be listed as IPv4
+		
+		
 	4. Then it will ask you if you want to enable the fake message. 
 	This is a fake Error that appears when someone tries to open the program, 
 	to make it look more legitimate. Type **Y** if you want to activate it (recommended)
 	or **N** if you don't.
+	
 		
 	5. Start the client.exe **Skip this step if you have chosen step number (1) before**
 	(I recommend having the client, alongside all other files in a directory in "C:\", like "C:\ChromePass\[all_files]")
 	
+	
 	6. Send the server.exe to your target 
 	(choosing an appropriate name is always important)
+	
 	
 	7. You will obtain a password text file in the same location 
 	as the client, or in your email depending on how you decided
 	with all the Google Chrome Passwords.
+
 
 ## Remote Exploitation (If target is NOT on the same network as you):
 
@@ -83,17 +94,22 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	scripts and rename it "icon.ico', replacing the file that was already there with the same name. 
 	If you don't want a custom icon, *skip this step*.
 	
+	
 	2. If you want a custom icon, place the icon on the same directory as the scripts 
 	and rename it "icon.ico', replacing the file that was already there with the same name. 
 	If you don't want a custom icon, **skip this step**.	
 	
+	
 	3. Create server by runing the python script "create_server.py"
 	It will then ask you to choose between 2 options, either email or client.exe.
+	
 		* (1) If you choose email you first need to create an account at https://www.gmx.com/ 
 		and then input the created username and password into the program.*
+		
 		* (2) If you choose the client.exe, it will ask you for your ip.
 		 you must type your PUBLIC ip (ex: 152.162.93.12). 
 		You can obtain your public ip by typing "WhatIsMyIp" on Google.
+	
 	
 	4. Setup Port forwading. You want to forward the port 80 to your machine 
 	(look up how to do that if you don't know), you can use this guide:
@@ -101,16 +117,20 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	You can then test if your port forwarding was successful using this website:
 	http://canyouseeme.org/
 	
+	
 	5. Start the client.exe **Skip this step if you have chosen number (1) before**
 	(I recommend having the client, alongside all other files in a directory in 
 	"C:\", like "C:\ChromePass\[all_files]")
-	
+
+
 	6. Send the server.exe to your target 
 	(choosing an appropriate name is always important)
+	
 	
 	7. You will obtain a password text file in the same location 
 	as the client, or in your email depending on how you decided
 	with all the Google Chrome Passwords.
+	
 
 	
 ## NOTE:
@@ -126,6 +146,7 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	
 
 ### Feel free to join my Discord Server: https://discord.gg/qBfC36j
+
 ### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
 #### Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
 
