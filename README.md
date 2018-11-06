@@ -20,6 +20,7 @@
 			 
 ### **IMPORTANT**: 
 Enviroment Variables: Do not forget to include Python27 folder and Scripts folder in PATH environment variable. 
+Check out this link if you don't know how to: https://www.pythoncentral.io/add-python-to-path-python-is-not-recognized-as-an-internal-or-external-command/
 
 
 ### Features:
