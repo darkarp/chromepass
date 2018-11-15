@@ -4,7 +4,7 @@
 
 ### Pre Requisites:
 
-(**This script should work for Windows XP all the way to Windows 10, both 32-bit and 64-bit**)
+(**This script HAS TO BE RAN IN WINDOWS 7, in order to create the exe. The executable then works for all OS, from XP to Windows 10 both 32 and 64 bit**)
 
 	1. Python 2.7	-  https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
