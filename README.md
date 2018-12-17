@@ -120,8 +120,9 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	You can then test if your port forwarding was successful using this website:
 	http://canyouseeme.org/
 	
+	**Skip step 5 if you have chosen number (1) before**
 	
-	5. Start the client.exe **Skip this step if you have chosen number (1) before**
+	5. Start the client.exe 
 	(I recommend having the client, alongside all other files in a directory in 
 	"C:\", like "C:\ChromePass\[all_files]")
 
