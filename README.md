@@ -2,6 +2,10 @@
 
 ***Version info: V3.2.0*** (released 20th January 2019)
 
+### Detection:
+It is rare for it to be detected, but could happen, mostly due to Py2Exe triggering false positives.
+[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/254890891fa6b8424474c8a1e27dc554e9f3aaf7048b6014247e7799ba78d451/detection)
+
 ### Features:
 
 	
