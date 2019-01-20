@@ -159,8 +159,8 @@ Run the create_server.py and follow instructions. Then you can send the generate
 
 ### Feel free to join my Discord Server: [Whitehat Hacking](https://discord.gg/qBfC36j)
 
-## Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
-## Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
+### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
+### Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
 
 
 #### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
