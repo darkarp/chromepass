@@ -15,7 +15,7 @@
 	3. Requests	-  Installable by runing "pip install requests"   OR (if you get an error):
 			  "C:\Python27\Scripts\pip.exe install requests"
 			 
-	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download 
+	4. py2exe 	-  [m](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
 			 (choose the 32-bit version for 2.7)
 			 
 ### **IMPORTANT**: 
