@@ -1,26 +1,26 @@
 # Hacking Chrome Saved Passwords
 
-***Version info: V3.1.2***
+***Version info: V3.2.0***
 
 ### Pre Requisites:
 
-(**This script HAS TO BE RAN IN WINDOWS 7, in order to create the exe. The executable then works for all OS, from XP to Windows 10 both 32 and 64 bit**)
+(**This program can be ran from Windows 7 to Windows 10 (all versions)**)
 
 	1. Python 2.7	-  https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi 
 			 (It has to be 2.7 32 bit (x86) or it won't work)
 			 
-	2. PyWin32	-  Installable by runing "pip install pypiwin32"
-			 or "C:\Python27\Scripts\pip.exe install pywin32"
+	2. PyWin32	-  Installable by runing "pip install pypiwin32"  OR (if you get an error):
+			  "C:\Python27\Scripts\pip.exe install pywin32" 
 			 
-	3. Requests	-  Installable by runing "pip install requests" 
-			 or "C:\Python27\Scripts\pip.exe install requests"
+	3. Requests	-  Installable by runing "pip install requests"   OR (if you get an error):
+			  "C:\Python27\Scripts\pip.exe install requests"
 			 
-	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/ 
+	4. py2exe 	-  https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download 
 			 (choose the 32-bit version for 2.7)
 			 
 ### **IMPORTANT**: 
-Enviroment Variables: Do not forget to include Python27 folder and Scripts folder in PATH environment variable. 
-Check out this link if you don't know how to: https://www.pythoncentral.io/add-python-to-path-python-is-not-recognized-as-an-internal-or-external-command/
+Enviroment Variables: It's recommended that you add the python executable to path. This can be done from installation, after you click the first "next", it will ask you to customize python. The only thing you need to do is scroll down and click on "Add python.exe to path" and select "will be installed". 
+This isn't required.
 
 
 ### Features:
@@ -106,8 +106,12 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 	3. Create server by runing the python script "create_server.py"
 	It will then ask you to choose between 2 options, either email or client.exe.
 	
-		* (1) If you choose email you first need to create an account at https://www.gmx.com/ 
-		and then input the created username and password into the program.*
+		* (1) If you choose email you first need to create a gmail account 
+		and then input the created username and password into the program. You
+		will then need to enable less secure apps to run:
+		(https://support.google.com/accounts/answer/6010255?hl=en).
+		You might also want to Check this out: 
+		https://support.google.com/accounts/answer/6010255?hl=en
 		
 		* (2) If you choose the client.exe, it will ask you for your ip.
 		 you must type your PUBLIC ip (ex: 152.162.93.12). 
