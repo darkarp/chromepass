@@ -2,25 +2,6 @@
 
 ***Version info: V3.2.0*** (released 20th January 2019)
 
-### Pre Requisites:
-
-(**This program can be ran from Windows 7 to Windows 10 (all versions)**)
-
-   1. Python 2.7	-  [Download](https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi)
-			 
-   2. PyWin32	-  Installable by runing `pip install pypiwin32`  OR (if you get an error):  
-   		`C:\Python27\Scripts\pip.exe install pywin32`
-			 
-   3. Requests	-  Installable by runing `pip install requests`   OR (if you get an error):  
-		`C:\Python27\Scripts\pip.exe install requests`
-			 
-   4. py2exe 	-  [Download](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
-			 
-### **IMPORTANT**: 
-Enviroment Variables: It's recommended that you add the python executable to path. This can be done from installation, after you click the first "next", it will ask you to customize python. The only thing you need to do is scroll down and click on "Add python.exe to path" and select "will be installed". 
-This isn't required.
-
-
 ### Features:
 
 	
@@ -40,6 +21,25 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 
 ### Next version will include:
 * Firefox Stealer
+
+### Pre Requisites:
+
+(**This program can be ran from Windows 7 to Windows 10 (all versions)**)
+
+   1. Python 2.7	-  [Download](https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi)
+			 
+   2. PyWin32	-  Installable by runing `pip install pypiwin32`  OR (if you get an error):  
+   		`C:\Python27\Scripts\pip.exe install pywin32`
+			 
+   3. Requests	-  Installable by runing `pip install requests`   OR (if you get an error):  
+		`C:\Python27\Scripts\pip.exe install requests`
+			 
+   4. py2exe 	-  [Download](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
+			 
+
+### **IMPORTANT**: 
+Enviroment Variables: It's recommended that you add the python executable to path. This can be done from installation, after you click the first "next", it will ask you to customize python. The only thing you need to do is scroll down and click on "Add python.exe to path" and select "will be installed". 
+This isn't required.
 
 # Quick usage:
 My recommendation for using it is quite simple. Create a gmail account. Allow insecure apps.
