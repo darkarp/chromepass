@@ -1,4 +1,4 @@
-# Hacking Chrome Saved Passwords
+#  Hacking Chrome Saved Passwords
 
 ***Version info: V3.2.0*** (released 20th January 2019)
 
