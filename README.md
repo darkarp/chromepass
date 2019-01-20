@@ -6,17 +6,15 @@
 
 (**This program can be ran from Windows 7 to Windows 10 (all versions)**)
 
-	1. Python 2.7	-  https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi 
-			 (It has to be 2.7 32 bit (x86) or it won't work)
+   1. Python 2.7	-  [Download](https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi)
 			 
-	2. PyWin32	-  Installable by runing "pip install pypiwin32"  OR (if you get an error):
+   2. PyWin32	-  Installable by runing "pip install pypiwin32"  OR (if you get an error):
 			  "C:\Python27\Scripts\pip.exe install pywin32" 
 			 
-	3. Requests	-  Installable by runing "pip install requests"   OR (if you get an error):
+   3. Requests	-  Installable by runing "pip install requests"   OR (if you get an error):
 			  "C:\Python27\Scripts\pip.exe install requests"
 			 
-	4. py2exe 	-  [m](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
-			 (choose the 32-bit version for 2.7)
+   4. py2exe 	-  [Download](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
 			 
 ### **IMPORTANT**: 
 Enviroment Variables: It's recommended that you add the python executable to path. This can be done from installation, after you click the first "next", it will ask you to customize python. The only thing you need to do is scroll down and click on "Add python.exe to path" and select "will be installed". 
