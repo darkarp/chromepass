@@ -11,7 +11,7 @@
    2. PyWin32	-  Installable by runing `pip install pypiwin32`  OR (if you get an error):  
    		`C:\Python27\Scripts\pip.exe install pywin32`
 			 
-   3. Requests	-  Installable by runing `pip install requests`   OR (if you get an error):
+   3. Requests	-  Installable by runing `pip install requests`   OR (if you get an error):  
 		`C:\Python27\Scripts\pip.exe install requests`
 			 
    4. py2exe 	-  [Download](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
