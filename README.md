@@ -149,19 +149,18 @@ Run the create_server.py and follow instructions. Then you can send the generate
 ## NOTE:
 	DO NOT change the name of the python scripts or text files. 
 	  
-	The "attacker_ip.txt" file exists only to create the server.exe. 
-	  
 	If everything seems to work but you aren't receiving the text file, try moving yor client.exe to 
 	C:\ directory (i.e. "C:\client.exe") and run both client and server again.  
 	  
-	Make sure the client is runing before the server runs. 
-	Password text file will be saved in the same diretory as the client.exe file.
+	In case you're using the client method (not the email one):
+		Make sure the client is runing before the server runs
+		Password text file will be saved in the same diretory as the client.exe file.
 	
 
-### Feel free to join my Discord Server: Whitehat Hacking (https://discord.gg/qBfC36j)
+### Feel free to join my Discord Server: [Whitehat Hacking](https://discord.gg/qBfC36j)
 
-### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
-#### Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
+## Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
+## Please make sure your issue haven't been answered before, to avoid duplicate issues on Github page.
 
 
 #### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
