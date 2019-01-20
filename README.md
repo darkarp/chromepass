@@ -41,8 +41,11 @@ PS: This was originally part of one of my malwares so I had to adjust. I didn't 
 ### Next version will include:
 * Firefox Stealer
 
+# Quick usage:
+My recommendation for using it is quite simple. Create a gmail account. Allow insecure apps.
+Run the create_server.py and follow instructions. Then you can send the generated server.exe to the victim
 
-# Instructions:
+# Instructions (More detailed):
 
 
 ## Local Exploitation (If your target is in the same network as you):
