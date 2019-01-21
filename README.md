@@ -9,23 +9,24 @@ It is rare for it to be detected, but could happen, mostly due to Py2Exe trigger
 ### Features:
 
 	
-	1. Grabs Google Chrome saved passwords and decrypts them.
+	1. Grabs Google Chrome saved passwords
 	2. Sends these passwords to the attacker via 
-	
 		* Email OR, 
-		* Saving it on a text file, via HTTP (Passwords are 
-		saved in the same directory as the Client launched by the attacker)
+		* HTTP directly to the attacker computer
 		
 	3. Option of having a fake Error Message appear
 	4. Custom Icon
 
-Victim will open the server and all the Google Chrome Passwords will be sent to the attacker remotely and saved as a text file on the attacker's computer. The connection is done by reverse-http.
-
 PS: This was originally part of one of my malwares so I had to adjust. I didn't have time to clean it up yet that's why it looks so messy.
 
 ### To do:
+* Sending Real-time precise location of the victim (**completed, releases next update**)
+* Option of installing a backdoor allowing remote control of the victim's computer (**completed, releases next update**)
 * Recode in python 3 (**in progress**)
-* Also steal Firefox passwords (delayed)
+* Custom Fake message (**in progress**)
+* Support for more email providers (**in progress**)
+* Also steal passwords from other programs, such as keychains(**in progress**)
+* Also steal Firefox passwords (**delayed**)
 
 ### Pre Requisites:
 
