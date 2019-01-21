@@ -4,7 +4,7 @@
 
 ### Detection:
 It is rare for it to be detected, but could happen, mostly due to Py2Exe triggering false positives.
-[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/254890891fa6b8424474c8a1e27dc554e9f3aaf7048b6014247e7799ba78d451/detection)
+[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/95b78643a9d9cd097d7a7fa6ebeaeebc5b2ed5cdd36619cbcdc54bf22f1dde7d/detection)
 
 ### Features:
 
