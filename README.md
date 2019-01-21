@@ -1,6 +1,6 @@
 #  Hacking Chrome Saved Passwords
 
-***Version info: V3.2.1*** (released 21st January 2019)
+***Version info: V3.2.2*** (released 21st January 2019)
 
 ### Detection:
 It is rare for it to be detected, but could happen, mostly due to Py2Exe triggering false positives.
