@@ -23,8 +23,9 @@ Victim will open the server and all the Google Chrome Passwords will be sent to 
 
 PS: This was originally part of one of my malwares so I had to adjust. I didn't have time to clean it up yet that's why it looks so messy.
 
-### Next version will include:
-* Firefox Stealer
+### To do:
+* Recode in python 3 (**in progress**)
+* Also steal Firefox passwords (delayed)
 
 ### Pre Requisites:
 
