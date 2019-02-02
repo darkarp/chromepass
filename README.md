@@ -4,8 +4,8 @@
 
 ### Detection:
 It is rare for it to be detected, but could happen, mostly due to Py2Exe triggering false positives.
-[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/89c21d936cdd7ee0a99645ff4698712327d9b539cf1c76944cc67c30cb2d2837/detection)
-(Keep in mind that SentinelOne is known for flagging hello world programs as malicious)
+[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/89c21d936cdd7ee0a99645ff4698712327d9b539cf1c76944cc67c30cb2d2837/detection)  
+[Here's a link to a Jotti scan](https://virusscan.jotti.org/en-US/filescanjob/yfl3mgm5zn)
 
 ### Features:
 
