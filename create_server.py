@@ -158,8 +158,10 @@ def getpass():
     if path2.translate(ASCII_TRANS) != path2:  # Contains non-ascii
         path2 = path2.decode('latin-1')
     path2 = urllib.url2pathname(path2)
-
-    copyfile(path, path2)
+    try:
+        copyfile(path, path2)
+    except:
+        pass
 
     conn = connect(path2)
 
