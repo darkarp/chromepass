@@ -122,7 +122,7 @@ with open('create_server.py') as f1:
     time.sleep(3)
     py2crypt("server.py")
     try:
-        #os.remove('server.py')
+        os.remove('server.py')
         os.remove("client.py")
     except:
         pass
