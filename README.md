@@ -75,8 +75,12 @@ Run the create_server.py and follow instructions. Then you can send the generate
 	3. Create server by runing the python script "create_server.py"
 	It will then ask you to choose between 2 options, either email or client.exe.
 	
-		* (1) If you choose email you first need to create an account at https://www.gmx.com/ 
-		and then input the created username and password into the program.*
+		* (1) If you choose email you first need to create a gmail account 
+		and then input the created username and password into the program. You
+		will then need to enable less secure apps to run:
+		(https://support.google.com/accounts/answer/6010255?hl=en).
+		You might also want to Check this out: 
+		https://support.google.com/accounts/answer/6010255?hl=en
 		* (2) If you choose the client.exe, it will ask you for your local ip.
 		To find this ip open up CMD and type "ipconfig", it should be listed as IPv4
 		
