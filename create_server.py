@@ -5,7 +5,7 @@
 # To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
 
 import os
-import sysssss
+import sys
 import time
 import py2exe
 from shutil import rmtree
