@@ -32,8 +32,8 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 208
-serverlineStop = 316
+serverlineStart = 208 + 3
+serverlineStop = 316 + 3
 
 while loop:
     os.system("cls")
