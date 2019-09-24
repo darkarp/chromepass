@@ -88,11 +88,7 @@ It will ask you to select between two options:
     * The **client.exe** must be started before the **server_ip.exe**. The **server_ip.exe** is the file the victim receives.
 
 
-
-### Development
-
-
-### Todos
+### Todo
  - Sending Real-time precise location of the victim (***completed, releases next update***)
  - Also steal Firefox passwords (***Completed, releases next update***)
  - Option of installing a backdoor allowing remote control of the victim's computer (***completed, releases next update***)
@@ -117,8 +113,7 @@ I am not responsible for what you do with the information and code provided. Thi
 License
 ----
 
-MIT
-
+[MIT](https://github.com/darkarp/chromepass/blob/master/LICENSE)
 
    
 [Python]: <https://www.python.org/downloads/>
