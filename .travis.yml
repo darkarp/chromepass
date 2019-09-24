@@ -4,4 +4,5 @@ language: shell
 env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
 before_install:
   - choco install python
-  - python -m pip install -r requirements.txt
+  - python -m pip install -r requirements.txt'
+  - python test_server.py
