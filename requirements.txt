@@ -6,4 +6,4 @@ toml==0.10.0
 urllib3==1.25.5
 wincertstore==0.2
 wrapt==1.11.2
-requirements/py2exe-0.9.3.1-cp37-none-win_amd64.whl
+requirements/py2exe-0.9.3.1-cp36-none-win_amd64.whl
