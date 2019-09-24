@@ -86,6 +86,7 @@ It will ask you to select between two options:
     * You can then write your own message or leave it blank
     * You're done! Wait for the executables to be generated and then it's ready.
     * The **client.exe** must be started before the **server_ip.exe**. The **server_ip.exe** is the file the victim receives.
+* Note: To set a custom icon, replace ***icon.ico*** by the desired icon with the same name and format.
 
 
 ### Todo
