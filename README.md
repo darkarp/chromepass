@@ -21,8 +21,8 @@
   <a href="https://img.shields.io/github/last-commit/darkarp/chromepass">
     <img src="https://img.shields.io/github/last-commit/darkarp/chromepass" />
   </a>
-<a href="https://img.shields.io/github/license/darkarp/chromepass">
-    <img src="https://img.shields.io/github/license/darkarp/chromepass" />
+<a href="http://img.shields.io/github/license/darkarp/chromepass">
+    <img src="http://img.shields.io/github/license/darkarp/chromepass" />
   </a>
   </br>
   <a href="https://discord.gg/beczNYP">
