@@ -13,10 +13,10 @@
   <a href="https://github.com/darkarp/chromepass/commits/master">
     <img src="https://img.shields.io/github/last-commit/darkarp/chromepass" />
   </a>
-<a href="https://github.com/darkarp/chromepass/blob/master/LICENSE">
+  <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/darkarp/chromepass?style=flat">
+  <a href="https://github.com/darkarp/chromepass/blob/master/LICENSE">
     <img src="http://img.shields.io/github/license/darkarp/chromepass" />
   </a>
-  <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/darkarp/chromepass?style=flat">
   </br>
   <a href="https://github.com/darkarp/chromepass/issues?q=is%3Aopen+is%3Aissue">
 	<img alt="GitHub issues" src="https://img.shields.io/github/issues/darkarp/chromepass">
