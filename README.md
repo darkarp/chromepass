@@ -24,7 +24,7 @@
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
   </br>
-  <a href="http://itsec.us/" target="_blank">View Demo</a>
+  <a href="http://itsec.us/">View Demo</a>
     ·
     <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
