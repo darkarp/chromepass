@@ -1,27 +1,23 @@
 # Chromepass - Hacking Chrome Saved Passwords
 <p align="center">
-	  <a href="https://img.shields.io/badge/Platform-Windows-green">
     <img src="https://img.shields.io/badge/Platform-Windows-green" />
-  </a>
-	<a href="https://img.shields.io/github/v/release/darkarp/chromepass">
+	<a href="https://github.com/darkarp/chromepass/releases">
 	<img src="https://img.shields.io/github/v/release/darkarp/chromepass" alt="Release" />
 	</a>
 		
   <a href="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master">
     <img src="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master" alt="Build Status on CircleCI" />
 	</a>
-	<a href="https://img.shields.io/maintenance/yes/2021">
     <img src="https://img.shields.io/maintenance/yes/2021" />
-  </a>
 	</br>
-<a href="https://img.shields.io/github/downloads/darkarp/chromepass/total">
+<a href="https://github.com/darkarp/chromepass/releases">
 	<img src="https://img.shields.io/github/downloads/darkarp/chromepass/total" />
 	</a>
   
-  <a href="https://img.shields.io/github/last-commit/darkarp/chromepass">
+  <a href="https://github.com/darkarp/chromepass/commits/master">
     <img src="https://img.shields.io/github/last-commit/darkarp/chromepass" />
   </a>
-<a href="http://img.shields.io/github/license/darkarp/chromepass">
+<a href="https://github.com/darkarp/chromepass/blob/master/LICENSE">
     <img src="http://img.shields.io/github/license/darkarp/chromepass" />
   </a>
   </br>
