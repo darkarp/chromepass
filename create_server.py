@@ -21,7 +21,7 @@ from win32con import MB_OKCANCEL
 
 __author__ = "Mario Nascimento"
 __license__ = "GPL"
-__version__ = "4.0.0"
+__version__ = "3.9.9"
 __maintainer__ = "Mario Nascimento"
 __email__ = "marionascimento@itsec.us"
 __status__ = "Development"
@@ -134,7 +134,8 @@ def py2crypt(filename):
                     "optimize": 2,
                 }
             },
-            console=[{"script": filename, "icon_resources": [(0, "icon.ico")]}],
+            console=[{"script": filename,
+                      "icon_resources": [(0, "icon.ico")]}],
             zipfile=None,
         )
 
