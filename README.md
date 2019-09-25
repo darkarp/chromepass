@@ -1,11 +1,10 @@
-# Chromepass - Hacking Chrome Saved Passwords
-<p align="center">
+<h1 align='center'>Chromepass - Hacking Chrome Saved Passwords</h1>
+<p align="center">	
     <img src="https://img.shields.io/badge/Platform-Windows-green" />
 	<a href="https://github.com/darkarp/chromepass/releases">
 	<img src="https://img.shields.io/github/v/release/darkarp/chromepass" alt="Release" />
 	</a>
-		
-  <a href="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master">
+  <a href="https://travis-ci.org/darkarp/chrome-password-hacking">
     <img src="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master" alt="Build Status on CircleCI" />
 	</a>
     <img src="https://img.shields.io/maintenance/yes/2021" />
@@ -24,7 +23,13 @@
   <a href="https://discord.gg/beczNYP">
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
-
+  </br>
+  <a href="http://itsec.us/" target="_blank">View Demo</a>
+    ·
+    <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
+    ·
+    <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=feature_request.md&title=">Request Feature</a>
+  </p>
 Chromepass is a python-based console application that generates a windows executable with the following features:
 
   - Decrypt Chrome saved paswords
@@ -35,6 +40,7 @@ Chromepass is a python-based console application that generates a windows execut
 # AV Detection!
 Due to the way this has been coded, it is currently fully undetected. Here are some links to scans performed using a variety of websites
   - [VirusTotal Scan](https://www.virustotal.com/gui/file/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0/detection) (0/68) 24-09-2019
+  	- this is an educational project, so distribution (or the lack thereof) is not a concern, hence the usage of VirusTotal
   - [AntiScan](https://antiscan.me/scan/new/result?id=kmpsMNccfuRJ) (0/26) 24-09-2019
   - [Hibrid Analysis](https://www.hybrid-analysis.com/sample/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0) All Clean (CrowdStrike Falcon, MetaDefender and Virustotal) 24-09-2019
 
