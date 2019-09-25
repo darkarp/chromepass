@@ -1,7 +1,7 @@
 <h1 align='center'>Chromepass - Hacking Chrome Saved Passwords</h1>
 <p align="center">	
     <img src="https://img.shields.io/badge/Platform-Windows-green" />
-	<a href="https://github.com/darkarp/chromepass/releases">
+	<a href="https://github.com/darkarp/chromepass/releases/latest">
 	<img src="https://img.shields.io/github/v/release/darkarp/chromepass" alt="Release" />
 	</a>
   <a href="https://travis-ci.org/darkarp/chrome-password-hacking">
