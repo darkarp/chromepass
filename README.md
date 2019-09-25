@@ -52,14 +52,14 @@ This is a very simple application, which uses only:
 
 Chromepass requires [Python] 3.6+ to run.
 
-Install the dependencies.
+Install the dependencies:
 
 ```powershell
 > cd chromepass
 > pip install -r requirements.txt
 ```
 
-If any errors occur make sure you're running on the proper environment (if applcable) and if you have python 3.6+ (preferably 3.7.4)
+If any errors occur make sure you're running on the proper environment (if applcable) and that you have python 3.6+ (preferably 3.7.4).
 If the errors persist, try:
 ```powershell
 > python -m pip install --upgrade pip
