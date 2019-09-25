@@ -9,9 +9,6 @@
 	</a>
     <img src="https://img.shields.io/maintenance/yes/2021" />
 	</br>
-<a href="https://github.com/darkarp/chromepass/releases">
-	<img src="https://img.shields.io/github/downloads/darkarp/chromepass/total" />
-	</a>
   
   <a href="https://github.com/darkarp/chromepass/commits/master">
     <img src="https://img.shields.io/github/last-commit/darkarp/chromepass" />
@@ -21,6 +18,13 @@
   </a>
   <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/darkarp/chromepass?style=flat">
   </br>
+  <a href="https://github.com/darkarp/chromepass/issues?q=is%3Aopen+is%3Aissue">
+	<img alt="GitHub issues" src="https://img.shields.io/github/issues/darkarp/chromepass">
+</a
+<a href="https://github.com/darkarp/chromepass/issues?q=is%3Aissue+is%3Aclosed">
+	<img alt="GitHub closed issues" src="https://img.shields.io/github/issues-closed/darkarp/chromepass">
+</a>
+</br>
   <a href="https://discord.gg/beczNYP">
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
