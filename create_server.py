@@ -24,7 +24,7 @@ __license__ = "GPL"
 __version__ = "3.9.9"
 __maintainer__ = "Mario Nascimento"
 __email__ = "marionascimento@itsec.us"
-__status__ = "Development"
+__status__ = "Release"
 
 attacker_ip = ""
 loop = True
