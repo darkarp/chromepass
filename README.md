@@ -136,6 +136,8 @@ If you wish to contact me, you can do so via: marionascimento@itsec.us
 I am not responsible for what you do with the information and code provided. This is intended for professional or educational purposes only.
 
 ## License
-<p align="center>[MIT](https://github.com/darkarp/chromepass/blob/master/LICENSE)</p>
+<p align="center>
+	<a href="https://github.com/darkarp/chromepass/blob/master/LICENSE"> MIT </a>
+</p>
    
 [Python]: <https://www.python.org/downloads/>
