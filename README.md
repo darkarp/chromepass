@@ -19,10 +19,10 @@
 <a href="https://github.com/darkarp/chromepass/blob/master/LICENSE">
     <img src="http://img.shields.io/github/license/darkarp/chromepass" />
   </a>
-  <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/darkarp/chromepass?style=plastic">
+  <img alt="Scrutinizer code quality (GitHub/Bitbucket)" src="https://img.shields.io/scrutinizer/quality/g/darkarp/chromepass?style=flat">
   </br>
   <a href="https://discord.gg/beczNYP">
-    <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=plastic" />
+    <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
   </br>
   <a href="http://itsec.us/">View Demo</a>
