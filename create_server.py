@@ -32,13 +32,13 @@ error = "0"
 email = ""
 pwd = ""
 mailto = ""
-serverlineStart = 211
-serverlineStop = 319
+serverlineStart = 212
+serverlineStop = 320
 
 while loop:
     os.system("cls")
     print(
-        """You are using V3.1.2\n
+        f"""You are using V{__version__}\n
     Choose how you want the passwords delivered\n
     (1) - [Buggy atm] via email (only Gmail supported, example@gmail.com.
         (Make sure you turn on 'allow less secure apps')\n
