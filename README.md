@@ -5,7 +5,7 @@
 	<img src="https://img.shields.io/github/v/release/darkarp/chromepass" alt="Release" />
 	</a>
   <a href="https://travis-ci.org/darkarp/chrome-password-hacking">
-    <img src="https://travis-ci.org/darkarp/chrome-password-hacking.svg?branch=master" alt="Build Status on CircleCI" />
+    <img src="https://travis-ci.org/darkarp/chromepass.svg?branch=master" alt="Build Status on CircleCI" />
 	</a>
     <img src="https://img.shields.io/maintenance/yes/2021" />
 	</br>
