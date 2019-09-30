@@ -61,7 +61,7 @@ Chromepass is a python-based console application that generates a windows execut
 
 ### AV Detection!
 Due to the way this has been coded, it is currently fully undetected. Here are some links to scans performed using a variety of websites
-  - [VirusTotal Scan](https://www.virustotal.com/gui/file/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0/detection) (0/68) 24-09-2019
+  - [VirusTotal Scan](https://www.virustotal.com/gui/file/b4780b4712f494dc9856ff23ce29415445ad5eea3776663da28c556645f0e202/detection) (0/68) 30-09-2019
   	- this is an educational project, so distribution (or the lack thereof) is not a concern, hence the usage of VirusTotal
   - [AntiScan](https://antiscan.me/scan/new/result?id=kmpsMNccfuRJ) (0/26) 24-09-2019
   - [Hibrid Analysis](https://www.hybrid-analysis.com/sample/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0) All Clean (CrowdStrike Falcon, MetaDefender and Virustotal) 24-09-2019  
