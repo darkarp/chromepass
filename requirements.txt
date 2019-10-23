@@ -1,4 +1,7 @@
-pypiwin32==223
+requirements/py2exe-0.9.3.2-cp37-none-win_amd64.whl;python_version>='3.7' and python_version<'3.8' and platform_machine=='amd64'
+requirements/py2exe-0.9.3.2-cp36-none-win_amd64.whl;python_version>='3.6' and python_version<'3.7' and platform_machine=='amd64'
+requirements/py2exe-0.9.3.2-cp37-none-win32.whl;python_version>='3.7' and python_version<'3.8' and platform_machine=='win32'
+requirements/py2exe-0.9.3.2-cp36-none-win32.whl;python_version>='3.6' and python_version<'3.7' and platform_machine=='win32'
 pywin32==225
 requests==2.22.0
 six==1.12.0
@@ -6,4 +9,3 @@ toml==0.10.0
 urllib3==1.25.5
 wincertstore==0.2
 wrapt==1.11.2
-requirements/py2exe-0.9.3.1-cp37-none-win_amd64.whl
