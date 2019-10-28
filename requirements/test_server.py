@@ -10,14 +10,16 @@ through reverce HTTP connection or email.
 Note: To include a custom icon, the 'icon.ico' file in the directory
 must be replaced by the desired one.
 """
-import os
-import sys
-import time
-from distutils.core import setup
-from shutil import rmtree
-
-import py2exe
 from win32con import MB_OKCANCEL
+import py2exe
+from shutil import rmtree
+from distutils.core import setup
+import time
+import sys
+import os
+import platform
+print(platform.machine())
+
 
 __author__ = "Mario Nascimento"
 __license__ = "GPL"
