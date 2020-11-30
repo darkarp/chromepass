@@ -137,7 +137,7 @@ Please follow the templates shown when creating the issue.
 For access to a community full of aspiring computer security experts, ranging from the complete beginner to the seasoned veteran,
 join our Discord Server: [WhiteHat Hacking](https://discord.gg/beczNYP)
 
-If you wish to contact me, you can do so via: marionascimento@itsec.us
+If you wish to contact me, you can do so via: marion@whitehathacking.tech
 
 ## Disclaimer
 I am not responsible for what you do with the information and code provided. This is intended for professional or educational purposes only.
