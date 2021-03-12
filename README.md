@@ -76,8 +76,9 @@ Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::Secur
   ```powershell
      git clone https://github.com/pyinstaller/pyinstaller.git
      pip uninstall pyinstaller -y
-     cd pyinstaller
-     python bootloader/waf all
+     cd pyinstaller/bootloader
+     python waf all
+     cd ..
      pip install .
   ```
  - Now you can follow the [Usage](#usage) normally and your executable is no longer detected by most AVs.  
