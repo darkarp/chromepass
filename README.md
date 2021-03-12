@@ -92,7 +92,7 @@ This is a very simple application, which uses only:
 
 ### Installation
 
-Chromepass requires [Python] 3.6+ to run.
+Chromepass requires Windows to run! Support for linux and MacOS may be added soon
 
 Clone the repository:
 ```powershell
