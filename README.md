@@ -56,8 +56,9 @@ Chromepass is a python-based console application that generates a windows execut
 
   - Decrypt Chrome saved paswords
   - Send a file with the login/password combinations remotely (http server)
-  - Custom icon
   - Undetectable by AV if done correctly
+  - Custom icon
+  - Custom error message
 
 ---
 
