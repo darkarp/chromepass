@@ -81,7 +81,7 @@ Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::Secur
      cd ..
      pip install .
   ```
- - Now you can follow the [Usage](#usage) normally and your executable is no longer detected by most AVs.  
+ - Now you can follow the [Usage](#usage) normally and your executable is no longer detected by most AVs. There are some additional things you can do to make it completely undetectable. I'll leave you to discover what some of those things are.  
  ---
 ## Getting started
 
