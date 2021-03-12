@@ -1,9 +1,0 @@
-language: python
-os: windows
-language: shell
-env: PATH=/c/Python37:/c/Python37/Scripts:$PATH
-before_install:
-  - choco install python
-  - pip install -r requirements.txt
-  - python -m pip install -r requirements.txt
-  - python requirements/test_server.py

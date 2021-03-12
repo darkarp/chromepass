@@ -1,0 +1,35 @@
+import http.server
+import json
+import os
+
+
+class Handler(http.server.BaseHTTPRequestHandler):
+
+    def do_POST(handle):
+        ip_addr = handle.client_address[0]
+        handle.send_response(200)
+        handle.end_headers()
+        length = int(handle.headers["Content-Length"])
+        data = json.loads(handle.rfile.read(length).decode())
+        base_dir = "data"
+        if not os.path.exists(f"{base_dir}/{ip_addr}"):
+            os.makedirs(f"{base_dir}/{ip_addr}")
+        filename = f"{base_dir}/{ip_addr}/{data['filename']}0.json"
+        while os.path.exists(filename):
+            filename = filename[:-6] + str(int(filename[-6])+1) + filename[-5:]
+
+        with open(filename, "w") as f:
+            json.dump(data["data"], f)
+
+
+if __name__ == "__main__":
+    conn = ("0.0.0.0", 80)
+    http_server = http.server.HTTPServer(conn, Handler)
+    try:
+        http_server.serve_forever()
+    except KeyboardInterrupt:
+        print("[-] Server shuttind down")
+        http_server.server_close()
+    except Exception as e:
+        http_server.server_close()
+        raise(e)
