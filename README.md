@@ -133,7 +133,7 @@ python create.py --ip 92.34.11.220 --error --message "An Error has happened"
 
 After creating the server and the client, make sure you're running the server when the client is ran.
 
-The cookies and passwords will be saves in `json` files on a new folder called `data` in the same directory as the server, separated by ip address.
+The cookies and passwords will be saved in `json` files on a new folder called `Data` in the same directory as the server, separated by ip address.
 
 If you'd like additional notes on evading AV, refer to [AV Detection](#av-detection)  
 
