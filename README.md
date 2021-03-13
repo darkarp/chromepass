@@ -29,7 +29,7 @@
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
   </br>
-    <a href="https://i.imgur.com/2nW56cP.gif" target="_blank">View Demo</a>
+    <a href="https://i.imgur.com/WtaFA6c.gif" target="_blank">View Demo</a>
     ·
     <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
@@ -113,6 +113,8 @@ If the errors persist, try:
 python -m pip install --upgrade pip
 python -m pip install -r requirements.txt
 ```  
+
+---
 
 ## Usage
 
