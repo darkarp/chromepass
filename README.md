@@ -29,7 +29,7 @@
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
   </br>
-  <a href="http://itsec.us/">View Demo</a>
+  <a href="https://i.imgur.com/2nW56cP.gif">View Demo</a>
     ·
     <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
