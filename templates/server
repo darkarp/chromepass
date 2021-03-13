@@ -26,6 +26,7 @@ if __name__ == "__main__":
     conn = ("0.0.0.0", 80)
     http_server = http.server.HTTPServer(conn, Handler)
     try:
+        print("[+] Server running, waiting for connections...")
         http_server.serve_forever()
     except KeyboardInterrupt:
         print("[-] Server shuttind down")
