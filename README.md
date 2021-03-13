@@ -70,7 +70,7 @@ This can be undetected with a very easy step detailed below. The reason why it's
 ```powershell
 Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); choco install -y python vcbuildtools git
 ```
- - Close the powershell window and open a new one (doesn't require administrator)
+ - Close the powershell window and open a new one as administrator again.
  - Go into the chromepass directory, if you're not in it already.
  - Run the following code: 
   ```powershell
