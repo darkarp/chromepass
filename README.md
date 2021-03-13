@@ -137,6 +137,10 @@ The cookies and passwords will be saves in `json` files on a new folder called `
 
 If you'd like additional notes on evading AV, refer to [AV Detection](#av-detection)  
 
+### Remote Notes
+>If you'd like to use this in a remote scenario, you must also perform port forwarding (port 80), so that when the victim runs the client it is able to connect to the server on port 80.  
+For more general information, click [here](https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/). If you're still not satisfied, perform a google search.
+
 ---
  
 ## Errors, Bugs and feature requests
