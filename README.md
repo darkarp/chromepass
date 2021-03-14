@@ -58,6 +58,7 @@ Chromepass is a python-based console application that generates a windows execut
   - Undetectable by AV if done correctly
   - Custom icon
   - Custom error message
+  - Customize port
 
 ---
 
