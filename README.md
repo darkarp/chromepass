@@ -46,7 +46,6 @@
   * [Prerequisites](#dependencies-and-requirements)
   * [Installation](#installation)
 * [Usage](#usage)
-* [Todo](#todo)
 * [Errors, Bugs and Feature Requests](#errors-bugs-and-feature-requests)
 * [Learn More](#learn-more)
 * [License](#license)
