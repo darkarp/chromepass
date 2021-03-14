@@ -23,7 +23,7 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 
 if __name__ == "__main__":
-    conn = ("0.0.0.0", 80)
+    conn = ("0.0.0.0", <<PORT>>)
     http_server = http.server.HTTPServer(conn, Handler)
     try:
         print("[+] Server running, waiting for connections...")
