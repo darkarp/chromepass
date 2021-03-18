@@ -49,7 +49,6 @@ def vivaldi_exists():
 def opera_exists():
     LOCAL = os.environ['APPDATA']
     a = os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
-    print(a)
     return os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
 
 
