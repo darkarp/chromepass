@@ -161,7 +161,7 @@ def get_logins(directory, key):
             decrypted = chrome_80_decrypt(encrypted, key)
         else:
             decrypted = win_decrypt(encrypted)
-        login_obj = {"name": username, "value": decrypted}
+        login_obj = {"name": usernames, "value": decrypted}
         logins[url].append(login_obj)
     conn.close()
     return logins
