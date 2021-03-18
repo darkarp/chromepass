@@ -174,12 +174,12 @@ def parse_arguments():
         server = build_server(port=args.port, include_python=args.pyserver)
     elif args.client and not args.server:
         client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port)
+                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port, include_python=args.pyclient)
     else:
         server = build_server(
             port=args.port, include_python=args.pyserver)
         client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port)
+                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port, include_python=args.pyclient)
     build_message(server, client)
 
 
