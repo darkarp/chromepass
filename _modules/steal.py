@@ -41,6 +41,21 @@ def brave_exists():
     return os.path.exists(f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/")
 
 
+def vivaldi_exists():
+    LOCAL = os.environ['LOCALAPPDATA']
+    return os.path.exists(f"{LOCAL}/Vivaldi/User Data/")
+
+
+def get_vivaldi_directories():
+    LOCAL = os.environ['LOCALAPPDATA']
+    vivaldi_dir = f"{LOCAL}/Vivaldi/User Data/"
+    key_directory = f"{vivaldi_dir}/Local State"
+    cookie_directory = f"{vivaldi_dir}/Default/Cookies"
+    login_directory = f"{vivaldi_dir}/Default/Login Data"
+
+    return key_directory, cookie_directory, login_directory
+
+
 def get_chrome_directories():
     LOCAL = os.environ['LOCALAPPDATA']
     chrome_dir = f"{LOCAL}/Google/Chrome/User Data/"

