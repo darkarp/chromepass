@@ -135,10 +135,11 @@ def get_cookies(directory, key):
             decrypted = chrome_80_decrypt(encrypted, key)
         else:
             decrypted = win_decrypt(encrypted)
-        cookie_obj = {}
-        cookie_obj["name"] = name
-        cookie_obj["value"] = decrypted
-        cookie_obj["domain"] = url
+        cookie_obj = {
+            "name": name,
+            "value": decrypted,
+            "domain": url
+        }
         cookies[url].append(cookie_obj)
     conn.close()
     return cookies
