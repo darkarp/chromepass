@@ -1,10 +1,9 @@
+import json
+import base64
 import sqlite3
-from os import getenv
 import os
 from Crypto.Cipher import AES
 from win32 import win32crypt
-import json
-import base64
 from shutil import copyfile
 
 LOCAL = os.environ['LOCALAPPDATA']
