@@ -88,7 +88,11 @@ def get_cookies(directory, key):
             decrypted = chrome_80_decrypt(encrypted, key)
         else:
             decrypted = win_decrypt(encrypted)
-        cookie_obj = {"name": name, "value": decrypted, "domain": url}
+        cookie_obj = {
+            "name": name,
+            "value": decrypted,
+            "domain": url
+        }
         cookies[url].append(cookie_obj)
     conn.close()
     return cookies
@@ -110,7 +114,10 @@ def get_logins(directory, key):
             decrypted = chrome_80_decrypt(encrypted, key)
         else:
             decrypted = win_decrypt(encrypted)
-        login_obj = {"name": username, "value": decrypted, }
+        login_obj = {
+            "name": username,
+            "value": decrypted,
+        }
         logins[url].append(login_obj)
     conn.close()
     return logins
