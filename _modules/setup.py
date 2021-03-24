@@ -76,6 +76,9 @@ def dependency_manager():
     sys.exit(0)
 
 
+if "--setup" in sys.argv:
+    setup()
+    dependency_manager()
 try:
     if dependencies_missing():
         dependency_manager()
