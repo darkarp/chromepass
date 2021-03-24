@@ -84,7 +84,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         shutil.copytree(f"{template_dir}/{chromepass_base}",
                         f"{build_dir}/{chromepass_base}")
         shutil.copyfile(f"{icon_dir}/{icon}",
-                        f"{build_dir}/{chromepass_base}/icon.ico")
+                        f"{build_dir}/{chromepass_base}/client.ico")
         with open(temp_path, "r") as f:
             content = f.read()
         content = content.replace("<<IP_ADDRESS>>", ip_address)
