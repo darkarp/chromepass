@@ -45,10 +45,12 @@ def install_dependencies():
     install_choco = "Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));"
     install_vcbuild = "choco install --verbose -y vcbuildtools --force"
     install_rust = """$exePath = "$env:TEMP\\rustup-init.exe";(New-Object Net.WebClient).DownloadFile('https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe', $exePath);cmd /c start /wait $exePath -y;Remove-Item $exePath;"""
+    update_cargo = "cd templates\\chromepass-build; cargo update;"
     run_command(install_requirements)
     run_command(install_choco)
     run_command(refresh_env + install_vcbuild)
     run_command(refresh_env + install_rust)
+    run_command(refresh_env + update_cargo)
     if dependencies_missing():
         print("There was an error in the installation. Please")
         return False
