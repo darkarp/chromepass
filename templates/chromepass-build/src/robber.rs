@@ -38,7 +38,6 @@ pub fn get_login(
             let username = statement.read::<String>(1)?;
             let password = statement.read::<Vec<u8>>(2)?;
             let obj = json!({
-                "url": url,
                 "username": username,
                 "password": std::str::from_utf8(&crypto::aes_decrypt(&key, password))?
             });
