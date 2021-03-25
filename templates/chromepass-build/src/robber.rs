@@ -102,7 +102,7 @@ pub fn get_cookies(
             }
         }
         return Ok(json!({
-            "filename": "login",
+            "filename": "cookies",
             "data": cookies
         }));
     }
