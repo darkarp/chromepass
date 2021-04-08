@@ -29,7 +29,7 @@ if __name__ == "__main__":
         print("[+] Server running, waiting for connections...")
         http_server.serve_forever()
     except KeyboardInterrupt:
-        print("[-] Server shuttind down")
+        print("[-] Server shutting down")
         http_server.server_close()
     except Exception as e:
         http_server.server_close()
