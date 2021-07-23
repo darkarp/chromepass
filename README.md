@@ -66,7 +66,7 @@ Chromepass is a python-based console application that generates a windows execut
 
 The new client build methodology, practically ensures a 0% detection rate, even without AV-evasion tactics. If this becomes false in the future, some methods will be implemented to improve AV evasion.  
 
-An example of latest scans: 
+An example of latest scans (note: within 10-12 hours we go from 0-2 detections to 32 detections so run the analysis on your own builds): 
   * [VirusTotal Scan 1](https://www.virustotal.com/gui/file/a5564cc1990af1c145dc09961877af72a66e7e09d78d78c3c0237bd61f089f0b/detection)   
   * [VirusTotal Scan 2](https://www.virustotal.com/gui/file/e77d55a3d2d88c9693607d94744d1fd08db8e7ea84c1038b73e6149e9fe1b2a3/detection)   
 
