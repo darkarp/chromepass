@@ -1,0 +1,20 @@
+[package]
+name = "chromepass-server"
+version = "0.1.0"
+edition = "2018"
+# build = "build.rs"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+actix-web = { version = "3.3.2", features = [], default-features = false }
+serde = { version = "1.0.127", features = ["derive"] }
+serde_json = "1.0.66"
+chrono = "0.4.19"
+[build-dependencies]
+winres = "0.1.11"
+
+[profile.release]
+opt-level = 'z'
+# lto = true
+# codegen-units = 16
+# panic = 'abort'

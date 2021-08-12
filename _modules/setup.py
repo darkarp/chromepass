@@ -1,19 +1,15 @@
-import ctypes
 import subprocess
 import logging
-import os
-import sys
+import configparser
 
-logging.basicConfig(filename=f'logs.log',
-                    encoding='ISO-8859-1', level=logging.DEBUG)
-refresh_env = "Set-ExecutionPolicy Bypass -Scope Process -Force;Import-Module \"$env:ProgramData\chocolatey\helpers\chocolateyInstaller.psm1\"; Update-SessionEnvironment;"
-
-
-def is_admin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
+try:
+    logging.basicConfig(filename=f'logs.log',
+                        encoding='ISO-8859-1', level=logging.DEBUG)
+except:
+    logging.basicConfig(filename=f'logs.log', level=logging.DEBUG)
+config = configparser.ConfigParser()
+config.read("config.ini")
+refresh_env = '$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User");'
 
 
 def run_command(command):
@@ -26,77 +22,61 @@ def run_command(command):
 
 
 def dependencies_missing():
-    print("[i] Checking dependencies...")
-    missing_refresh = subprocess.run(
-        ["powershell.exe", f"cargo --version;"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr
-    if missing_refresh:
-        missing = subprocess.run(
-            ["powershell.exe", f"{refresh_env}cargo --version;"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr
-        if not missing:
-            print("[i] Dependencies exist but aren't loaded.")
-            print("[-] Please close and reopen the powershell window.")
-            sys.exit(0)
-        return True
-    return False
+    config.read("config.ini")
+    has_cargo = config["DEPENDENCIES"]["Cargo"]
+    has_tools = config["DEPENDENCIES"]["BuildTools"]
 
-
-def install_dependencies():
-    install_requirements = "pip install -r requirements.txt"
-    install_choco = "Set-ExecutionPolicy Bypass -Scope Process -Force;[System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'));"
-    install_vcbuild = "choco install --verbose -y vcbuildtools --force"
-    install_rust = """$exePath = "$env:TEMP\\rustup-init.exe";(New-Object Net.WebClient).DownloadFile('https://static.rust-lang.org/rustup/dist/x86_64-pc-windows-msvc/rustup-init.exe', $exePath);cmd /c start /wait $exePath -y;Remove-Item $exePath;"""
-    update_cargo = "cd templates\\chromepass-build; cargo update;"
-    run_command(install_requirements)
-    run_command(install_choco)
-    run_command(refresh_env + install_vcbuild)
-    run_command(refresh_env + install_rust)
-    run_command(refresh_env + update_cargo)
-    if dependencies_missing():
-        print("There was an error in the installation. Please")
+    if "false" in [has_cargo, has_tools]:
+        print("[i] Checking dependencies...")
+        if "displayName" not in subprocess.run(
+                ["powershell.exe", "./templates/resources/vswhere.exe -products Microsoft.VisualStudio.Product.BuildTools"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode():
+            install_tools()
+        else:
+            config.set("DEPENDENCIES", "BuildTools", "true")
+        if subprocess.run(
+                ["powershell.exe", f"{refresh_env}cargo --version;"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr:
+            install_cargo()
+        else:
+            config.set("DEPENDENCIES", "Cargo", "true")
+        with open('config.ini', 'w') as f:
+            config.write(f)
+        config.read("config.ini")
+        has_cargo = config["DEPENDENCIES"]["Cargo"]
+        has_tools = config["DEPENDENCIES"]["BuildTools"]
+        if not ("false" in [has_cargo, has_tools]):
+            print("[+] All dependencies installed successfully.")
+    else:
         return False
-    print("Setup was successful")
+
+
+def install_tools():
+    print("[i] Installing build tools...")
+    command = "cd templates/resources;$p = Start-Process -Wait -PassThru -FilePath buildtools.exe -ArgumentList '--add Microsoft.VisualStudio.Workload.VCTools --passive --nocache --includeRecommended --norestart --wait';"
+    process = subprocess.check_output(
+        ["powershell.exe", command])
+    config.set("DEPENDENCIES", "BuildTools", "true")
+    print(process)
+    print("[+] Build tools installed successfully.")
     return True
 
 
-def setup():
-    if is_admin():
-        return install_dependencies()
-    else:
-        print("Please run this in an Admin powershell window")
-    sys.exit()
+def install_cargo():
+    print("[i] Installing cargo...")
+    command = f"{refresh_env}cd templates/resources;./rustup-init.exe -y;"
+    process = subprocess.check_output(
+        ["powershell.exe", command])
+    config.set("DEPENDENCIES", "Cargo", "true")
+    print(process)
+    print("[+] Cargo installed successfully.")
+    return True
 
 
-def dependency_manager():
-    install = input(
-        "Dependencies missing, do you want to install them automaticaly? (y/n): ").lower()
-    while install not in ["y", "n"]:
-        install = input(
-            "Dependencies missing, do you want to install them automaticaly? (y/n): ")
-    if install == "y":
-        print("[i] This will take a while... Go grab a coffee.")
-        return setup()
-    sys.exit(0)
-
-
-if "--setup" in sys.argv:
-    setup()
-    dependency_manager()
-try:
-    if dependencies_missing():
-        dependency_manager()
-    import PyInstaller.__main__
-except Exception as e:
-    dependency_manager()
+dependencies_missing()
+if dependencies_missing():
+    print("There was an error in the installation. Please report this bug.")
 
 if __name__ == "__main__":
-    if is_admin():
-        print(os.getcwd())
-        os.chdir("../")
-        print(os.getcwd())
-        # install_dependencies()
-        # print("Setup Complete!")
-    else:
-        print(os.getcwd())
-        os.chdir("../")
-        print(os.getcwd())
-        print("Please run this in an Admin powershell window")
+    dependencies_missing()
+# Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser;
+# Install-Module VSSetup -Scope CurrentUser -Force;
+# Get-VSSetupInstance | Select-VSSetupInstance -Latest -Require Microsoft.VisualStudio.Component.VC.Tools.x86.x64;

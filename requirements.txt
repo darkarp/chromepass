@@ -1,4 +1,0 @@
-pycryptodome==3.10.1
-pypiwin32==223
-requests
-pyinstaller

