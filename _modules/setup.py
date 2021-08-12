@@ -55,7 +55,6 @@ def install_tools():
     process = subprocess.check_output(
         ["powershell.exe", command])
     config.set("DEPENDENCIES", "BuildTools", "true")
-    print(process)
     print("[+] Build tools installed successfully.")
     return True
 
