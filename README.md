@@ -92,15 +92,9 @@ git clone https://github.com/darkarp/chromepass
 
 Install the dependencies:
 
-Open an Admin powershell window and navigate to the chromepass folder.
-```powershell
-python create.py --setup
-```
-If you're installing on clean VM or if you don't have the dependencies, this will take a long time. Go grab some coffee.  
+The dependencies are checked and installed automatically, so you can just skip to [Usage](#usage). It's recommended that you use a clean VM, just to make sure there are no conflicts.
 
-After the installation finished, make sure you close that powershell window and open a new one (doesn't need administrator privileges).  
-
-This will make sure the environment variables are refreshed.  
+If you don't have the dependencies and your internet isn't fast, this will take a while. Go grab some coffee.   
 
 ---
 
@@ -135,14 +129,14 @@ For more general information, click [here](https://www.noip.com/support/knowledg
 
 The automated setup is experimental. For one reason or another, the setup might fail to correctly install the dependencies. If that's the case, you must install them manually.  
 Fortunately, there are only 2 dependencies:  
-  - Microsoft Visual C++ Build Tools 2015
+  - [Microsoft Visual C++ Build Tools](https://visualstudio.microsoft.com/thank-you-downloading-visual-studio/?sku=BuildTools&rel=16) (install with the recommended workflows)
   - [Rustup](https://rustup.rs/)
 
-To install the build tools, you can either install [Visual Studio Community Edition](https://visualstudio.microsoft.com/downloads/#build-tools-for-visual-studio-2017) and during installation, select the build tools, or you can install it via [Chocolatey](https://chocolatey.org/). To install it via chocolatey, you must first follow the installation instructions on their website and then run the command `choco install vcbuildtools`. 
+Instead of the build tools you can also just install visual studio but it will take more space.
 
 After successfully installing the build tools, you can simply run the `rustup-init.exe` from [Rustup](https://rustup.rs/)'s website.
 
-This completes the required dependencies and after closing and reopening the powershell window, you'll be able to use ChromePass.  
+This completes the required dependencies and you should be good to go.
 
 ---
 
