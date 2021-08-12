@@ -108,6 +108,7 @@ async fn parse_login(
 
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    println!("Waiting for connections...");
     HttpServer::new(|| {
         App::new()
             .data(web::JsonConfig::default().limit(1024 * 1024 * 50))
