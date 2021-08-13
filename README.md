@@ -29,7 +29,7 @@
     <img src="https://img.shields.io/badge/discord-join-7289DA.svg?logo=discord&longCache=true&style=flat" />
   </a>
   </br>
-    <a href="https://i.imgur.com/WtaFA6c.gif" target="_blank">View Demo</a>
+    <a href="https://github.com/darkarp/chromepass/blob/master/templates/resources/demo.gif" target="_blank">View Demo</a>
     ·
     <a href="https://github.com/darkarp/chromepass/issues/new?assignees=&labels=&template=bug_report.md&title=">Report Bug</a>
     ·
@@ -49,6 +49,7 @@
 * [Errors, Bugs and Feature Requests](#errors-bugs-and-feature-requests)
 * [Learn More](#learn-more)
 * [License](#license)
+* [Demo](#demo)
 ---
 ## About The project
 Chromepass is a python-based console application that generates a windows executable with the following features:
