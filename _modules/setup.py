@@ -16,7 +16,7 @@ def run_command(command):
     process = subprocess.Popen(
         ["powershell.exe", command], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     for line in iter(process.stdout.readline, b''):
-        line = line.decode(encoding="ISO-8859-1")
+        line = line.decode(encoding="ISO-8859-1").strip()
         print(line)
         logging.debug(line)
 
@@ -52,8 +52,7 @@ def dependencies_missing():
 def install_tools():
     print("[i] Installing build tools...")
     command = "cd templates/resources;$p = Start-Process -Wait -PassThru -FilePath buildtools.exe -ArgumentList '--add Microsoft.VisualStudio.Workload.VCTools --passive --nocache --includeRecommended --norestart --wait';"
-    process = subprocess.check_output(
-        ["powershell.exe", command])
+    run_command(command)
     config.set("DEPENDENCIES", "BuildTools", "true")
     print("[+] Build tools installed successfully.")
     return True
@@ -63,10 +62,8 @@ def install_cargo():
     print("[i] Installing cargo...")
     command = f"{refresh_env}cd templates/resources;./rustup-init.exe -y;"
     nightly = f"{refresh_env}rustup default nightly"
-    process = subprocess.check_output(
-        ["powershell.exe", command])
+    run_command(command)
     config.set("DEPENDENCIES", "Cargo", "true")
-    print(process)
     print("[+] Cargo installed successfully.")
     print("[i] Setting default nightly")
     run_command(nightly)
