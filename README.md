@@ -168,3 +168,6 @@ I am not responsible for what you do with the information and code provided. Thi
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/darkarp/chromepass/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)  
 
 [Python]: <https://www.python.org/downloads/>
+
+## Demo
+![til](./templates/resources/demo.gif)
