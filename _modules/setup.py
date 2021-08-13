@@ -62,11 +62,14 @@ def install_tools():
 def install_cargo():
     print("[i] Installing cargo...")
     command = f"{refresh_env}cd templates/resources;./rustup-init.exe -y;"
+    nightly = f"{refresh_env}rustup default nightly"
     process = subprocess.check_output(
         ["powershell.exe", command])
     config.set("DEPENDENCIES", "Cargo", "true")
     print(process)
     print("[+] Cargo installed successfully.")
+    print("[i] Setting default nightly")
+    run_command(nightly)
     return True
 
 
