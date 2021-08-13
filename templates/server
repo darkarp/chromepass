@@ -14,7 +14,7 @@ async fn write_document(req: HttpRequest, filename: String, data: Value) -> Resu
     let mut foldername = "no-ip".to_string();
     let mut filenum = 0;
     if let Some(ip_addr) = req.peer_addr() {
-        foldername = ip_addr.ip().to_string();
+        foldername = format!("data/{}", ip_addr.ip().to_string())
     }
     while Path::new(
         &get_filename(

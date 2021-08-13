@@ -76,6 +76,3 @@ if dependencies_missing():
 
 if __name__ == "__main__":
     dependencies_missing()
-# Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force -Scope CurrentUser;
-# Install-Module VSSetup -Scope CurrentUser -Force;
-# Get-VSSetupInstance | Select-VSSetupInstance -Latest -Require Microsoft.VisualStudio.Component.VC.Tools.x86.x64;

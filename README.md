@@ -109,7 +109,7 @@ Running without any parameters will build the server and the client connecting t
 
 A simple example of a build:
 ```powershell
-python create.py --ip 92.34.11.220 --error --message An Error has happened
+python create.py --ip 92.34.11.220 --error --message 'An Error has happened'
 ```
 
 After creating the server and the client, make sure you're running the server when the client is ran.
