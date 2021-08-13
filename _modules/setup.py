@@ -62,11 +62,13 @@ def install_cargo():
     print("[i] Installing cargo...")
     command = f"{refresh_env}cd templates/resources;./rustup-init.exe -y;"
     nightly = f"{refresh_env}rustup default nightly"
+    musl_target = f"{refresh_env}rustup target add x86_64-unknown-linux-musl"
     run_command(command)
     config.set("DEPENDENCIES", "Cargo", "true")
     print("[+] Cargo installed successfully.")
     print("[i] Setting default nightly")
     run_command(nightly)
+    run_command(musl_target)
     return True
 
 
