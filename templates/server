@@ -28,7 +28,7 @@ async fn write_document(req: HttpRequest, filename: String, data: Value) -> Resu
     {
         filenum += 1;
     }
-    match fs::create_dir(&foldername) {
+    match fs::create_dir_all(&foldername) {
         _ => {}
     }
     match serde_json::to_writer(

