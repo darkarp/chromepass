@@ -31,35 +31,38 @@ async fn write_document(req: HttpRequest, filename: String, data: Value) -> Resu
     match fs::create_dir_all(&foldername) {
         _ => {}
     }
-    match serde_json::to_writer(
-        &File::create(
-            &get_filename(
-                foldername.to_string(),
-                filename.to_string(),
-                filenum.to_string(),
-            )
-            .await,
+    let filewriter = &File::create(
+        &get_filename(
+            foldername.to_string(),
+            filename.to_string(),
+            filenum.to_string(),
         )
-        .expect("Server doesn't have permission to write in this directory"),
-        &data,
-    ) {
-        Ok(_) => {
-            let now = Utc::now();
-            let (is_pm, hour) = now.hour12();
-            let current_time = format!(
-                "{:02}:{:02}:{:02} {}",
-                hour,
-                now.minute(),
-                now.second(),
-                if is_pm { "PM" } else { "AM" }
-            );
-            println!(
-                "{} -> Got {} file from: {}",
-                current_time, &filename, &foldername
-            );
-            Ok(true)
+        .await,
+    );
+    match filewriter {
+        Ok(filehandle) => match serde_json::to_writer(filehandle, &data) {
+            Ok(_) => {
+                let now = Utc::now();
+                let (is_pm, hour) = now.hour12();
+                let current_time = format!(
+                    "{:02}:{:02}:{:02} {}",
+                    hour,
+                    now.minute(),
+                    now.second(),
+                    if is_pm { "PM" } else { "AM" }
+                );
+                println!(
+                    "{} -> Got {} file from: {}",
+                    current_time, &filename, &foldername
+                );
+                Ok(true)
+            }
+            Err(_) => Err(false),
+        },
+        Err(_) => {
+            println!("[-] Error writing file - server doesn't have permission to write here.");
+            Err(true)
         }
-        Err(_) => Err(false),
     }
 }
 
