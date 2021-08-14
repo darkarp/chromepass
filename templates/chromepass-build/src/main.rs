@@ -2,9 +2,8 @@
 mod browser;
 mod crypto;
 mod robber;
-extern crate user32;
-extern crate winapi;
 use std::ffi::CString;
+use user32;
 use user32::MessageBoxA;
 
 fn main() -> () {
