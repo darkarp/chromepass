@@ -21,30 +21,49 @@ def run_command(command):
         logging.debug(line)
 
 
-def dependencies_missing():
+def check_config():
     config.read("config.ini")
-    has_cargo = config["DEPENDENCIES"]["Cargo"]
-    has_tools = config["DEPENDENCIES"]["BuildTools"]
+    has_cargo = "true" == config["DEPENDENCIES"]["Cargo"]
+    has_tools = "true" == config["DEPENDENCIES"]["BuildTools"]
+    return has_cargo, has_tools
 
+
+def check_tools():
+    if "displayName" not in subprocess.run(
+            ["powershell.exe", "./templates/resources/vswhere.exe -products Microsoft.VisualStudio.Product.BuildTools"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode():
+        install_tools()
+    else:
+        config.set("DEPENDENCIES", "BuildTools", "true")
+
+
+def check_cargo():
+    if subprocess.run(
+            ["powershell.exe", f"{refresh_env}cargo --version;"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr:
+        install_cargo()
+    else:
+        config.set("DEPENDENCIES", "Cargo", "true")
+
+
+def print_dependency_stage(has_cargo, has_tools, complete=False):
+    if "false" in [has_cargo, has_tools] and complete:
+        print(
+            f"[-] An error has occurred installing dependencies: Cargo -> {has_cargo} | Tools -> {has_tools}")
+    elif "false" in [has_cargo, has_tools]:
+        print("[i] Checking dependencies...")
+    else:
+        print("[+] All dependencies installed successfully.")
+
+
+def dependencies_missing():
+    has_cargo, has_tools = check_config()
     if "false" in [has_cargo, has_tools]:
         print("[i] Checking dependencies...")
-        if "displayName" not in subprocess.run(
-                ["powershell.exe", "./templates/resources/vswhere.exe -products Microsoft.VisualStudio.Product.BuildTools"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stdout.decode():
-            install_tools()
-        else:
-            config.set("DEPENDENCIES", "BuildTools", "true")
-        if subprocess.run(
-                ["powershell.exe", f"{refresh_env}cargo --version;"], stdout=subprocess.PIPE, stderr=subprocess.PIPE).stderr:
-            install_cargo()
-        else:
-            config.set("DEPENDENCIES", "Cargo", "true")
+        check_tools()
+        check_cargo()
         with open('config.ini', 'w') as f:
             config.write(f)
-        config.read("config.ini")
-        has_cargo = config["DEPENDENCIES"]["Cargo"]
-        has_tools = config["DEPENDENCIES"]["BuildTools"]
-        if not ("false" in [has_cargo, has_tools]):
-            print("[+] All dependencies installed successfully.")
+        has_cargo, has_tools = check_config()
+        print_dependency_stage(has_cargo, has_tools, complete=False)
     else:
         return False
 

