@@ -69,6 +69,7 @@ The new client build methodology practically ensures a 0% detection rate, even w
 
 An example of latest scans (note: within 10-12 hours we go from 0-2 detections to 32 detections so run the analysis on your own builds): 
   * [VirusTotal Scan 1](https://www.virustotal.com/gui/file/156bc07e1bb214b237c51b640cbaf4727071a1e6b090088b4a339e53073dd613/detection)
+  * [VirusTotal Scan 2](https://www.virustotal.com/gui/file/bf521014000a6690d9d47179f135dc27303aa30c6de27b438760e82cc7c8fe02/detection)
 
  ---
 ## Getting started
