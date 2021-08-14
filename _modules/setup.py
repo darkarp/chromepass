@@ -45,27 +45,27 @@ def check_cargo():
 
 
 def print_dependency_stage(has_cargo, has_tools, complete=False):
-    if "false" in [has_cargo, has_tools] and complete:
+    if all((has_cargo, has_tools, complete)):
+        print("[+] All dependencies installed successfully.")
+        return True
+    elif complete:
         print(
             f"[-] An error has occurred installing dependencies: Cargo -> {has_cargo} | Tools -> {has_tools}")
-    elif "false" in [has_cargo, has_tools]:
-        print("[i] Checking dependencies...")
     else:
-        print("[+] All dependencies installed successfully.")
+        print("[i] Checking dependencies...")
+    return False
 
 
 def dependencies_missing():
     has_cargo, has_tools = check_config()
-    if "false" in [has_cargo, has_tools]:
-        print("[i] Checking dependencies...")
-        check_tools()
-        check_cargo()
-        with open('config.ini', 'w') as f:
-            config.write(f)
-        has_cargo, has_tools = check_config()
-        print_dependency_stage(has_cargo, has_tools, complete=False)
-    else:
+    if print_dependency_stage(has_cargo, has_tools):
         return False
+    check_tools()
+    check_cargo()
+    with open('config.ini', 'w') as f:
+        config.write(f)
+    has_cargo, has_tools = check_config()
+    print_dependency_stage(has_cargo, has_tools, complete=True)
 
 
 def install_tools():
@@ -91,9 +91,8 @@ def install_cargo():
     return True
 
 
-dependencies_missing()
-if dependencies_missing():
-    print("There was an error in the installation. Please report this bug.")
+if not all(check_config()):
+    dependencies_missing()
 
 if __name__ == "__main__":
     dependencies_missing()
