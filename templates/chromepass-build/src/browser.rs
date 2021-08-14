@@ -5,10 +5,7 @@ use std::env;
 use std::ffi::c_void;
 use std::path::Path;
 use std::ptr::null_mut;
-use winapi::{
-    shared::{basetsd::UINT8, minwindef::DWORD},
-    um::winuser::{GetLastInputInfo, LASTINPUTINFO, PLASTINPUTINFO},
-};
+use winapi::um::winuser::{GetLastInputInfo, LASTINPUTINFO};
 
 fn build_base_directories() -> Result<Vec<std::path::PathBuf>, ()> {
     let mut base_directories = vec![];
