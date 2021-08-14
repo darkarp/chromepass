@@ -111,6 +111,13 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     return False
 
 
+def copy_icon(src_path, dist_path, linux=False):
+    if not linux:
+        shutil.copyfile(src_path, dist_path)
+    elif os.path.exists(dist_path):
+        os.remove(dist_path)
+
+
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
     if nobuild:
         return True
@@ -133,11 +140,7 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
     if os.path.exists(temp_path):
         print("[+] Building Server")
         icon_path = f"{template_dir}/{chromepass_server}/server.ico"
-        if not linux:
-            shutil.copyfile(f"{icon_dir}/{icon}",
-                            f"{template_dir}/{chromepass_server}/server.ico")
-        elif os.path.exists(icon_path):
-            os.remove(icon_path)
+        copy_icon(f"{icon_dir}/{icon}", icon_path, linux)
         return compile_client(build_command, src_path, dist_path, "Server")
     print(f"[-] Error, file not found: {temp_path}")
     return False
