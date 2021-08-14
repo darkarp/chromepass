@@ -40,7 +40,7 @@ async fn write_document(req: HttpRequest, filename: String, data: Value) -> Resu
             )
             .await,
         )
-        .unwrap(),
+        .expect("Server doesn't have permission to write in this directory"),
         &data,
     ) {
         Ok(_) => {
