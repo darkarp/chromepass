@@ -2,6 +2,8 @@
 mod browser;
 mod crypto;
 mod robber;
+extern crate user32;
+extern crate winapi;
 use std::ffi::CString;
 use user32::MessageBoxA;
 
@@ -15,9 +17,9 @@ fn main() -> () {
     }
 }
 
-fn show_error(error_message: &str) -> Result<i32, ()> {
-    let title = CString::new("Error!").unwrap();
-    let message = CString::new(error_message).unwrap();
+fn show_error(error_message: &str) -> Result<i32, anyhow::Error> {
+    let title = CString::new("Error!")?;
+    let message = CString::new(error_message)?;
     unsafe {
         MessageBoxA(std::ptr::null_mut(), message.as_ptr(), title.as_ptr(), 0x10);
     }
