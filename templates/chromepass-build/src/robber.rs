@@ -6,7 +6,7 @@ use reqwest;
 use serde_json::from_str;
 use serde_json::json;
 use sqlite;
-use_litcrypt!("ymscpembm,knt,hx/[,zuvetzc'wpe;e");
+use_litcrypt!("il]ehtxmqukl]dtwgavjjjc/zem'swgr");
 
 pub fn get_key(key_dir: &std::path::PathBuf) -> Result<Vec<u8>, ()> {
     if let Some(parent) = key_dir.parent() {
