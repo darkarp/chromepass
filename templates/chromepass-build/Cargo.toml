@@ -1,6 +1,6 @@
 [package]
 name = "chromepass"
-version = "0.1.0"
+version = "4.1.4"
 authors = ["darkArp <mario@whitehathacking.tech>"]
 edition = "2018"
 build = "build.rs"
@@ -29,5 +29,5 @@ winres = "0.1"
 [profile.release]
 opt-level = 'z'
 lto = true
-codegen-units = 16
+codegen-units = 1
 panic = 'abort'
