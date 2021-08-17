@@ -8,7 +8,7 @@ use std::path::Path;
 use std::ptr::null_mut;
 use winapi::um::winuser::{GetLastInputInfo, LASTINPUTINFO};
 
-use_litcrypt!("[xr.v['j/tzdsojvtdln[tzc]osqjtre");
+use_litcrypt!("<<SECRET_KEY>>");
 
 fn build_base_directories() -> Result<Vec<std::path::PathBuf>, ()> {
     let mut base_directories = vec![];

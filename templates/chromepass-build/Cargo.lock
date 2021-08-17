@@ -86,6 +86,7 @@ dependencies = [
  "aes-gcm",
  "base64",
  "kernel32-sys",
+ "litcrypt",
  "ntapi",
  "reqwest",
  "serde_json",
@@ -425,6 +426,17 @@ name = "libc"
 version = "0.2.99"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "a7f823d141fe0a24df1e23b4af4e3c7ba9e5966ec514ea068c93024aa7deb765"
+
+[[package]]
+name = "litcrypt"
+version = "0.2.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "5452e90f49686a335ea7a6472ff22dec9f4da67a357e9f5e97a3aed6760bd641"
+dependencies = [
+ "lazy_static",
+ "proc-macro2",
+ "quote",
+]
 
 [[package]]
 name = "log"

