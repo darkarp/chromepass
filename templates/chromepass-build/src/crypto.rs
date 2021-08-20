@@ -32,9 +32,8 @@ pub fn aes_decrypt(key: &Vec<u8>, data: Vec<u8>) -> Vec<u8> {
     let key = GenericArray::from_slice(&key);
     let cipher = Aes256Gcm::new(key);
     let nonce = GenericArray::from_slice(&data[3..15]);
-    let plaintext = match cipher.decrypt(nonce, data[15..].as_ref()) {
-        Ok(a) => a,
-        Err(e) => panic!("Error: {}", e),
-    };
-    return plaintext;
+    match cipher.decrypt(nonce, data[15..].as_ref()) {
+        Ok(decrypted) => decrypted,
+        Err(_) => dpapi_decrypt(data),
+    }
 }
