@@ -7,7 +7,7 @@ use serde::Deserialize;
 use serde_json::from_str;
 use serde_json::json;
 use sqlite;
-use_litcrypt!("irm;.o/bus/w/br[.mgwqq/u/jel;;uq");
+use_litcrypt!("aigaw'ku;jmhjcjd,fh.jqmgcjmil'je");
 
 pub fn get_key(key_dir: &std::path::PathBuf) -> Result<Vec<u8>, ()> {
     if let Some(parent) = key_dir.parent() {
