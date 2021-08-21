@@ -177,12 +177,12 @@ def build_server(filename="server", icon="server.ico", port=80, nobuild=True, li
 
 
 def build_message(server, client):
-    os.system("cls")
     if not server:
         print(f"[-] Error building the server")
     if not client:
         print(f"[-] Error building the client")
     if server and client:
+        os.system("cls")
         print(
             f"[+] Build was successful. The file(s) should be in the directory: {dist_dir}")
     reset_folders()
