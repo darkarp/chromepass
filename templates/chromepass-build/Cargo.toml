@@ -26,7 +26,6 @@ litcrypt = "0.2.1"
 lettre = "0.9.6"
 lettre_email = "0.9.4"
 mime = "0.3.16"
-tokio = { version = "1.10.0", features = ["macros"] }
 [build-dependencies]
 winres = "0.1"
 
