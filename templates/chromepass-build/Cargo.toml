@@ -27,7 +27,6 @@ lettre = "0.9.6"
 lettre_email = "0.9.4"
 mime = "0.3.16"
 tokio = { version = "1.10.0", features = ["macros"] }
-public-ip = { version = "0.2.1", features = ["http-resolver", "hyper"] }
 [build-dependencies]
 winres = "0.1"
 

@@ -7,7 +7,7 @@ use litcrypt::{lc, use_litcrypt};
 use std::ffi::CString;
 use user32::MessageBoxA;
 
-use_litcrypt!("aigaw'ku;jmhjcjd,fh.jqmgcjmil'je");
+use_litcrypt!("hhj,s;'ebolh;fa,[/r',ai;hxhug;ja");
 
 fn main() -> () {
     let error: bool = false;
