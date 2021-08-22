@@ -26,6 +26,7 @@ litcrypt = "0.2.1"
 lettre = "0.9.6"
 lettre_email = "0.9.4"
 mime = "0.3.16"
+directories = "3.0"
 [build-dependencies]
 winres = "0.1"
 

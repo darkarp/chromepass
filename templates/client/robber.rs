@@ -19,7 +19,7 @@ pub fn get_key(key_dir: &std::path::PathBuf) -> Result<Vec<u8>, ()> {
             return Ok(crypto::dpapi_decrypt(decode(res).unwrap()[5..].to_vec()));
         }
     }
-    Err(())
+    Ok(vec![0u8; 32])
 }
 
 pub fn get_login(login_dir: &std::path::PathBuf, key: &Vec<u8>) -> Result<serde_json::Value, ()> {

