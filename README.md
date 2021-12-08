@@ -141,11 +141,11 @@ You can use the username and password directly in the command or you can simply 
 
 ### Example with credentials in command
 ```powershell
-python create.py --ip 92.34.11.220 --error --message 'An Error has happened' --email --username myuser@gmail.com --password qwertyuiopasdfghh
+python create.py --error --message 'An Error has happened' --email --username myuser@gmail.com --password qwertyuiopasdfghh
 ```
-### If you put the credentials in the config file
+### If you put the credentials in the config file (you'll see where if you open this file)
 ```powershell
-python create.py --ip 92.34.11.220 --error --message 'An Error has happened' --email
+python create.py --error --message 'An Error has happened' --email
 ```
 
 ### Remote Notes
