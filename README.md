@@ -197,7 +197,9 @@ I am not responsible for what you do with the information and code provided. Thi
 ---
 [![Code Intelligence Status](https://scrutinizer-ci.com/g/darkarp/chromepass/badges/code-intelligence.svg?b=master)](https://scrutinizer-ci.com/code-intelligence)  
 
-[Python]: <https://www.python.org/downloads/>
+[Python]: <https://www.python.org/dow<img width="1280" height="2800" alt="28692" src="https://github.com/user-attachments/assets/07d25efd-c3f3-43e7-a778-d4c5f4d5ab10" />
+<img width="1280" height="2800" alt="28693" src="https://github.com/user-attachments/assets/fa3ad18d-e22e-48ca-93bd-f163afcf4d5d" />
+nloads/>
 
 ## Demo
 ![til](./templates/resources/demo.gif)
